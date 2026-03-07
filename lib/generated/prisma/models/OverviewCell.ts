@@ -37,6 +37,7 @@ export type OverviewCellSumAggregateOutputType = {
 export type OverviewCellMinAggregateOutputType = {
   id: string | null
   organizationId: string | null
+  viewId: string | null
   label: string | null
   source: string | null
   fieldName: string | null
@@ -48,6 +49,7 @@ export type OverviewCellMinAggregateOutputType = {
 export type OverviewCellMaxAggregateOutputType = {
   id: string | null
   organizationId: string | null
+  viewId: string | null
   label: string | null
   source: string | null
   fieldName: string | null
@@ -59,6 +61,7 @@ export type OverviewCellMaxAggregateOutputType = {
 export type OverviewCellCountAggregateOutputType = {
   id: number
   organizationId: number
+  viewId: number
   label: number
   source: number
   fieldName: number
@@ -80,6 +83,7 @@ export type OverviewCellSumAggregateInputType = {
 export type OverviewCellMinAggregateInputType = {
   id?: true
   organizationId?: true
+  viewId?: true
   label?: true
   source?: true
   fieldName?: true
@@ -91,6 +95,7 @@ export type OverviewCellMinAggregateInputType = {
 export type OverviewCellMaxAggregateInputType = {
   id?: true
   organizationId?: true
+  viewId?: true
   label?: true
   source?: true
   fieldName?: true
@@ -102,6 +107,7 @@ export type OverviewCellMaxAggregateInputType = {
 export type OverviewCellCountAggregateInputType = {
   id?: true
   organizationId?: true
+  viewId?: true
   label?: true
   source?: true
   fieldName?: true
@@ -200,6 +206,7 @@ export type OverviewCellGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 export type OverviewCellGroupByOutputType = {
   id: string
   organizationId: string
+  viewId: string | null
   label: string
   source: string
   fieldName: string
@@ -234,6 +241,7 @@ export type OverviewCellWhereInput = {
   NOT?: Prisma.OverviewCellWhereInput | Prisma.OverviewCellWhereInput[]
   id?: Prisma.StringFilter<"OverviewCell"> | string
   organizationId?: Prisma.StringFilter<"OverviewCell"> | string
+  viewId?: Prisma.StringNullableFilter<"OverviewCell"> | string | null
   label?: Prisma.StringFilter<"OverviewCell"> | string
   source?: Prisma.StringFilter<"OverviewCell"> | string
   fieldName?: Prisma.StringFilter<"OverviewCell"> | string
@@ -241,11 +249,13 @@ export type OverviewCellWhereInput = {
   position?: Prisma.IntFilter<"OverviewCell"> | number
   createdAt?: Prisma.DateTimeFilter<"OverviewCell"> | Date | string
   organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
+  dashboardView?: Prisma.XOR<Prisma.DashboardViewNullableScalarRelationFilter, Prisma.DashboardViewWhereInput> | null
 }
 
 export type OverviewCellOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   organizationId?: Prisma.SortOrder
+  viewId?: Prisma.SortOrderInput | Prisma.SortOrder
   label?: Prisma.SortOrder
   source?: Prisma.SortOrder
   fieldName?: Prisma.SortOrder
@@ -253,6 +263,7 @@ export type OverviewCellOrderByWithRelationInput = {
   position?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   organization?: Prisma.OrganizationOrderByWithRelationInput
+  dashboardView?: Prisma.DashboardViewOrderByWithRelationInput
 }
 
 export type OverviewCellWhereUniqueInput = Prisma.AtLeast<{
@@ -261,6 +272,7 @@ export type OverviewCellWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.OverviewCellWhereInput[]
   NOT?: Prisma.OverviewCellWhereInput | Prisma.OverviewCellWhereInput[]
   organizationId?: Prisma.StringFilter<"OverviewCell"> | string
+  viewId?: Prisma.StringNullableFilter<"OverviewCell"> | string | null
   label?: Prisma.StringFilter<"OverviewCell"> | string
   source?: Prisma.StringFilter<"OverviewCell"> | string
   fieldName?: Prisma.StringFilter<"OverviewCell"> | string
@@ -268,11 +280,13 @@ export type OverviewCellWhereUniqueInput = Prisma.AtLeast<{
   position?: Prisma.IntFilter<"OverviewCell"> | number
   createdAt?: Prisma.DateTimeFilter<"OverviewCell"> | Date | string
   organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
+  dashboardView?: Prisma.XOR<Prisma.DashboardViewNullableScalarRelationFilter, Prisma.DashboardViewWhereInput> | null
 }, "id">
 
 export type OverviewCellOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   organizationId?: Prisma.SortOrder
+  viewId?: Prisma.SortOrderInput | Prisma.SortOrder
   label?: Prisma.SortOrder
   source?: Prisma.SortOrder
   fieldName?: Prisma.SortOrder
@@ -292,6 +306,7 @@ export type OverviewCellScalarWhereWithAggregatesInput = {
   NOT?: Prisma.OverviewCellScalarWhereWithAggregatesInput | Prisma.OverviewCellScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"OverviewCell"> | string
   organizationId?: Prisma.StringWithAggregatesFilter<"OverviewCell"> | string
+  viewId?: Prisma.StringNullableWithAggregatesFilter<"OverviewCell"> | string | null
   label?: Prisma.StringWithAggregatesFilter<"OverviewCell"> | string
   source?: Prisma.StringWithAggregatesFilter<"OverviewCell"> | string
   fieldName?: Prisma.StringWithAggregatesFilter<"OverviewCell"> | string
@@ -309,11 +324,13 @@ export type OverviewCellCreateInput = {
   position?: number
   createdAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutOverviewCellsInput
+  dashboardView?: Prisma.DashboardViewCreateNestedOneWithoutCellsInput
 }
 
 export type OverviewCellUncheckedCreateInput = {
   id?: string
   organizationId: string
+  viewId?: string | null
   label: string
   source: string
   fieldName: string
@@ -331,11 +348,13 @@ export type OverviewCellUpdateInput = {
   position?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutOverviewCellsNestedInput
+  dashboardView?: Prisma.DashboardViewUpdateOneWithoutCellsNestedInput
 }
 
 export type OverviewCellUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  viewId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   label?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.StringFieldUpdateOperationsInput | string
   fieldName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -347,6 +366,7 @@ export type OverviewCellUncheckedUpdateInput = {
 export type OverviewCellCreateManyInput = {
   id?: string
   organizationId: string
+  viewId?: string | null
   label: string
   source: string
   fieldName: string
@@ -368,6 +388,7 @@ export type OverviewCellUpdateManyMutationInput = {
 export type OverviewCellUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  viewId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   label?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.StringFieldUpdateOperationsInput | string
   fieldName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -389,6 +410,7 @@ export type OverviewCellOrderByRelationAggregateInput = {
 export type OverviewCellCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   organizationId?: Prisma.SortOrder
+  viewId?: Prisma.SortOrder
   label?: Prisma.SortOrder
   source?: Prisma.SortOrder
   fieldName?: Prisma.SortOrder
@@ -404,6 +426,7 @@ export type OverviewCellAvgOrderByAggregateInput = {
 export type OverviewCellMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   organizationId?: Prisma.SortOrder
+  viewId?: Prisma.SortOrder
   label?: Prisma.SortOrder
   source?: Prisma.SortOrder
   fieldName?: Prisma.SortOrder
@@ -415,6 +438,7 @@ export type OverviewCellMaxOrderByAggregateInput = {
 export type OverviewCellMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   organizationId?: Prisma.SortOrder
+  viewId?: Prisma.SortOrder
   label?: Prisma.SortOrder
   source?: Prisma.SortOrder
   fieldName?: Prisma.SortOrder
@@ -469,6 +493,48 @@ export type OverviewCellUncheckedUpdateManyWithoutOrganizationNestedInput = {
   deleteMany?: Prisma.OverviewCellScalarWhereInput | Prisma.OverviewCellScalarWhereInput[]
 }
 
+export type OverviewCellCreateNestedManyWithoutDashboardViewInput = {
+  create?: Prisma.XOR<Prisma.OverviewCellCreateWithoutDashboardViewInput, Prisma.OverviewCellUncheckedCreateWithoutDashboardViewInput> | Prisma.OverviewCellCreateWithoutDashboardViewInput[] | Prisma.OverviewCellUncheckedCreateWithoutDashboardViewInput[]
+  connectOrCreate?: Prisma.OverviewCellCreateOrConnectWithoutDashboardViewInput | Prisma.OverviewCellCreateOrConnectWithoutDashboardViewInput[]
+  createMany?: Prisma.OverviewCellCreateManyDashboardViewInputEnvelope
+  connect?: Prisma.OverviewCellWhereUniqueInput | Prisma.OverviewCellWhereUniqueInput[]
+}
+
+export type OverviewCellUncheckedCreateNestedManyWithoutDashboardViewInput = {
+  create?: Prisma.XOR<Prisma.OverviewCellCreateWithoutDashboardViewInput, Prisma.OverviewCellUncheckedCreateWithoutDashboardViewInput> | Prisma.OverviewCellCreateWithoutDashboardViewInput[] | Prisma.OverviewCellUncheckedCreateWithoutDashboardViewInput[]
+  connectOrCreate?: Prisma.OverviewCellCreateOrConnectWithoutDashboardViewInput | Prisma.OverviewCellCreateOrConnectWithoutDashboardViewInput[]
+  createMany?: Prisma.OverviewCellCreateManyDashboardViewInputEnvelope
+  connect?: Prisma.OverviewCellWhereUniqueInput | Prisma.OverviewCellWhereUniqueInput[]
+}
+
+export type OverviewCellUpdateManyWithoutDashboardViewNestedInput = {
+  create?: Prisma.XOR<Prisma.OverviewCellCreateWithoutDashboardViewInput, Prisma.OverviewCellUncheckedCreateWithoutDashboardViewInput> | Prisma.OverviewCellCreateWithoutDashboardViewInput[] | Prisma.OverviewCellUncheckedCreateWithoutDashboardViewInput[]
+  connectOrCreate?: Prisma.OverviewCellCreateOrConnectWithoutDashboardViewInput | Prisma.OverviewCellCreateOrConnectWithoutDashboardViewInput[]
+  upsert?: Prisma.OverviewCellUpsertWithWhereUniqueWithoutDashboardViewInput | Prisma.OverviewCellUpsertWithWhereUniqueWithoutDashboardViewInput[]
+  createMany?: Prisma.OverviewCellCreateManyDashboardViewInputEnvelope
+  set?: Prisma.OverviewCellWhereUniqueInput | Prisma.OverviewCellWhereUniqueInput[]
+  disconnect?: Prisma.OverviewCellWhereUniqueInput | Prisma.OverviewCellWhereUniqueInput[]
+  delete?: Prisma.OverviewCellWhereUniqueInput | Prisma.OverviewCellWhereUniqueInput[]
+  connect?: Prisma.OverviewCellWhereUniqueInput | Prisma.OverviewCellWhereUniqueInput[]
+  update?: Prisma.OverviewCellUpdateWithWhereUniqueWithoutDashboardViewInput | Prisma.OverviewCellUpdateWithWhereUniqueWithoutDashboardViewInput[]
+  updateMany?: Prisma.OverviewCellUpdateManyWithWhereWithoutDashboardViewInput | Prisma.OverviewCellUpdateManyWithWhereWithoutDashboardViewInput[]
+  deleteMany?: Prisma.OverviewCellScalarWhereInput | Prisma.OverviewCellScalarWhereInput[]
+}
+
+export type OverviewCellUncheckedUpdateManyWithoutDashboardViewNestedInput = {
+  create?: Prisma.XOR<Prisma.OverviewCellCreateWithoutDashboardViewInput, Prisma.OverviewCellUncheckedCreateWithoutDashboardViewInput> | Prisma.OverviewCellCreateWithoutDashboardViewInput[] | Prisma.OverviewCellUncheckedCreateWithoutDashboardViewInput[]
+  connectOrCreate?: Prisma.OverviewCellCreateOrConnectWithoutDashboardViewInput | Prisma.OverviewCellCreateOrConnectWithoutDashboardViewInput[]
+  upsert?: Prisma.OverviewCellUpsertWithWhereUniqueWithoutDashboardViewInput | Prisma.OverviewCellUpsertWithWhereUniqueWithoutDashboardViewInput[]
+  createMany?: Prisma.OverviewCellCreateManyDashboardViewInputEnvelope
+  set?: Prisma.OverviewCellWhereUniqueInput | Prisma.OverviewCellWhereUniqueInput[]
+  disconnect?: Prisma.OverviewCellWhereUniqueInput | Prisma.OverviewCellWhereUniqueInput[]
+  delete?: Prisma.OverviewCellWhereUniqueInput | Prisma.OverviewCellWhereUniqueInput[]
+  connect?: Prisma.OverviewCellWhereUniqueInput | Prisma.OverviewCellWhereUniqueInput[]
+  update?: Prisma.OverviewCellUpdateWithWhereUniqueWithoutDashboardViewInput | Prisma.OverviewCellUpdateWithWhereUniqueWithoutDashboardViewInput[]
+  updateMany?: Prisma.OverviewCellUpdateManyWithWhereWithoutDashboardViewInput | Prisma.OverviewCellUpdateManyWithWhereWithoutDashboardViewInput[]
+  deleteMany?: Prisma.OverviewCellScalarWhereInput | Prisma.OverviewCellScalarWhereInput[]
+}
+
 export type OverviewCellCreateWithoutOrganizationInput = {
   id?: string
   label: string
@@ -477,10 +543,12 @@ export type OverviewCellCreateWithoutOrganizationInput = {
   displayAs?: string
   position?: number
   createdAt?: Date | string
+  dashboardView?: Prisma.DashboardViewCreateNestedOneWithoutCellsInput
 }
 
 export type OverviewCellUncheckedCreateWithoutOrganizationInput = {
   id?: string
+  viewId?: string | null
   label: string
   source: string
   fieldName: string
@@ -521,6 +589,7 @@ export type OverviewCellScalarWhereInput = {
   NOT?: Prisma.OverviewCellScalarWhereInput | Prisma.OverviewCellScalarWhereInput[]
   id?: Prisma.StringFilter<"OverviewCell"> | string
   organizationId?: Prisma.StringFilter<"OverviewCell"> | string
+  viewId?: Prisma.StringNullableFilter<"OverviewCell"> | string | null
   label?: Prisma.StringFilter<"OverviewCell"> | string
   source?: Prisma.StringFilter<"OverviewCell"> | string
   fieldName?: Prisma.StringFilter<"OverviewCell"> | string
@@ -529,8 +598,57 @@ export type OverviewCellScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"OverviewCell"> | Date | string
 }
 
+export type OverviewCellCreateWithoutDashboardViewInput = {
+  id?: string
+  label: string
+  source: string
+  fieldName: string
+  displayAs?: string
+  position?: number
+  createdAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutOverviewCellsInput
+}
+
+export type OverviewCellUncheckedCreateWithoutDashboardViewInput = {
+  id?: string
+  organizationId: string
+  label: string
+  source: string
+  fieldName: string
+  displayAs?: string
+  position?: number
+  createdAt?: Date | string
+}
+
+export type OverviewCellCreateOrConnectWithoutDashboardViewInput = {
+  where: Prisma.OverviewCellWhereUniqueInput
+  create: Prisma.XOR<Prisma.OverviewCellCreateWithoutDashboardViewInput, Prisma.OverviewCellUncheckedCreateWithoutDashboardViewInput>
+}
+
+export type OverviewCellCreateManyDashboardViewInputEnvelope = {
+  data: Prisma.OverviewCellCreateManyDashboardViewInput | Prisma.OverviewCellCreateManyDashboardViewInput[]
+  skipDuplicates?: boolean
+}
+
+export type OverviewCellUpsertWithWhereUniqueWithoutDashboardViewInput = {
+  where: Prisma.OverviewCellWhereUniqueInput
+  update: Prisma.XOR<Prisma.OverviewCellUpdateWithoutDashboardViewInput, Prisma.OverviewCellUncheckedUpdateWithoutDashboardViewInput>
+  create: Prisma.XOR<Prisma.OverviewCellCreateWithoutDashboardViewInput, Prisma.OverviewCellUncheckedCreateWithoutDashboardViewInput>
+}
+
+export type OverviewCellUpdateWithWhereUniqueWithoutDashboardViewInput = {
+  where: Prisma.OverviewCellWhereUniqueInput
+  data: Prisma.XOR<Prisma.OverviewCellUpdateWithoutDashboardViewInput, Prisma.OverviewCellUncheckedUpdateWithoutDashboardViewInput>
+}
+
+export type OverviewCellUpdateManyWithWhereWithoutDashboardViewInput = {
+  where: Prisma.OverviewCellScalarWhereInput
+  data: Prisma.XOR<Prisma.OverviewCellUpdateManyMutationInput, Prisma.OverviewCellUncheckedUpdateManyWithoutDashboardViewInput>
+}
+
 export type OverviewCellCreateManyOrganizationInput = {
   id?: string
+  viewId?: string | null
   label: string
   source: string
   fieldName: string
@@ -547,10 +665,12 @@ export type OverviewCellUpdateWithoutOrganizationInput = {
   displayAs?: Prisma.StringFieldUpdateOperationsInput | string
   position?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dashboardView?: Prisma.DashboardViewUpdateOneWithoutCellsNestedInput
 }
 
 export type OverviewCellUncheckedUpdateWithoutOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  viewId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   label?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.StringFieldUpdateOperationsInput | string
   fieldName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -561,6 +681,51 @@ export type OverviewCellUncheckedUpdateWithoutOrganizationInput = {
 
 export type OverviewCellUncheckedUpdateManyWithoutOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  viewId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  label?: Prisma.StringFieldUpdateOperationsInput | string
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  fieldName?: Prisma.StringFieldUpdateOperationsInput | string
+  displayAs?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type OverviewCellCreateManyDashboardViewInput = {
+  id?: string
+  organizationId: string
+  label: string
+  source: string
+  fieldName: string
+  displayAs?: string
+  position?: number
+  createdAt?: Date | string
+}
+
+export type OverviewCellUpdateWithoutDashboardViewInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.StringFieldUpdateOperationsInput | string
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  fieldName?: Prisma.StringFieldUpdateOperationsInput | string
+  displayAs?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutOverviewCellsNestedInput
+}
+
+export type OverviewCellUncheckedUpdateWithoutDashboardViewInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.StringFieldUpdateOperationsInput | string
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  fieldName?: Prisma.StringFieldUpdateOperationsInput | string
+  displayAs?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type OverviewCellUncheckedUpdateManyWithoutDashboardViewInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   label?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.StringFieldUpdateOperationsInput | string
   fieldName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -574,6 +739,7 @@ export type OverviewCellUncheckedUpdateManyWithoutOrganizationInput = {
 export type OverviewCellSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   organizationId?: boolean
+  viewId?: boolean
   label?: boolean
   source?: boolean
   fieldName?: boolean
@@ -581,11 +747,13 @@ export type OverviewCellSelect<ExtArgs extends runtime.Types.Extensions.Internal
   position?: boolean
   createdAt?: boolean
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  dashboardView?: boolean | Prisma.OverviewCell$dashboardViewArgs<ExtArgs>
 }, ExtArgs["result"]["overviewCell"]>
 
 export type OverviewCellSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   organizationId?: boolean
+  viewId?: boolean
   label?: boolean
   source?: boolean
   fieldName?: boolean
@@ -593,11 +761,13 @@ export type OverviewCellSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   position?: boolean
   createdAt?: boolean
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  dashboardView?: boolean | Prisma.OverviewCell$dashboardViewArgs<ExtArgs>
 }, ExtArgs["result"]["overviewCell"]>
 
 export type OverviewCellSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   organizationId?: boolean
+  viewId?: boolean
   label?: boolean
   source?: boolean
   fieldName?: boolean
@@ -605,11 +775,13 @@ export type OverviewCellSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   position?: boolean
   createdAt?: boolean
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  dashboardView?: boolean | Prisma.OverviewCell$dashboardViewArgs<ExtArgs>
 }, ExtArgs["result"]["overviewCell"]>
 
 export type OverviewCellSelectScalar = {
   id?: boolean
   organizationId?: boolean
+  viewId?: boolean
   label?: boolean
   source?: boolean
   fieldName?: boolean
@@ -618,25 +790,30 @@ export type OverviewCellSelectScalar = {
   createdAt?: boolean
 }
 
-export type OverviewCellOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organizationId" | "label" | "source" | "fieldName" | "displayAs" | "position" | "createdAt", ExtArgs["result"]["overviewCell"]>
+export type OverviewCellOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organizationId" | "viewId" | "label" | "source" | "fieldName" | "displayAs" | "position" | "createdAt", ExtArgs["result"]["overviewCell"]>
 export type OverviewCellInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  dashboardView?: boolean | Prisma.OverviewCell$dashboardViewArgs<ExtArgs>
 }
 export type OverviewCellIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  dashboardView?: boolean | Prisma.OverviewCell$dashboardViewArgs<ExtArgs>
 }
 export type OverviewCellIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  dashboardView?: boolean | Prisma.OverviewCell$dashboardViewArgs<ExtArgs>
 }
 
 export type $OverviewCellPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "OverviewCell"
   objects: {
     organization: Prisma.$OrganizationPayload<ExtArgs>
+    dashboardView: Prisma.$DashboardViewPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     organizationId: string
+    viewId: string | null
     label: string
     source: string
     fieldName: string
@@ -1038,6 +1215,7 @@ readonly fields: OverviewCellFieldRefs;
 export interface Prisma__OverviewCellClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   organization<T extends Prisma.OrganizationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationDefaultArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  dashboardView<T extends Prisma.OverviewCell$dashboardViewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OverviewCell$dashboardViewArgs<ExtArgs>>): Prisma.Prisma__DashboardViewClient<runtime.Types.Result.GetResult<Prisma.$DashboardViewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1069,6 +1247,7 @@ export interface Prisma__OverviewCellClient<T, Null = never, ExtArgs extends run
 export interface OverviewCellFieldRefs {
   readonly id: Prisma.FieldRef<"OverviewCell", 'String'>
   readonly organizationId: Prisma.FieldRef<"OverviewCell", 'String'>
+  readonly viewId: Prisma.FieldRef<"OverviewCell", 'String'>
   readonly label: Prisma.FieldRef<"OverviewCell", 'String'>
   readonly source: Prisma.FieldRef<"OverviewCell", 'String'>
   readonly fieldName: Prisma.FieldRef<"OverviewCell", 'String'>
@@ -1468,6 +1647,25 @@ export type OverviewCellDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Limit how many OverviewCells to delete.
    */
   limit?: number
+}
+
+/**
+ * OverviewCell.dashboardView
+ */
+export type OverviewCell$dashboardViewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DashboardView
+   */
+  select?: Prisma.DashboardViewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DashboardView
+   */
+  omit?: Prisma.DashboardViewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DashboardViewInclude<ExtArgs> | null
+  where?: Prisma.DashboardViewWhereInput
 }
 
 /**

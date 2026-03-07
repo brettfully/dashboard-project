@@ -82,6 +82,11 @@ export type CustomMetric = Prisma.CustomMetricModel
  */
 export type OverviewCell = Prisma.OverviewCellModel
 /**
+ * Model DashboardView
+ * 
+ */
+export type DashboardView = Prisma.DashboardViewModel
+/**
  * Model CustomMetricEntry
  * 
  */

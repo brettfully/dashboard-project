@@ -5,17 +5,17 @@ import { KpiCard } from "@/components/charts/kpi-card"
 import { MetricBarChart } from "@/components/charts/metric-chart"
 import { DashboardFilters } from "@/components/dashboard/dashboard-filters"
 import { formatCurrency, formatNumber, calcROAS } from "@/lib/utils"
-import { DollarSign, TrendingUp, Phone, Megaphone, Wallet, BarChart3, Activity } from "lucide-react"
+import { DollarSign, TrendingUp, Phone, Megaphone, Wallet, BarChart3 } from "lucide-react"
 import { subDays, startOfDay, parseISO, differenceInDays, format } from "date-fns"
-import { OverviewCellsSection, type CellOption } from "@/components/dashboard/overview-cells-section"
+import { DashboardCustomizer, type CellOption } from "@/components/dashboard/dashboard-customizer"
 
 const STANDARD_OPTIONS: CellOption[] = [
   { value: "dials",                     label: "Dials",                   source: "standard", displayAs: "number" },
   { value: "outboundMessages",          label: "Outbound Messages",       source: "standard", displayAs: "number" },
   { value: "inboundMessages",           label: "Inbound Messages",        source: "standard", displayAs: "number" },
   { value: "followUps",                 label: "Follow-ups",              source: "standard", displayAs: "number" },
-  { value: "setsBooked",                label: "Sets Booked",             source: "standard", displayAs: "number" },
-  { value: "callsToday",                label: "Calls Today",             source: "standard", displayAs: "number" },
+  { value: "setsBooked",               label: "Sets Booked",             source: "standard", displayAs: "number" },
+  { value: "callsToday",               label: "Calls Today",             source: "standard", displayAs: "number" },
   { value: "dealsWon",                  label: "Closes Today",            source: "standard", displayAs: "number" },
   { value: "cashCollected",             label: "Cash Collected",          source: "standard", displayAs: "currency" },
   { value: "revenueGenerated",          label: "Revenue",                 source: "standard", displayAs: "currency" },
@@ -32,7 +32,7 @@ const STANDARD_OPTIONS: CellOption[] = [
 export default async function OverviewPage({
   searchParams,
 }: {
-  searchParams: Promise<{ from?: string; to?: string; user?: string; product?: string }>
+  searchParams: Promise<{ from?: string; to?: string; user?: string; product?: string; view?: string }>
 }) {
   const session = await auth()
   const orgId = (session?.user as { organizationId?: string })?.organizationId
@@ -51,7 +51,10 @@ export default async function OverviewPage({
     ...(params.product ? { productId: params.product } : {}),
   }
 
-  const [currentEntries, previousEntries, allTimeEntries, pinnedMetrics, overviewCells, activeCustomMetrics] = await Promise.all([
+  // Resolve active view
+  let activeViewId: string | null = params.view ?? null
+
+  const [currentEntries, previousEntries, allTimeEntries, pinnedMetrics, dashboardViews, activeCustomMetrics] = await Promise.all([
     db.dataEntry.findMany({
       where: { ...baseWhere, date: { gte: fromDate, lte: toDate } },
       orderBy: { date: "asc" },
@@ -67,15 +70,25 @@ export default async function OverviewPage({
       where: { organizationId: orgId, pinnedToOverview: true, status: "ACTIVE" },
       orderBy: { createdAt: "asc" },
     }),
-    db.overviewCell.findMany({
+    db.dashboardView.findMany({
       where: { organizationId: orgId },
-      orderBy: { position: "asc" },
+      orderBy: { createdAt: "asc" },
     }),
     db.customMetric.findMany({
       where: { organizationId: orgId, status: "ACTIVE" },
       orderBy: { name: "asc" },
     }),
   ])
+
+  // If no view param, use first view (or null if no views exist)
+  if (!activeViewId && dashboardViews.length > 0) {
+    activeViewId = dashboardViews[0].id
+  }
+
+  // Validate view belongs to org
+  if (activeViewId && !dashboardViews.find((v) => v.id === activeViewId)) {
+    activeViewId = dashboardViews[0]?.id ?? null
+  }
 
   const pinnedIds = pinnedMetrics.map((m) => m.id)
   const customEntries = pinnedIds.length > 0
@@ -108,7 +121,7 @@ export default async function OverviewPage({
   const trend = (curr: number, prev: number) =>
     prev > 0 ? ((curr - prev) / prev) * 100 : 0
 
-  // Compute pinned custom metric values for the selected date range
+  // Compute sums for DataEntry fields
   const deSums: Record<string, number> = {}
   for (const entry of currentEntries) {
     for (const [key, val] of Object.entries(entry)) {
@@ -120,28 +133,12 @@ export default async function OverviewPage({
     cmSums[e.customMetricId] = (cmSums[e.customMetricId] ?? 0) + e.value
   }
 
-  function computeMetricValue(m: typeof pinnedMetrics[0]): number | null {
-    if (m.type === "CALCULATED" && m.firstField && m.secondField && m.operator) {
-      const a = deSums[m.firstField] ?? 0
-      const b = deSums[m.secondField] ?? 0
-      if (m.operator === "add") return a + b
-      if (m.operator === "subtract") return a - b
-      if (m.operator === "multiply") return a * b
-      if (m.operator === "divide") return b !== 0 ? a / b : null
-    }
-    return cmSums[m.id] ?? 0
-  }
+  // Fetch cells for the active view
+  const overviewCells = await db.overviewCell.findMany({
+    where: { organizationId: orgId, viewId: activeViewId },
+    orderBy: { position: "asc" },
+  })
 
-  function formatMetricValue(m: typeof pinnedMetrics[0], value: number | null): string {
-    if (value === null) return "—"
-    const as = m.showResultAs ?? (m.type === "CURRENCY" ? "currency" : "number")
-    if (as === "currency")
-      return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value)
-    if (as === "percent") return `${value.toFixed(1)}%`
-    return Number.isInteger(value) ? String(value) : value.toFixed(2)
-  }
-
-  // Compute values for user-configured overview cells
   const customMetricIds = overviewCells
     .filter((c) => c.source === "custom")
     .map((c) => c.fieldName)
@@ -252,7 +249,12 @@ export default async function OverviewPage({
           />
         </div>
 
-        <OverviewCellsSection cells={cellsWithValues} options={cellOptions} />
+        <DashboardCustomizer
+          views={dashboardViews}
+          activeViewId={activeViewId}
+          cells={cellsWithValues}
+          options={cellOptions}
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <MetricBarChart

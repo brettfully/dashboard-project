@@ -19,6 +19,7 @@ model Organization {
   financialReports FinancialReport[]
   customMetrics    CustomMetric[]
   overviewCells    OverviewCell[]
+  dashboardViews   DashboardView[]
 }
 
 enum UserRole {
@@ -144,6 +145,7 @@ model CustomMetric {
 model OverviewCell {
   id             String   @id @default(cuid())
   organizationId String
+  viewId         String?
   label          String
   source         String   // "standard" | "custom"
   fieldName      String   // DataEntry field name OR CustomMetric.id
@@ -151,7 +153,19 @@ model OverviewCell {
   position       Int      @default(0)
   createdAt      DateTime @default(now())
 
-  organization Organization @relation(fields: [organizationId], references: [id])
+  organization   Organization  @relation(fields: [organizationId], references: [id])
+  dashboardView  DashboardView? @relation(fields: [viewId], references: [id])
+}
+
+model DashboardView {
+  id             String   @id @default(cuid())
+  organizationId String
+  name           String
+  isDefault      Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  organization Organization  @relation(fields: [organizationId], references: [id])
+  cells        OverviewCell[]
 }
 
 model CustomMetricEntry {

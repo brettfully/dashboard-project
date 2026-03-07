@@ -6,11 +6,12 @@ export async function GET() {
   const session = await auth()
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   const orgId = (session.user as { organizationId?: string }).organizationId
-  const cells = await db.overviewCell.findMany({
+
+  const views = await db.dashboardView.findMany({
     where: { organizationId: orgId },
-    orderBy: { position: "asc" },
+    orderBy: { createdAt: "asc" },
   })
-  return NextResponse.json(cells)
+  return NextResponse.json(views)
 }
 
 export async function POST(req: NextRequest) {
@@ -19,19 +20,13 @@ export async function POST(req: NextRequest) {
   const orgId = (session.user as { organizationId?: string }).organizationId
   const body = await req.json()
 
-  const count = await db.overviewCell.count({
-    where: { organizationId: orgId, viewId: body.viewId ?? null },
-  })
-  const cell = await db.overviewCell.create({
+  const existing = await db.dashboardView.count({ where: { organizationId: orgId } })
+  const view = await db.dashboardView.create({
     data: {
       organizationId: orgId!,
-      viewId: body.viewId ?? null,
-      label: body.label,
-      source: body.source,
-      fieldName: body.fieldName,
-      displayAs: body.displayAs ?? "number",
-      position: count,
+      name: body.name,
+      isDefault: existing === 0,
     },
   })
-  return NextResponse.json(cell, { status: 201 })
+  return NextResponse.json(view, { status: 201 })
 }

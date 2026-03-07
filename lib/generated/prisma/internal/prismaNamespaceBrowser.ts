@@ -59,6 +59,7 @@ export const ModelName = {
   FinancialReport: 'FinancialReport',
   CustomMetric: 'CustomMetric',
   OverviewCell: 'OverviewCell',
+  DashboardView: 'DashboardView',
   CustomMetricEntry: 'CustomMetricEntry'
 } as const
 
@@ -196,6 +197,7 @@ export type CustomMetricScalarFieldEnum = (typeof CustomMetricScalarFieldEnum)[k
 export const OverviewCellScalarFieldEnum = {
   id: 'id',
   organizationId: 'organizationId',
+  viewId: 'viewId',
   label: 'label',
   source: 'source',
   fieldName: 'fieldName',
@@ -205,6 +207,17 @@ export const OverviewCellScalarFieldEnum = {
 } as const
 
 export type OverviewCellScalarFieldEnum = (typeof OverviewCellScalarFieldEnum)[keyof typeof OverviewCellScalarFieldEnum]
+
+
+export const DashboardViewScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  name: 'name',
+  isDefault: 'isDefault',
+  createdAt: 'createdAt'
+} as const
+
+export type DashboardViewScalarFieldEnum = (typeof DashboardViewScalarFieldEnum)[keyof typeof DashboardViewScalarFieldEnum]
 
 
 export const CustomMetricEntryScalarFieldEnum = {

@@ -392,6 +392,7 @@ export const ModelName = {
   FinancialReport: 'FinancialReport',
   CustomMetric: 'CustomMetric',
   OverviewCell: 'OverviewCell',
+  DashboardView: 'DashboardView',
   CustomMetricEntry: 'CustomMetricEntry'
 } as const
 
@@ -408,7 +409,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "organization" | "user" | "product" | "dataEntry" | "contentMetric" | "financialReport" | "customMetric" | "overviewCell" | "customMetricEntry"
+    modelProps: "organization" | "user" | "product" | "dataEntry" | "contentMetric" | "financialReport" | "customMetric" | "overviewCell" | "dashboardView" | "customMetricEntry"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1004,6 +1005,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    DashboardView: {
+      payload: Prisma.$DashboardViewPayload<ExtArgs>
+      fields: Prisma.DashboardViewFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DashboardViewFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardViewPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DashboardViewFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardViewPayload>
+        }
+        findFirst: {
+          args: Prisma.DashboardViewFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardViewPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DashboardViewFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardViewPayload>
+        }
+        findMany: {
+          args: Prisma.DashboardViewFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardViewPayload>[]
+        }
+        create: {
+          args: Prisma.DashboardViewCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardViewPayload>
+        }
+        createMany: {
+          args: Prisma.DashboardViewCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DashboardViewCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardViewPayload>[]
+        }
+        delete: {
+          args: Prisma.DashboardViewDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardViewPayload>
+        }
+        update: {
+          args: Prisma.DashboardViewUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardViewPayload>
+        }
+        deleteMany: {
+          args: Prisma.DashboardViewDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DashboardViewUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DashboardViewUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardViewPayload>[]
+        }
+        upsert: {
+          args: Prisma.DashboardViewUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardViewPayload>
+        }
+        aggregate: {
+          args: Prisma.DashboardViewAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDashboardView>
+        }
+        groupBy: {
+          args: Prisma.DashboardViewGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DashboardViewGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DashboardViewCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DashboardViewCountAggregateOutputType> | number
+        }
+      }
+    }
     CustomMetricEntry: {
       payload: Prisma.$CustomMetricEntryPayload<ExtArgs>
       fields: Prisma.CustomMetricEntryFieldRefs
@@ -1235,6 +1310,7 @@ export type CustomMetricScalarFieldEnum = (typeof CustomMetricScalarFieldEnum)[k
 export const OverviewCellScalarFieldEnum = {
   id: 'id',
   organizationId: 'organizationId',
+  viewId: 'viewId',
   label: 'label',
   source: 'source',
   fieldName: 'fieldName',
@@ -1244,6 +1320,17 @@ export const OverviewCellScalarFieldEnum = {
 } as const
 
 export type OverviewCellScalarFieldEnum = (typeof OverviewCellScalarFieldEnum)[keyof typeof OverviewCellScalarFieldEnum]
+
+
+export const DashboardViewScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  name: 'name',
+  isDefault: 'isDefault',
+  createdAt: 'createdAt'
+} as const
+
+export type DashboardViewScalarFieldEnum = (typeof DashboardViewScalarFieldEnum)[keyof typeof DashboardViewScalarFieldEnum]
 
 
 export const CustomMetricEntryScalarFieldEnum = {
@@ -1498,6 +1585,7 @@ export type GlobalOmitConfig = {
   financialReport?: Prisma.FinancialReportOmit
   customMetric?: Prisma.CustomMetricOmit
   overviewCell?: Prisma.OverviewCellOmit
+  dashboardView?: Prisma.DashboardViewOmit
   customMetricEntry?: Prisma.CustomMetricEntryOmit
 }
 

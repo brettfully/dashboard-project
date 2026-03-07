@@ -173,6 +173,7 @@ export type OrganizationWhereInput = {
   financialReports?: Prisma.FinancialReportListRelationFilter
   customMetrics?: Prisma.CustomMetricListRelationFilter
   overviewCells?: Prisma.OverviewCellListRelationFilter
+  dashboardViews?: Prisma.DashboardViewListRelationFilter
 }
 
 export type OrganizationOrderByWithRelationInput = {
@@ -186,6 +187,7 @@ export type OrganizationOrderByWithRelationInput = {
   financialReports?: Prisma.FinancialReportOrderByRelationAggregateInput
   customMetrics?: Prisma.CustomMetricOrderByRelationAggregateInput
   overviewCells?: Prisma.OverviewCellOrderByRelationAggregateInput
+  dashboardViews?: Prisma.DashboardViewOrderByRelationAggregateInput
 }
 
 export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
@@ -202,6 +204,7 @@ export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
   financialReports?: Prisma.FinancialReportListRelationFilter
   customMetrics?: Prisma.CustomMetricListRelationFilter
   overviewCells?: Prisma.OverviewCellListRelationFilter
+  dashboardViews?: Prisma.DashboardViewListRelationFilter
 }, "id">
 
 export type OrganizationOrderByWithAggregationInput = {
@@ -233,6 +236,7 @@ export type OrganizationCreateInput = {
   financialReports?: Prisma.FinancialReportCreateNestedManyWithoutOrganizationInput
   customMetrics?: Prisma.CustomMetricCreateNestedManyWithoutOrganizationInput
   overviewCells?: Prisma.OverviewCellCreateNestedManyWithoutOrganizationInput
+  dashboardViews?: Prisma.DashboardViewCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateInput = {
@@ -246,6 +250,7 @@ export type OrganizationUncheckedCreateInput = {
   financialReports?: Prisma.FinancialReportUncheckedCreateNestedManyWithoutOrganizationInput
   customMetrics?: Prisma.CustomMetricUncheckedCreateNestedManyWithoutOrganizationInput
   overviewCells?: Prisma.OverviewCellUncheckedCreateNestedManyWithoutOrganizationInput
+  dashboardViews?: Prisma.DashboardViewUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUpdateInput = {
@@ -259,6 +264,7 @@ export type OrganizationUpdateInput = {
   financialReports?: Prisma.FinancialReportUpdateManyWithoutOrganizationNestedInput
   customMetrics?: Prisma.CustomMetricUpdateManyWithoutOrganizationNestedInput
   overviewCells?: Prisma.OverviewCellUpdateManyWithoutOrganizationNestedInput
+  dashboardViews?: Prisma.DashboardViewUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateInput = {
@@ -272,6 +278,7 @@ export type OrganizationUncheckedUpdateInput = {
   financialReports?: Prisma.FinancialReportUncheckedUpdateManyWithoutOrganizationNestedInput
   customMetrics?: Prisma.CustomMetricUncheckedUpdateManyWithoutOrganizationNestedInput
   overviewCells?: Prisma.OverviewCellUncheckedUpdateManyWithoutOrganizationNestedInput
+  dashboardViews?: Prisma.DashboardViewUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateManyInput = {
@@ -421,6 +428,20 @@ export type OrganizationUpdateOneRequiredWithoutOverviewCellsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutOverviewCellsInput, Prisma.OrganizationUpdateWithoutOverviewCellsInput>, Prisma.OrganizationUncheckedUpdateWithoutOverviewCellsInput>
 }
 
+export type OrganizationCreateNestedOneWithoutDashboardViewsInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutDashboardViewsInput, Prisma.OrganizationUncheckedCreateWithoutDashboardViewsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutDashboardViewsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+}
+
+export type OrganizationUpdateOneRequiredWithoutDashboardViewsNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutDashboardViewsInput, Prisma.OrganizationUncheckedCreateWithoutDashboardViewsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutDashboardViewsInput
+  upsert?: Prisma.OrganizationUpsertWithoutDashboardViewsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutDashboardViewsInput, Prisma.OrganizationUpdateWithoutDashboardViewsInput>, Prisma.OrganizationUncheckedUpdateWithoutDashboardViewsInput>
+}
+
 export type OrganizationCreateWithoutUsersInput = {
   id?: string
   name: string
@@ -431,6 +452,7 @@ export type OrganizationCreateWithoutUsersInput = {
   financialReports?: Prisma.FinancialReportCreateNestedManyWithoutOrganizationInput
   customMetrics?: Prisma.CustomMetricCreateNestedManyWithoutOrganizationInput
   overviewCells?: Prisma.OverviewCellCreateNestedManyWithoutOrganizationInput
+  dashboardViews?: Prisma.DashboardViewCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutUsersInput = {
@@ -443,6 +465,7 @@ export type OrganizationUncheckedCreateWithoutUsersInput = {
   financialReports?: Prisma.FinancialReportUncheckedCreateNestedManyWithoutOrganizationInput
   customMetrics?: Prisma.CustomMetricUncheckedCreateNestedManyWithoutOrganizationInput
   overviewCells?: Prisma.OverviewCellUncheckedCreateNestedManyWithoutOrganizationInput
+  dashboardViews?: Prisma.DashboardViewUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutUsersInput = {
@@ -471,6 +494,7 @@ export type OrganizationUpdateWithoutUsersInput = {
   financialReports?: Prisma.FinancialReportUpdateManyWithoutOrganizationNestedInput
   customMetrics?: Prisma.CustomMetricUpdateManyWithoutOrganizationNestedInput
   overviewCells?: Prisma.OverviewCellUpdateManyWithoutOrganizationNestedInput
+  dashboardViews?: Prisma.DashboardViewUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutUsersInput = {
@@ -483,6 +507,7 @@ export type OrganizationUncheckedUpdateWithoutUsersInput = {
   financialReports?: Prisma.FinancialReportUncheckedUpdateManyWithoutOrganizationNestedInput
   customMetrics?: Prisma.CustomMetricUncheckedUpdateManyWithoutOrganizationNestedInput
   overviewCells?: Prisma.OverviewCellUncheckedUpdateManyWithoutOrganizationNestedInput
+  dashboardViews?: Prisma.DashboardViewUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutProductsInput = {
@@ -495,6 +520,7 @@ export type OrganizationCreateWithoutProductsInput = {
   financialReports?: Prisma.FinancialReportCreateNestedManyWithoutOrganizationInput
   customMetrics?: Prisma.CustomMetricCreateNestedManyWithoutOrganizationInput
   overviewCells?: Prisma.OverviewCellCreateNestedManyWithoutOrganizationInput
+  dashboardViews?: Prisma.DashboardViewCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutProductsInput = {
@@ -507,6 +533,7 @@ export type OrganizationUncheckedCreateWithoutProductsInput = {
   financialReports?: Prisma.FinancialReportUncheckedCreateNestedManyWithoutOrganizationInput
   customMetrics?: Prisma.CustomMetricUncheckedCreateNestedManyWithoutOrganizationInput
   overviewCells?: Prisma.OverviewCellUncheckedCreateNestedManyWithoutOrganizationInput
+  dashboardViews?: Prisma.DashboardViewUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutProductsInput = {
@@ -535,6 +562,7 @@ export type OrganizationUpdateWithoutProductsInput = {
   financialReports?: Prisma.FinancialReportUpdateManyWithoutOrganizationNestedInput
   customMetrics?: Prisma.CustomMetricUpdateManyWithoutOrganizationNestedInput
   overviewCells?: Prisma.OverviewCellUpdateManyWithoutOrganizationNestedInput
+  dashboardViews?: Prisma.DashboardViewUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutProductsInput = {
@@ -547,6 +575,7 @@ export type OrganizationUncheckedUpdateWithoutProductsInput = {
   financialReports?: Prisma.FinancialReportUncheckedUpdateManyWithoutOrganizationNestedInput
   customMetrics?: Prisma.CustomMetricUncheckedUpdateManyWithoutOrganizationNestedInput
   overviewCells?: Prisma.OverviewCellUncheckedUpdateManyWithoutOrganizationNestedInput
+  dashboardViews?: Prisma.DashboardViewUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutDataEntriesInput = {
@@ -559,6 +588,7 @@ export type OrganizationCreateWithoutDataEntriesInput = {
   financialReports?: Prisma.FinancialReportCreateNestedManyWithoutOrganizationInput
   customMetrics?: Prisma.CustomMetricCreateNestedManyWithoutOrganizationInput
   overviewCells?: Prisma.OverviewCellCreateNestedManyWithoutOrganizationInput
+  dashboardViews?: Prisma.DashboardViewCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutDataEntriesInput = {
@@ -571,6 +601,7 @@ export type OrganizationUncheckedCreateWithoutDataEntriesInput = {
   financialReports?: Prisma.FinancialReportUncheckedCreateNestedManyWithoutOrganizationInput
   customMetrics?: Prisma.CustomMetricUncheckedCreateNestedManyWithoutOrganizationInput
   overviewCells?: Prisma.OverviewCellUncheckedCreateNestedManyWithoutOrganizationInput
+  dashboardViews?: Prisma.DashboardViewUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutDataEntriesInput = {
@@ -599,6 +630,7 @@ export type OrganizationUpdateWithoutDataEntriesInput = {
   financialReports?: Prisma.FinancialReportUpdateManyWithoutOrganizationNestedInput
   customMetrics?: Prisma.CustomMetricUpdateManyWithoutOrganizationNestedInput
   overviewCells?: Prisma.OverviewCellUpdateManyWithoutOrganizationNestedInput
+  dashboardViews?: Prisma.DashboardViewUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutDataEntriesInput = {
@@ -611,6 +643,7 @@ export type OrganizationUncheckedUpdateWithoutDataEntriesInput = {
   financialReports?: Prisma.FinancialReportUncheckedUpdateManyWithoutOrganizationNestedInput
   customMetrics?: Prisma.CustomMetricUncheckedUpdateManyWithoutOrganizationNestedInput
   overviewCells?: Prisma.OverviewCellUncheckedUpdateManyWithoutOrganizationNestedInput
+  dashboardViews?: Prisma.DashboardViewUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutContentMetricsInput = {
@@ -623,6 +656,7 @@ export type OrganizationCreateWithoutContentMetricsInput = {
   financialReports?: Prisma.FinancialReportCreateNestedManyWithoutOrganizationInput
   customMetrics?: Prisma.CustomMetricCreateNestedManyWithoutOrganizationInput
   overviewCells?: Prisma.OverviewCellCreateNestedManyWithoutOrganizationInput
+  dashboardViews?: Prisma.DashboardViewCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutContentMetricsInput = {
@@ -635,6 +669,7 @@ export type OrganizationUncheckedCreateWithoutContentMetricsInput = {
   financialReports?: Prisma.FinancialReportUncheckedCreateNestedManyWithoutOrganizationInput
   customMetrics?: Prisma.CustomMetricUncheckedCreateNestedManyWithoutOrganizationInput
   overviewCells?: Prisma.OverviewCellUncheckedCreateNestedManyWithoutOrganizationInput
+  dashboardViews?: Prisma.DashboardViewUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutContentMetricsInput = {
@@ -663,6 +698,7 @@ export type OrganizationUpdateWithoutContentMetricsInput = {
   financialReports?: Prisma.FinancialReportUpdateManyWithoutOrganizationNestedInput
   customMetrics?: Prisma.CustomMetricUpdateManyWithoutOrganizationNestedInput
   overviewCells?: Prisma.OverviewCellUpdateManyWithoutOrganizationNestedInput
+  dashboardViews?: Prisma.DashboardViewUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutContentMetricsInput = {
@@ -675,6 +711,7 @@ export type OrganizationUncheckedUpdateWithoutContentMetricsInput = {
   financialReports?: Prisma.FinancialReportUncheckedUpdateManyWithoutOrganizationNestedInput
   customMetrics?: Prisma.CustomMetricUncheckedUpdateManyWithoutOrganizationNestedInput
   overviewCells?: Prisma.OverviewCellUncheckedUpdateManyWithoutOrganizationNestedInput
+  dashboardViews?: Prisma.DashboardViewUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutFinancialReportsInput = {
@@ -687,6 +724,7 @@ export type OrganizationCreateWithoutFinancialReportsInput = {
   contentMetrics?: Prisma.ContentMetricCreateNestedManyWithoutOrganizationInput
   customMetrics?: Prisma.CustomMetricCreateNestedManyWithoutOrganizationInput
   overviewCells?: Prisma.OverviewCellCreateNestedManyWithoutOrganizationInput
+  dashboardViews?: Prisma.DashboardViewCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutFinancialReportsInput = {
@@ -699,6 +737,7 @@ export type OrganizationUncheckedCreateWithoutFinancialReportsInput = {
   contentMetrics?: Prisma.ContentMetricUncheckedCreateNestedManyWithoutOrganizationInput
   customMetrics?: Prisma.CustomMetricUncheckedCreateNestedManyWithoutOrganizationInput
   overviewCells?: Prisma.OverviewCellUncheckedCreateNestedManyWithoutOrganizationInput
+  dashboardViews?: Prisma.DashboardViewUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutFinancialReportsInput = {
@@ -727,6 +766,7 @@ export type OrganizationUpdateWithoutFinancialReportsInput = {
   contentMetrics?: Prisma.ContentMetricUpdateManyWithoutOrganizationNestedInput
   customMetrics?: Prisma.CustomMetricUpdateManyWithoutOrganizationNestedInput
   overviewCells?: Prisma.OverviewCellUpdateManyWithoutOrganizationNestedInput
+  dashboardViews?: Prisma.DashboardViewUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutFinancialReportsInput = {
@@ -739,6 +779,7 @@ export type OrganizationUncheckedUpdateWithoutFinancialReportsInput = {
   contentMetrics?: Prisma.ContentMetricUncheckedUpdateManyWithoutOrganizationNestedInput
   customMetrics?: Prisma.CustomMetricUncheckedUpdateManyWithoutOrganizationNestedInput
   overviewCells?: Prisma.OverviewCellUncheckedUpdateManyWithoutOrganizationNestedInput
+  dashboardViews?: Prisma.DashboardViewUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutCustomMetricsInput = {
@@ -751,6 +792,7 @@ export type OrganizationCreateWithoutCustomMetricsInput = {
   contentMetrics?: Prisma.ContentMetricCreateNestedManyWithoutOrganizationInput
   financialReports?: Prisma.FinancialReportCreateNestedManyWithoutOrganizationInput
   overviewCells?: Prisma.OverviewCellCreateNestedManyWithoutOrganizationInput
+  dashboardViews?: Prisma.DashboardViewCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutCustomMetricsInput = {
@@ -763,6 +805,7 @@ export type OrganizationUncheckedCreateWithoutCustomMetricsInput = {
   contentMetrics?: Prisma.ContentMetricUncheckedCreateNestedManyWithoutOrganizationInput
   financialReports?: Prisma.FinancialReportUncheckedCreateNestedManyWithoutOrganizationInput
   overviewCells?: Prisma.OverviewCellUncheckedCreateNestedManyWithoutOrganizationInput
+  dashboardViews?: Prisma.DashboardViewUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutCustomMetricsInput = {
@@ -791,6 +834,7 @@ export type OrganizationUpdateWithoutCustomMetricsInput = {
   contentMetrics?: Prisma.ContentMetricUpdateManyWithoutOrganizationNestedInput
   financialReports?: Prisma.FinancialReportUpdateManyWithoutOrganizationNestedInput
   overviewCells?: Prisma.OverviewCellUpdateManyWithoutOrganizationNestedInput
+  dashboardViews?: Prisma.DashboardViewUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutCustomMetricsInput = {
@@ -803,6 +847,7 @@ export type OrganizationUncheckedUpdateWithoutCustomMetricsInput = {
   contentMetrics?: Prisma.ContentMetricUncheckedUpdateManyWithoutOrganizationNestedInput
   financialReports?: Prisma.FinancialReportUncheckedUpdateManyWithoutOrganizationNestedInput
   overviewCells?: Prisma.OverviewCellUncheckedUpdateManyWithoutOrganizationNestedInput
+  dashboardViews?: Prisma.DashboardViewUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutOverviewCellsInput = {
@@ -815,6 +860,7 @@ export type OrganizationCreateWithoutOverviewCellsInput = {
   contentMetrics?: Prisma.ContentMetricCreateNestedManyWithoutOrganizationInput
   financialReports?: Prisma.FinancialReportCreateNestedManyWithoutOrganizationInput
   customMetrics?: Prisma.CustomMetricCreateNestedManyWithoutOrganizationInput
+  dashboardViews?: Prisma.DashboardViewCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutOverviewCellsInput = {
@@ -827,6 +873,7 @@ export type OrganizationUncheckedCreateWithoutOverviewCellsInput = {
   contentMetrics?: Prisma.ContentMetricUncheckedCreateNestedManyWithoutOrganizationInput
   financialReports?: Prisma.FinancialReportUncheckedCreateNestedManyWithoutOrganizationInput
   customMetrics?: Prisma.CustomMetricUncheckedCreateNestedManyWithoutOrganizationInput
+  dashboardViews?: Prisma.DashboardViewUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutOverviewCellsInput = {
@@ -855,6 +902,7 @@ export type OrganizationUpdateWithoutOverviewCellsInput = {
   contentMetrics?: Prisma.ContentMetricUpdateManyWithoutOrganizationNestedInput
   financialReports?: Prisma.FinancialReportUpdateManyWithoutOrganizationNestedInput
   customMetrics?: Prisma.CustomMetricUpdateManyWithoutOrganizationNestedInput
+  dashboardViews?: Prisma.DashboardViewUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutOverviewCellsInput = {
@@ -867,6 +915,75 @@ export type OrganizationUncheckedUpdateWithoutOverviewCellsInput = {
   contentMetrics?: Prisma.ContentMetricUncheckedUpdateManyWithoutOrganizationNestedInput
   financialReports?: Prisma.FinancialReportUncheckedUpdateManyWithoutOrganizationNestedInput
   customMetrics?: Prisma.CustomMetricUncheckedUpdateManyWithoutOrganizationNestedInput
+  dashboardViews?: Prisma.DashboardViewUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationCreateWithoutDashboardViewsInput = {
+  id?: string
+  name: string
+  createdAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutOrganizationInput
+  products?: Prisma.ProductCreateNestedManyWithoutOrganizationInput
+  dataEntries?: Prisma.DataEntryCreateNestedManyWithoutOrganizationInput
+  contentMetrics?: Prisma.ContentMetricCreateNestedManyWithoutOrganizationInput
+  financialReports?: Prisma.FinancialReportCreateNestedManyWithoutOrganizationInput
+  customMetrics?: Prisma.CustomMetricCreateNestedManyWithoutOrganizationInput
+  overviewCells?: Prisma.OverviewCellCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationUncheckedCreateWithoutDashboardViewsInput = {
+  id?: string
+  name: string
+  createdAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutOrganizationInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutOrganizationInput
+  dataEntries?: Prisma.DataEntryUncheckedCreateNestedManyWithoutOrganizationInput
+  contentMetrics?: Prisma.ContentMetricUncheckedCreateNestedManyWithoutOrganizationInput
+  financialReports?: Prisma.FinancialReportUncheckedCreateNestedManyWithoutOrganizationInput
+  customMetrics?: Prisma.CustomMetricUncheckedCreateNestedManyWithoutOrganizationInput
+  overviewCells?: Prisma.OverviewCellUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationCreateOrConnectWithoutDashboardViewsInput = {
+  where: Prisma.OrganizationWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutDashboardViewsInput, Prisma.OrganizationUncheckedCreateWithoutDashboardViewsInput>
+}
+
+export type OrganizationUpsertWithoutDashboardViewsInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutDashboardViewsInput, Prisma.OrganizationUncheckedUpdateWithoutDashboardViewsInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutDashboardViewsInput, Prisma.OrganizationUncheckedCreateWithoutDashboardViewsInput>
+  where?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationUpdateToOneWithWhereWithoutDashboardViewsInput = {
+  where?: Prisma.OrganizationWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutDashboardViewsInput, Prisma.OrganizationUncheckedUpdateWithoutDashboardViewsInput>
+}
+
+export type OrganizationUpdateWithoutDashboardViewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutOrganizationNestedInput
+  products?: Prisma.ProductUpdateManyWithoutOrganizationNestedInput
+  dataEntries?: Prisma.DataEntryUpdateManyWithoutOrganizationNestedInput
+  contentMetrics?: Prisma.ContentMetricUpdateManyWithoutOrganizationNestedInput
+  financialReports?: Prisma.FinancialReportUpdateManyWithoutOrganizationNestedInput
+  customMetrics?: Prisma.CustomMetricUpdateManyWithoutOrganizationNestedInput
+  overviewCells?: Prisma.OverviewCellUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationUncheckedUpdateWithoutDashboardViewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutOrganizationNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutOrganizationNestedInput
+  dataEntries?: Prisma.DataEntryUncheckedUpdateManyWithoutOrganizationNestedInput
+  contentMetrics?: Prisma.ContentMetricUncheckedUpdateManyWithoutOrganizationNestedInput
+  financialReports?: Prisma.FinancialReportUncheckedUpdateManyWithoutOrganizationNestedInput
+  customMetrics?: Prisma.CustomMetricUncheckedUpdateManyWithoutOrganizationNestedInput
+  overviewCells?: Prisma.OverviewCellUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 
@@ -882,6 +999,7 @@ export type OrganizationCountOutputType = {
   financialReports: number
   customMetrics: number
   overviewCells: number
+  dashboardViews: number
 }
 
 export type OrganizationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -892,6 +1010,7 @@ export type OrganizationCountOutputTypeSelect<ExtArgs extends runtime.Types.Exte
   financialReports?: boolean | OrganizationCountOutputTypeCountFinancialReportsArgs
   customMetrics?: boolean | OrganizationCountOutputTypeCountCustomMetricsArgs
   overviewCells?: boolean | OrganizationCountOutputTypeCountOverviewCellsArgs
+  dashboardViews?: boolean | OrganizationCountOutputTypeCountDashboardViewsArgs
 }
 
 /**
@@ -953,6 +1072,13 @@ export type OrganizationCountOutputTypeCountOverviewCellsArgs<ExtArgs extends ru
   where?: Prisma.OverviewCellWhereInput
 }
 
+/**
+ * OrganizationCountOutputType without action
+ */
+export type OrganizationCountOutputTypeCountDashboardViewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DashboardViewWhereInput
+}
+
 
 export type OrganizationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -965,6 +1091,7 @@ export type OrganizationSelect<ExtArgs extends runtime.Types.Extensions.Internal
   financialReports?: boolean | Prisma.Organization$financialReportsArgs<ExtArgs>
   customMetrics?: boolean | Prisma.Organization$customMetricsArgs<ExtArgs>
   overviewCells?: boolean | Prisma.Organization$overviewCellsArgs<ExtArgs>
+  dashboardViews?: boolean | Prisma.Organization$dashboardViewsArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["organization"]>
 
@@ -995,6 +1122,7 @@ export type OrganizationInclude<ExtArgs extends runtime.Types.Extensions.Interna
   financialReports?: boolean | Prisma.Organization$financialReportsArgs<ExtArgs>
   customMetrics?: boolean | Prisma.Organization$customMetricsArgs<ExtArgs>
   overviewCells?: boolean | Prisma.Organization$overviewCellsArgs<ExtArgs>
+  dashboardViews?: boolean | Prisma.Organization$dashboardViewsArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1010,6 +1138,7 @@ export type $OrganizationPayload<ExtArgs extends runtime.Types.Extensions.Intern
     financialReports: Prisma.$FinancialReportPayload<ExtArgs>[]
     customMetrics: Prisma.$CustomMetricPayload<ExtArgs>[]
     overviewCells: Prisma.$OverviewCellPayload<ExtArgs>[]
+    dashboardViews: Prisma.$DashboardViewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1416,6 +1545,7 @@ export interface Prisma__OrganizationClient<T, Null = never, ExtArgs extends run
   financialReports<T extends Prisma.Organization$financialReportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$financialReportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinancialReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   customMetrics<T extends Prisma.Organization$customMetricsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$customMetricsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomMetricPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   overviewCells<T extends Prisma.Organization$overviewCellsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$overviewCellsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OverviewCellPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  dashboardViews<T extends Prisma.Organization$dashboardViewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$dashboardViewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DashboardViewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2001,6 +2131,30 @@ export type Organization$overviewCellsArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.OverviewCellScalarFieldEnum | Prisma.OverviewCellScalarFieldEnum[]
+}
+
+/**
+ * Organization.dashboardViews
+ */
+export type Organization$dashboardViewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DashboardView
+   */
+  select?: Prisma.DashboardViewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DashboardView
+   */
+  omit?: Prisma.DashboardViewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DashboardViewInclude<ExtArgs> | null
+  where?: Prisma.DashboardViewWhereInput
+  orderBy?: Prisma.DashboardViewOrderByWithRelationInput | Prisma.DashboardViewOrderByWithRelationInput[]
+  cursor?: Prisma.DashboardViewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DashboardViewScalarFieldEnum | Prisma.DashboardViewScalarFieldEnum[]
 }
 
 /**
