@@ -123,10 +123,10 @@ export default function AeForm({ products, userId, orgId }: AeFormProps) {
 
               <div>
                 <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Calls</h3>
-                <div className="flex flex-col">
+                <div className="space-y-3">
                   {CALLS_FIELDS.map((field) => (
-                    <div key={field.name} className="flex items-center justify-between gap-4 py-2 border-b border-border/40 last:border-0">
-                      <Label className="text-sm text-muted-foreground shrink-0">{field.label}</Label>
+                    <div key={field.name} className="space-y-1">
+                      <Label className="text-xs text-muted-foreground">{field.label}</Label>
                       <Input
                         type="number"
                         value={fields[field.name] ?? ""}
@@ -134,7 +134,6 @@ export default function AeForm({ products, userId, orgId }: AeFormProps) {
                         placeholder="0"
                         min="0"
                         step="1"
-                        className="w-32 text-right"
                       />
                     </div>
                   ))}
@@ -143,10 +142,10 @@ export default function AeForm({ products, userId, orgId }: AeFormProps) {
 
               <div>
                 <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Revenue</h3>
-                <div className="flex flex-col">
+                <div className="space-y-3">
                   {REVENUE_FIELDS.map((field) => (
-                    <div key={field.name} className="flex items-center justify-between gap-4 py-2 border-b border-border/40 last:border-0">
-                      <Label className="text-sm text-muted-foreground shrink-0">{field.label}</Label>
+                    <div key={field.name} className="space-y-1">
+                      <Label className="text-xs text-muted-foreground">{field.label}</Label>
                       <Input
                         type="number"
                         value={fields[field.name] ?? ""}
@@ -154,7 +153,6 @@ export default function AeForm({ products, userId, orgId }: AeFormProps) {
                         placeholder={field.currency ? "0.00" : "0"}
                         min="0"
                         step={field.currency ? "0.01" : "1"}
-                        className="w-32 text-right"
                       />
                     </div>
                   ))}
