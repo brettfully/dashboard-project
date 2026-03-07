@@ -13,17 +13,19 @@ export function Header({ title }: HeaderProps) {
   const initials = name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2)
 
   return (
-    <div className="flex h-16 items-center justify-between border-b px-6 bg-background">
-      <h1 className="text-xl font-semibold">{title}</h1>
+    <div className="flex h-14 items-center justify-between border-b border-border px-6 bg-background shrink-0">
+      <h1 className="text-sm font-semibold text-foreground">{title}</h1>
       <div className="flex items-center gap-3">
         <div className="text-right hidden sm:block">
-          <p className="text-sm font-medium">{name}</p>
+          <p className="text-xs font-medium text-foreground">{name}</p>
           <p className="text-xs text-muted-foreground">
             {(session?.user as { role?: string })?.role?.replace(/_/g, " ") ?? ""}
           </p>
         </div>
-        <Avatar className="h-8 w-8">
-          <AvatarFallback className="text-xs">{initials}</AvatarFallback>
+        <Avatar className="h-7 w-7">
+          <AvatarFallback className="text-xs bg-primary/20 text-primary font-semibold">
+            {initials}
+          </AvatarFallback>
         </Avatar>
       </div>
     </div>
