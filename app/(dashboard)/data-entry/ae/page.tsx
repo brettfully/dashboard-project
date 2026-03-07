@@ -37,11 +37,13 @@ export default async function AeDataEntryPage() {
     <div className="flex flex-col h-full">
       <div className="flex-1 p-6 space-y-6">
         <h1 className="text-xl font-semibold text-foreground">Data Entry — Account Executive</h1>
-        <AeForm
-          products={products.map((p) => ({ id: p.id, name: p.name }))}
-          userId={userId!}
-          orgId={orgId!}
-        />
+        <div className="w-1/2 min-w-[400px]">
+          <AeForm
+            products={products.map((p) => ({ id: p.id, name: p.name }))}
+            userId={userId!}
+            orgId={orgId!}
+          />
+        </div>
 
         <Card>
           <CardHeader>
