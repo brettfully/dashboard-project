@@ -13,7 +13,9 @@ import { Label } from "@/components/ui/label"
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
@@ -22,49 +24,51 @@ import { cn } from "@/lib/utils"
 
 const DATA_ENTRY_FIELDS = [
   // Prospecting
-  { value: "dials", label: "Dials" },
-  { value: "outboundMessages", label: "Outbound Messages" },
-  { value: "inboundMessages", label: "Inbound Messages" },
-  { value: "followUps", label: "Follow-ups" },
-  { value: "setsBooked", label: "Sets Booked" },
+  { group: "Prospecting", value: "dials", label: "Dials" },
+  { group: "Prospecting", value: "outboundMessages", label: "Outbound Messages" },
+  { group: "Prospecting", value: "inboundMessages", label: "Inbound Messages" },
+  { group: "Prospecting", value: "followUps", label: "Follow-ups" },
+  { group: "Prospecting", value: "setsBooked", label: "Sets Booked" },
   // Calls
-  { value: "callsToday", label: "Calls Today" },
-  { value: "showCalls", label: "Calls Showed" },
-  { value: "offersMade", label: "Offers Presented" },
-  { value: "dealsWon", label: "Closes Today" },
+  { group: "Calls", value: "callsToday", label: "Calls Today" },
+  { group: "Calls", value: "showCalls", label: "Calls Showed" },
+  { group: "Calls", value: "offersMade", label: "Offers Presented" },
+  { group: "Calls", value: "dealsWon", label: "Closes Today" },
   // Revenue
-  { value: "cashCollected", label: "Cash Collected" },
-  { value: "revenueGenerated", label: "Revenue" },
-  { value: "refunds", label: "Refunds" },
-  { value: "monthlyRecurringRevenue", label: "MRR Collected" },
-  { value: "lowTicketCustomers", label: "Low-Ticket Customers" },
-  { value: "customersCanceled", label: "Customers Canceled" },
+  { group: "Revenue", value: "cashCollected", label: "Cash Collected" },
+  { group: "Revenue", value: "revenueGenerated", label: "Revenue Generated" },
+  { group: "Revenue", value: "refunds", label: "Refunds" },
+  { group: "Revenue", value: "monthlyRecurringRevenue", label: "MRR Collected" },
+  { group: "Revenue", value: "lowTicketCustomers", label: "Low-Ticket Customers" },
+  { group: "Revenue", value: "customersCanceled", label: "Customers Canceled" },
   // Ads + Funnel
-  { value: "adSpend", label: "Ad Spend" },
-  { value: "highTicketLandingPageViews", label: "HT LP Views" },
-  { value: "lowTicketLandingPageViews", label: "LT LP Views" },
+  { group: "Ads + Funnel", value: "adSpend", label: "Ad Spend" },
+  { group: "Ads + Funnel", value: "highTicketLandingPageViews", label: "HT LP Views" },
+  { group: "Ads + Funnel", value: "lowTicketLandingPageViews", label: "LT LP Views" },
   // Business
-  { value: "businessExpenses", label: "Business Expenses" },
-] as const
+  { group: "Business", value: "businessExpenses", label: "Business Expenses" },
+]
+
+const FIELD_GROUPS = ["Prospecting", "Calls", "Revenue", "Ads + Funnel", "Business"]
 
 const OPERATORS = [
-  { value: "add", label: "+ Addition" },
-  { value: "subtract", label: "- Subtraction" },
-  { value: "multiply", label: "× Multiplication" },
-  { value: "divide", label: "÷ Division" },
+  { value: "add",      symbol: "+", label: "Addition" },
+  { value: "subtract", symbol: "−", label: "Subtraction" },
+  { value: "multiply", symbol: "×", label: "Multiplication" },
+  { value: "divide",   symbol: "÷", label: "Division" },
 ] as const
 
 const SHOW_RESULT_AS = [
-  { value: "number", label: "Number (123.45)" },
-  { value: "currency", label: "Currency ($1,234.56)" },
-  { value: "percent", label: "Percentage (12.34%)" },
+  { value: "number",   label: "Number",     example: "1,234" },
+  { value: "currency", label: "Currency",   example: "$1,234.56" },
+  { value: "percent",  label: "Percentage", example: "12.34%" },
 ] as const
 
 const ROLES = [
-  "Account Executive",
-  "Sales Manager",
-  "SDR",
-  "Company Admin",
+  { value: "Account Executive", label: "Account Executive" },
+  { value: "Sales Manager",     label: "Sales Manager" },
+  { value: "SDR",               label: "SDR" },
+  { value: "Company Admin",     label: "Company Admin" },
 ] as const
 
 const CATEGORIES = [
@@ -75,9 +79,21 @@ const CATEGORIES = [
 ] as const
 
 const TYPES = [
-  { value: "NUMBER", label: "Number" },
-  { value: "CURRENCY", label: "Currency" },
-  { value: "CALCULATED", label: "Calculated" },
+  {
+    value: "CALCULATED",
+    label: "Calculated Formula",
+    desc: "Derive a result from two existing fields using a formula",
+  },
+  {
+    value: "NUMBER",
+    label: "Tracked Number",
+    desc: "Manually enter an integer value in data entry",
+  },
+  {
+    value: "CURRENCY",
+    label: "Tracked Currency",
+    desc: "Manually enter a dollar amount in data entry",
+  },
 ] as const
 
 type MetricRow = {
@@ -96,14 +112,51 @@ type MetricRow = {
 
 type Product = { id: string; name: string }
 
-function formatPreviewValue(
-  val: number,
-  showResultAs: string
-): string {
+function fieldLabel(fieldValue: string): string {
+  return DATA_ENTRY_FIELDS.find((f) => f.value === fieldValue)?.label ?? fieldValue
+}
+
+function formatPreviewValue(val: number, showResultAs: string): string {
   if (showResultAs === "currency")
     return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(val)
-  if (showResultAs === "percent") return `${val.toFixed(1)}%`
-  return String(val)
+  if (showResultAs === "percent") return `${val.toFixed(2)}%`
+  return Number.isInteger(val) ? String(val) : val.toFixed(2)
+}
+
+function FieldSelect({
+  value,
+  onChange,
+  exclude,
+}: {
+  value: string
+  onChange: (v: string) => void
+  exclude?: string
+}) {
+  return (
+    <Select value={value} onValueChange={onChange}>
+      <SelectTrigger className="bg-background border-border">
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        {FIELD_GROUPS.map((group) => {
+          const fields = DATA_ENTRY_FIELDS.filter(
+            (f) => f.group === group && f.value !== exclude
+          )
+          if (fields.length === 0) return null
+          return (
+            <SelectGroup key={group}>
+              <SelectLabel>{group}</SelectLabel>
+              {fields.map((f) => (
+                <SelectItem key={f.value} value={f.value}>
+                  {f.label}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          )
+        })}
+      </SelectContent>
+    </Select>
+  )
 }
 
 export function MetricFormDialog({
@@ -124,11 +177,11 @@ export function MetricFormDialog({
   const [productIds, setProductIds] = useState<string[]>([])
   const [role, setRole] = useState("Account Executive")
   const [category, setCategory] = useState("sales")
-  const [type, setType] = useState<"NUMBER" | "CURRENCY" | "CALCULATED">("NUMBER")
+  const [type, setType] = useState<"NUMBER" | "CURRENCY" | "CALCULATED">("CALCULATED")
   const [firstField, setFirstField] = useState("revenueGenerated")
   const [operator, setOperator] = useState("subtract")
   const [secondField, setSecondField] = useState("refunds")
-  const [showResultAs, setShowResultAs] = useState("number")
+  const [showResultAs, setShowResultAs] = useState("currency")
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -138,21 +191,21 @@ export function MetricFormDialog({
       setProductIds(Array.isArray(metric.productIds) ? (metric.productIds as string[]) : [])
       setRole(metric.role ?? "Account Executive")
       setCategory(metric.category ?? "sales")
-      setType((metric.type as "NUMBER" | "CURRENCY" | "CALCULATED") || "NUMBER")
+      setType((metric.type as "NUMBER" | "CURRENCY" | "CALCULATED") || "CALCULATED")
       setFirstField(metric.firstField ?? "revenueGenerated")
       setOperator(metric.operator ?? "subtract")
       setSecondField(metric.secondField ?? "refunds")
-      setShowResultAs(metric.showResultAs ?? "number")
+      setShowResultAs(metric.showResultAs ?? "currency")
     } else {
       setName("")
       setProductIds([])
       setRole("Account Executive")
       setCategory("sales")
-      setType("NUMBER")
+      setType("CALCULATED")
       setFirstField("revenueGenerated")
       setOperator("subtract")
       setSecondField("refunds")
-      setShowResultAs("number")
+      setShowResultAs("currency")
     }
   }, [open, metric])
 
@@ -164,54 +217,43 @@ export function MetricFormDialog({
     setProductIds(productIds.filter((p) => p !== id))
   }
 
-  const previewVal1: number = 100
-  const previewVal2: number = 25
-  const previewResult =
-    operator === "add"
-      ? previewVal1 + previewVal2
-      : operator === "subtract"
-        ? previewVal1 - previewVal2
-        : operator === "multiply"
-          ? previewVal1 * previewVal2
-          : previewVal2 !== 0
-            ? previewVal1 / previewVal2
-            : 0
+  // Live preview calculation
+  const previewA: number = 1000
+  const previewB: number = 250
+  const previewResult: number | null =
+    operator === "add" ? previewA + previewB
+    : operator === "subtract" ? previewA - previewB
+    : operator === "multiply" ? previewA * previewB
+    : previewB !== 0 ? previewA / previewB : null
+
+  const opSymbol = OPERATORS.find((o) => o.value === operator)?.symbol ?? "?"
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
     try {
+      const body = {
+        name,
+        productIds,
+        role,
+        category,
+        type,
+        firstField: type === "CALCULATED" ? firstField : null,
+        operator: type === "CALCULATED" ? operator : null,
+        secondField: type === "CALCULATED" ? secondField : null,
+        showResultAs: type === "CALCULATED" ? showResultAs : null,
+      }
       if (isEdit && metric) {
         await fetch(`/api/custom-metrics/${metric.id}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name,
-            productIds,
-            role,
-            category,
-            type,
-            firstField: type === "CALCULATED" ? firstField : null,
-            operator: type === "CALCULATED" ? operator : null,
-            secondField: type === "CALCULATED" ? secondField : null,
-            showResultAs: type === "CALCULATED" ? showResultAs : null,
-          }),
+          body: JSON.stringify(body),
         })
       } else {
         await fetch("/api/custom-metrics", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name,
-            productIds,
-            role,
-            category,
-            type,
-            firstField: type === "CALCULATED" ? firstField : null,
-            operator: type === "CALCULATED" ? operator : null,
-            secondField: type === "CALCULATED" ? secondField : null,
-            showResultAs: type === "CALCULATED" ? showResultAs : null,
-          }),
+          body: JSON.stringify(body),
         })
       }
       onSuccess()
@@ -227,21 +269,27 @@ export function MetricFormDialog({
         <DialogHeader>
           <DialogTitle>{isEdit ? "Edit Metric" : "Add New Metric"}</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+
+          {/* 1. Metric Name */}
+          <div className="space-y-1.5">
             <Label htmlFor="metric-name">Metric Name</Label>
             <Input
               id="metric-name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. Net Revenue"
+              placeholder="e.g. Cost Per Booked Call, Net Revenue, ROAS…"
               required
-              className="bg-background border-border"
             />
           </div>
 
-          <div className="space-y-2">
-            <Label>Select Product(s)</Label>
+          {/* 2. Products */}
+          <div className="space-y-1.5">
+            <Label>
+              Select Product(s)
+              <span className="ml-1 text-xs text-muted-foreground font-normal">(leave empty for all products)</span>
+            </Label>
             <div className="flex flex-wrap gap-2 min-h-10 p-2 rounded-md border border-input bg-background">
               {productIds.map((id) => {
                 const p = products.find((x) => x.id === id)
@@ -256,161 +304,190 @@ export function MetricFormDialog({
                       type="button"
                       onClick={() => removeProduct(id)}
                       className="rounded p-0.5 hover:bg-muted-foreground/20"
-                      aria-label={`Remove ${p.name}`}
                     >
                       <X className="h-3 w-3" />
                     </button>
                   </span>
                 )
               })}
-              <Select
-                key={productIds.join(",")}
-                onValueChange={(id) => {
-                  addProduct(id)
-                }}
-              >
-                <SelectTrigger className="w-[180px] h-8 border-0 bg-transparent shadow-none focus:ring-0">
-                  <SelectValue placeholder="Add product..." />
+              <Select key={productIds.join(",")} onValueChange={addProduct}>
+                <SelectTrigger className="w-[160px] h-8 border-0 bg-transparent shadow-none focus:ring-0">
+                  <SelectValue placeholder="Add product…" />
                 </SelectTrigger>
                 <SelectContent>
                   {products
                     .filter((p) => !productIds.includes(p.id))
                     .map((p) => (
-                      <SelectItem key={p.id} value={p.id}>
-                        {p.name}
-                      </SelectItem>
+                      <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>
                     ))}
                 </SelectContent>
               </Select>
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label>Role</Label>
-            <Select value={role} onValueChange={setRole}>
-              <SelectTrigger className="bg-background border-border">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {ROLES.map((r) => (
-                  <SelectItem key={r} value={r}>
-                    {r}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+          {/* 3 & 4. Role + Category side by side */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-1.5">
+              <Label>Role</Label>
+              <Select value={role} onValueChange={setRole}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {ROLES.map((r) => (
+                    <SelectItem key={r.value} value={r.value}>{r.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1.5">
+              <Label>Category</Label>
+              <Select value={category} onValueChange={setCategory}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {CATEGORIES.map((c) => (
+                    <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
-          <div className="space-y-2">
-            <Label>Category</Label>
-            <Select value={category} onValueChange={setCategory}>
-              <SelectTrigger className="bg-background border-border">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {CATEGORIES.map((c) => (
-                  <SelectItem key={c.value} value={c.value}>
-                    {c.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
+          {/* 5. Type — card style selector */}
+          <div className="space-y-1.5">
             <Label>Type</Label>
-            <Select value={type} onValueChange={(v) => setType(v as typeof type)}>
-              <SelectTrigger className="bg-background border-border">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {TYPES.map((t) => (
-                  <SelectItem key={t.value} value={t.value}>
-                    {t.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <div className="grid grid-cols-1 gap-2">
+              {TYPES.map((t) => (
+                <button
+                  key={t.value}
+                  type="button"
+                  onClick={() => setType(t.value as typeof type)}
+                  className={cn(
+                    "text-left px-3 py-2.5 rounded-lg border transition-colors",
+                    type === t.value
+                      ? "border-primary bg-primary/5 ring-1 ring-primary"
+                      : "border-border hover:border-muted-foreground/40"
+                  )}
+                >
+                  <p className="text-sm font-medium">{t.label}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">{t.desc}</p>
+                </button>
+              ))}
+            </div>
           </div>
 
+          {/* Formula Builder — only for CALCULATED */}
           {type === "CALCULATED" && (
-            <>
-              <div className="space-y-2">
-                <Label>First Field</Label>
-                <Select value={firstField} onValueChange={setFirstField}>
-                  <SelectTrigger className="bg-background border-border">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {DATA_ENTRY_FIELDS.map((f) => (
-                      <SelectItem key={f.value} value={f.value}>
-                        {f.label}
-                      </SelectItem>
+            <div className="space-y-4 rounded-xl border border-border bg-muted/20 p-4">
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                Formula Builder
+              </p>
+
+              {/* Visual formula: [Field 1] [op] [Field 2] */}
+              <div className="space-y-3">
+                {/* First Field */}
+                <div className="space-y-1.5">
+                  <Label className="text-xs">First Field</Label>
+                  <FieldSelect
+                    value={firstField}
+                    onChange={setFirstField}
+                    exclude={secondField}
+                  />
+                </div>
+
+                {/* Operator — button group */}
+                <div className="space-y-1.5">
+                  <Label className="text-xs">Operation</Label>
+                  <div className="grid grid-cols-4 gap-2">
+                    {OPERATORS.map((op) => (
+                      <button
+                        key={op.value}
+                        type="button"
+                        onClick={() => setOperator(op.value)}
+                        className={cn(
+                          "flex flex-col items-center justify-center py-2.5 rounded-lg border text-sm font-semibold transition-colors",
+                          operator === op.value
+                            ? "border-primary bg-primary text-primary-foreground"
+                            : "border-border hover:border-muted-foreground/40 text-foreground"
+                        )}
+                      >
+                        <span className="text-lg leading-none">{op.symbol}</span>
+                        <span className="text-[10px] font-normal text-current opacity-70 mt-0.5">{op.label}</span>
+                      </button>
                     ))}
-                  </SelectContent>
-                </Select>
+                  </div>
+                </div>
+
+                {/* Second Field */}
+                <div className="space-y-1.5">
+                  <Label className="text-xs">Second Field</Label>
+                  <FieldSelect
+                    value={secondField}
+                    onChange={setSecondField}
+                    exclude={firstField}
+                  />
+                </div>
               </div>
-              <div className="space-y-2">
-                <Label>Operator</Label>
-                <Select value={operator} onValueChange={setOperator}>
-                  <SelectTrigger className="bg-background border-border">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {OPERATORS.map((o) => (
-                      <SelectItem key={o.value} value={o.value}>
-                        {o.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+
+              {/* Live formula display */}
+              <div className="flex items-center gap-2 rounded-lg bg-background border border-border px-3 py-2 text-sm">
+                <span className="font-medium truncate">{fieldLabel(firstField)}</span>
+                <span className="text-primary font-bold text-base flex-shrink-0">{opSymbol}</span>
+                <span className="font-medium truncate">{fieldLabel(secondField)}</span>
+                <span className="text-muted-foreground flex-shrink-0">=</span>
+                <span className="font-semibold text-primary flex-shrink-0">Result</span>
               </div>
-              <div className="space-y-2">
-                <Label>Second Field</Label>
-                <Select value={secondField} onValueChange={setSecondField}>
-                  <SelectTrigger className="bg-background border-border">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {DATA_ENTRY_FIELDS.map((f) => (
-                      <SelectItem key={f.value} value={f.value}>
-                        {f.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+
+              {/* Show Result As */}
+              <div className="space-y-1.5">
+                <Label className="text-xs">Show Result As</Label>
+                <div className="grid grid-cols-3 gap-2">
+                  {SHOW_RESULT_AS.map((s) => (
+                    <button
+                      key={s.value}
+                      type="button"
+                      onClick={() => setShowResultAs(s.value)}
+                      className={cn(
+                        "flex flex-col items-center py-2 px-1 rounded-lg border text-center transition-colors",
+                        showResultAs === s.value
+                          ? "border-primary bg-primary/5 ring-1 ring-primary"
+                          : "border-border hover:border-muted-foreground/40"
+                      )}
+                    >
+                      <span className="text-xs font-semibold">{s.label}</span>
+                      <span className="text-[11px] text-muted-foreground mt-0.5">{s.example}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
-              <div className="space-y-2">
-                <Label>Select Result Format</Label>
-                <Select value={showResultAs} onValueChange={setShowResultAs}>
-                  <SelectTrigger className="bg-background border-border">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {SHOW_RESULT_AS.map((s) => (
-                      <SelectItem key={s.value} value={s.value}>
-                        {s.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+
+              {/* Preview */}
+              <div className="rounded-lg bg-primary/8 border border-primary/20 p-3">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Preview</p>
+                <div className="flex items-baseline gap-1.5 text-sm">
+                  <span className="text-muted-foreground">If</span>
+                  <span className="font-medium">{fieldLabel(firstField)}</span>
+                  <span className="text-muted-foreground">= {previewA.toLocaleString()}</span>
+                  <span className="text-muted-foreground">and</span>
+                  <span className="font-medium">{fieldLabel(secondField)}</span>
+                  <span className="text-muted-foreground">= {previewB.toLocaleString()}</span>
+                </div>
+                <div className="flex items-baseline gap-1.5 text-sm mt-1">
+                  <span className="text-muted-foreground">Result:</span>
+                  <span className="font-bold text-primary text-base">
+                    {previewResult !== null
+                      ? formatPreviewValue(previewResult, showResultAs)
+                      : "—"}
+                  </span>
+                </div>
               </div>
-              <div
-                className={cn(
-                  "rounded-lg p-4 bg-primary/10 border border-primary/20"
-                )}
-              >
-                <p className="text-sm font-medium text-foreground mb-1">Preview</p>
-                <p className="text-sm text-muted-foreground">
-                  If Field 1 = {previewVal1} and Field 2 = {previewVal2}, result
-                  would be: {formatPreviewValue(previewResult, showResultAs)}
-                </p>
-              </div>
-            </>
+            </div>
           )}
 
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Saving..." : isEdit ? "Update Metric" : "Add Metric"}
+          <Button type="submit" className="w-full" disabled={loading || !name.trim()}>
+            {loading ? "Saving…" : isEdit ? "Update Metric" : "Add Metric"}
           </Button>
         </form>
       </DialogContent>
