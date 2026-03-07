@@ -15,7 +15,7 @@ import { subDays, startOfDay, parseISO, differenceInDays } from "date-fns"
 export default async function OverviewPage({
   searchParams,
 }: {
-  searchParams: Promise<{ from?: string; to?: string }>
+  searchParams: Promise<{ from?: string; to?: string; user?: string; product?: string }>
 }) {
   const session = await auth()
   const orgId = (session?.user as { organizationId?: string })?.organizationId
@@ -29,12 +29,18 @@ export default async function OverviewPage({
   const prevTo   = fromDate
   const prevFrom = startOfDay(subDays(fromDate, rangeDays))
 
+  const baseWhere = {
+    organizationId: orgId,
+    ...(params.user    ? { userId:    params.user }    : {}),
+    ...(params.product ? { productId: params.product } : {}),
+  }
+
   const [currentEntries, previousEntries] = await Promise.all([
     db.dataEntry.findMany({
-      where: { organizationId: orgId, date: { gte: fromDate, lte: toDate } },
+      where: { ...baseWhere, date: { gte: fromDate, lte: toDate } },
     }),
     db.dataEntry.findMany({
-      where: { organizationId: orgId, date: { gte: prevFrom, lt: prevTo } },
+      where: { ...baseWhere, date: { gte: prevFrom, lt: prevTo } },
     }),
   ])
 
