@@ -83,13 +83,13 @@ export default async function OverviewPage({
   return (
     <div className="flex flex-col h-full">
       <div className="flex-1 p-6 space-y-6">
-        <h1 className="text-xl font-semibold text-foreground">Overview</h1>
+        <h1 className="text-[1.5rem] font-semibold text-foreground">Overview</h1>
 
         <Suspense fallback={<div className="h-9" />}>
           <DashboardFilters />
         </Suspense>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+        <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
           <KpiCard
             title="Scheduled Calls"
             value={formatNumber(scheduledCalls)}
@@ -114,6 +114,7 @@ export default async function OverviewPage({
             title="Cash Collected"
             value={formatCurrency(cashCollected)}
             trend={trend(cashCollected, prevCash)}
+            valueColor="green"
           />
           <KpiCard
             title="Show Rate (%)"
@@ -124,6 +125,7 @@ export default async function OverviewPage({
             title="Net Revenue"
             value={formatCurrency(netRevenue)}
             trend={trend(netRevenue, prevNetRevenue)}
+            valueColor="blue"
           />
           <KpiCard
             title="Offers (%)"
@@ -139,6 +141,7 @@ export default async function OverviewPage({
             title="Revenue Generated"
             value={formatCurrency(revenueGenerated)}
             trend={trend(revenueGenerated, prevRevenue)}
+            valueColor="blue"
           />
           <KpiCard
             title="Refunds"
