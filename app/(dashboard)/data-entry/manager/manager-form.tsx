@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { Users, Megaphone, BarChart3 } from "lucide-react"
+import { TrendingUp, Megaphone, Leaf, Briefcase } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -22,6 +22,7 @@ interface ManagerFormProps {
   orgId: string
 }
 
+// ── Sales ─────────────────────────────────────────────────────────────────────
 const PROSPECTING_FIELDS = [
   { name: "dials", label: "Dials", currency: false },
   { name: "outboundMessages", label: "Outbound Messages", currency: false },
@@ -30,11 +31,9 @@ const PROSPECTING_FIELDS = [
   { name: "setsBooked", label: "Sets Booked", currency: false },
 ]
 
-const CLOSING_FIELDS = [
+const CALLS_FIELDS = [
   { name: "callsToday", label: "Calls Today", currency: false },
-  { name: "showCalls", label: "Calls Showed", currency: false },
-  { name: "offersMade", label: "Offers Presented", currency: false },
-  { name: "dealsWon", label: "Calls Closed", currency: false },
+  { name: "dealsWon", label: "Closes Today", currency: false },
 ]
 
 const REVENUE_FIELDS = [
@@ -43,23 +42,43 @@ const REVENUE_FIELDS = [
   { name: "refunds", label: "Refunds ($)", currency: true },
   { name: "monthlyRecurringRevenue", label: "MRR Collected ($)", currency: true },
   { name: "lowTicketCustomers", label: "Low-Ticket Customers", currency: false },
-]
-
-const ADS_FUNNEL_FIELDS = [
-  { name: "adSpend", label: "Ad Spend ($)", currency: true },
-  { name: "highTicketLandingPageViews", label: "High-Ticket LP Views", currency: false },
-  { name: "lowTicketLandingPageViews", label: "Low-Ticket LP Views", currency: false },
-  { name: "businessExpenses", label: "Business Expenses ($)", currency: true },
   { name: "customersCanceled", label: "Customers Canceled", currency: false },
 ]
 
-const CONTENT_FIELDS = [
-  { name: "youtubeGrowth", label: "YouTube Growth", currency: false },
-  { name: "instagramGrowth", label: "Instagram Growth", currency: false },
-  { name: "qualifiedFollowerGrowth", label: "Qualified Follower Growth", currency: false },
-  { name: "emailOptIns", label: "Email Opt-ins", currency: false },
-  { name: "organicReach", label: "Organic Reach", currency: false },
+// ── Ads + Funnel (DataEntry) ───────────────────────────────────────────────
+const ADS_FIELDS = [
+  { name: "adSpend", label: "Ad Spend ($)", currency: true },
+  { name: "highTicketLandingPageViews", label: "HT LP Views", currency: false },
+  { name: "lowTicketLandingPageViews", label: "LT LP Views", currency: false },
 ]
+
+// emailOptIns lives in ContentMetric but is displayed here; submitted separately
+const OPT_INS_FIELD = { name: "emailOptIns", label: "Opt-ins", currency: false }
+
+// ── Organic (ContentMetric) ────────────────────────────────────────────────
+const ORGANIC_FIELDS = [
+  { name: "youtubeGrowth", label: "YouTube Growth", currency: false },
+  { name: "instagramGrowth", label: "IG Growth", currency: false },
+  { name: "qualifiedFollowerGrowth", label: "IG Qualified Follower Growth", currency: false },
+  { name: "organicReach", label: "IG Organic Reach", currency: false },
+]
+
+// ── Business (DataEntry) ───────────────────────────────────────────────────
+const BUSINESS_FIELDS = [
+  { name: "businessExpenses", label: "Business Expenses ($)", currency: true },
+]
+
+// All DataEntry fields (submitted to /api/entries)
+const DATA_ENTRY_FIELDS = [
+  ...PROSPECTING_FIELDS,
+  ...CALLS_FIELDS,
+  ...REVENUE_FIELDS,
+  ...ADS_FIELDS,
+  ...BUSINESS_FIELDS,
+]
+
+// All ContentMetric fields (submitted to /api/content-metrics)
+const CONTENT_METRIC_FIELDS = [...ORGANIC_FIELDS, OPT_INS_FIELD]
 
 function parseField(value: string, currency: boolean) {
   return currency ? parseFloat(value ?? "0") || 0 : parseInt(value ?? "0") || 0
@@ -78,6 +97,22 @@ export default function ManagerForm({ products, userId, orgId }: ManagerFormProp
     setFields((prev) => ({ ...prev, [name]: value }))
   }
 
+  function fieldInput(field: { name: string; label: string; currency: boolean }) {
+    return (
+      <div key={field.name} className="space-y-1">
+        <Label className="text-xs">{field.label}</Label>
+        <Input
+          type="number"
+          value={fields[field.name] ?? ""}
+          onChange={(e) => handleChange(field.name, e.target.value)}
+          placeholder={field.currency ? "0.00" : "0"}
+          min="0"
+          step={field.currency ? "0.01" : "1"}
+        />
+      </div>
+    )
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!productId) {
@@ -93,12 +128,10 @@ export default function ManagerForm({ products, userId, orgId }: ManagerFormProp
       organizationId: orgId,
       productId,
       date,
-      ...Object.fromEntries([...PROSPECTING_FIELDS, ...CLOSING_FIELDS, ...REVENUE_FIELDS, ...ADS_FUNNEL_FIELDS].map(
-        (f) => [f.name, parseField(fields[f.name] ?? "0", f.currency)]
-      )),
+      ...Object.fromEntries(DATA_ENTRY_FIELDS.map((f) => [f.name, parseField(fields[f.name] ?? "0", f.currency)])),
     }
 
-    const contentValues = CONTENT_FIELDS.map((f) => parseField(fields[f.name] ?? "0", f.currency))
+    const contentValues = CONTENT_METRIC_FIELDS.map((f) => parseField(fields[f.name] ?? "0", f.currency))
     const hasContentData = contentValues.some((v) => v !== 0)
 
     const requests: Promise<Response>[] = [
@@ -112,7 +145,7 @@ export default function ManagerForm({ products, userId, orgId }: ManagerFormProp
     if (hasContentData) {
       const contentPayload = {
         date,
-        ...Object.fromEntries(CONTENT_FIELDS.map((f, i) => [f.name, contentValues[i]])),
+        ...Object.fromEntries(CONTENT_METRIC_FIELDS.map((f, i) => [f.name, contentValues[i]])),
       }
       requests.push(
         fetch("/api/content-metrics", {
@@ -126,8 +159,7 @@ export default function ManagerForm({ products, userId, orgId }: ManagerFormProp
     const results = await Promise.all(requests)
     setLoading(false)
 
-    const allOk = results.every((r) => r.ok)
-    if (allOk) {
+    if (results.every((r) => r.ok)) {
       setSuccess(true)
       setFields({})
       setProductId("")
@@ -145,6 +177,7 @@ export default function ManagerForm({ products, userId, orgId }: ManagerFormProp
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Date + Offer — shared across all sections */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1">
               <Label>Date</Label>
@@ -165,100 +198,51 @@ export default function ManagerForm({ products, userId, orgId }: ManagerFormProp
             </div>
           </div>
 
-          <AccordionSection title="Sales Entry" icon={<Users className="h-4 w-4" />} defaultOpen>
-            <div className="space-y-4">
+          {/* ── Sales ─────────────────────────────────────────────────────── */}
+          <AccordionSection title="Sales" icon={<TrendingUp className="h-4 w-4" />} defaultOpen>
+            <div className="space-y-5">
               <div>
                 <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Prospecting</h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-                  {PROSPECTING_FIELDS.map((field) => (
-                    <div key={field.name} className="space-y-1">
-                      <Label className="text-xs">{field.label}</Label>
-                      <Input
-                        type="number"
-                        value={fields[field.name] ?? ""}
-                        onChange={(e) => handleChange(field.name, e.target.value)}
-                        placeholder="0"
-                        min="0"
-                        step="1"
-                      />
-                    </div>
-                  ))}
+                  {PROSPECTING_FIELDS.map(fieldInput)}
                 </div>
               </div>
 
               <div>
-                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Calls &amp; Closing</h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                  {CLOSING_FIELDS.map((field) => (
-                    <div key={field.name} className="space-y-1">
-                      <Label className="text-xs">{field.label}</Label>
-                      <Input
-                        type="number"
-                        value={fields[field.name] ?? ""}
-                        onChange={(e) => handleChange(field.name, e.target.value)}
-                        placeholder="0"
-                        min="0"
-                        step="1"
-                      />
-                    </div>
-                  ))}
+                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Calls</h3>
+                <div className="grid grid-cols-2 gap-3 max-w-xs">
+                  {CALLS_FIELDS.map(fieldInput)}
                 </div>
               </div>
 
               <div>
                 <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Revenue</h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-                  {REVENUE_FIELDS.map((field) => (
-                    <div key={field.name} className="space-y-1">
-                      <Label className="text-xs">{field.label}</Label>
-                      <Input
-                        type="number"
-                        value={fields[field.name] ?? ""}
-                        onChange={(e) => handleChange(field.name, e.target.value)}
-                        placeholder={field.currency ? "0.00" : "0"}
-                        min="0"
-                        step={field.currency ? "0.01" : "1"}
-                      />
-                    </div>
-                  ))}
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  {REVENUE_FIELDS.map(fieldInput)}
                 </div>
               </div>
             </div>
           </AccordionSection>
 
+          {/* ── Ads + Funnel ──────────────────────────────────────────────── */}
           <AccordionSection title="Ads + Funnel" icon={<Megaphone className="h-4 w-4" />} defaultOpen={false}>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-              {ADS_FUNNEL_FIELDS.map((field) => (
-                <div key={field.name} className="space-y-1">
-                  <Label className="text-xs">{field.label}</Label>
-                  <Input
-                    type="number"
-                    value={fields[field.name] ?? ""}
-                    onChange={(e) => handleChange(field.name, e.target.value)}
-                    placeholder={field.currency ? "0.00" : "0"}
-                    min="0"
-                    step={field.currency ? "0.01" : "1"}
-                  />
-                </div>
-              ))}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {ADS_FIELDS.map(fieldInput)}
+              {fieldInput(OPT_INS_FIELD)}
             </div>
           </AccordionSection>
 
-          <AccordionSection title="Content & Organic" icon={<BarChart3 className="h-4 w-4" />} defaultOpen={false}>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-              {CONTENT_FIELDS.map((field) => (
-                <div key={field.name} className="space-y-1">
-                  <Label className="text-xs">{field.label}</Label>
-                  <Input
-                    type="number"
-                    value={fields[field.name] ?? ""}
-                    onChange={(e) => handleChange(field.name, e.target.value)}
-                    placeholder="0"
-                    min="0"
-                    step="1"
-                  />
-                </div>
-              ))}
+          {/* ── Organic ───────────────────────────────────────────────────── */}
+          <AccordionSection title="Organic" icon={<Leaf className="h-4 w-4" />} defaultOpen={false}>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {ORGANIC_FIELDS.map(fieldInput)}
+            </div>
+          </AccordionSection>
+
+          {/* ── Business ──────────────────────────────────────────────────── */}
+          <AccordionSection title="Business" icon={<Briefcase className="h-4 w-4" />} defaultOpen={false}>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-w-xs">
+              {BUSINESS_FIELDS.map(fieldInput)}
             </div>
           </AccordionSection>
 

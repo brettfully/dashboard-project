@@ -22,18 +22,21 @@ interface AeFormProps {
   orgId: string
 }
 
-const AE_INT_FIELDS = [
-  { name: "callsToday", label: "Calls Today" },
-  { name: "showCalls", label: "Calls Showed" },
-  { name: "offersMade", label: "Offers Presented" },
-  { name: "dealsWon", label: "Calls Closed" },
+const CALLS_FIELDS = [
+  { name: "callsToday", label: "Calls Today", currency: false },
+  { name: "dealsWon", label: "Closes Today", currency: false },
 ]
 
-const AE_CURRENCY_FIELDS = [
-  { name: "cashCollected", label: "Cash Collected ($)" },
-  { name: "revenueGenerated", label: "Revenue ($)" },
-  { name: "refunds", label: "Refunds ($)" },
+const REVENUE_FIELDS = [
+  { name: "cashCollected", label: "Cash Collected ($)", currency: true },
+  { name: "revenueGenerated", label: "Revenue ($)", currency: true },
+  { name: "refunds", label: "Refunds ($)", currency: true },
+  { name: "monthlyRecurringRevenue", label: "MRR Collected ($)", currency: true },
+  { name: "lowTicketCustomers", label: "Low-Ticket Customers", currency: false },
+  { name: "customersCanceled", label: "Customers Canceled", currency: false },
 ]
+
+const ALL_FIELDS = [...CALLS_FIELDS, ...REVENUE_FIELDS]
 
 export default function AeForm({ products, userId, orgId }: AeFormProps) {
   const router = useRouter()
@@ -63,8 +66,13 @@ export default function AeForm({ products, userId, orgId }: AeFormProps) {
       organizationId: orgId,
       productId,
       date,
-      ...Object.fromEntries(AE_INT_FIELDS.map((f) => [f.name, parseInt(fields[f.name] ?? "0") || 0])),
-      ...Object.fromEntries(AE_CURRENCY_FIELDS.map((f) => [f.name, parseFloat(fields[f.name] ?? "0") || 0])),
+      ...Object.fromEntries(
+        ALL_FIELDS.map((f) =>
+          f.currency
+            ? [f.name, parseFloat(fields[f.name] ?? "0") || 0]
+            : [f.name, parseInt(fields[f.name] ?? "0") || 0]
+        )
+      ),
     }
 
     const res = await fetch("/api/entries", {
@@ -97,7 +105,7 @@ export default function AeForm({ products, userId, orgId }: AeFormProps) {
             <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="max-w-xs" />
           </div>
 
-          <AccordionSection title="Sales Entry" icon={<DollarSign className="h-4 w-4" />} defaultOpen>
+          <AccordionSection title="Sales" icon={<DollarSign className="h-4 w-4" />} defaultOpen>
             <div className="space-y-4">
               <div className="space-y-1">
                 <Label>Offer <span className="text-red-500">*</span></Label>
@@ -114,11 +122,9 @@ export default function AeForm({ products, userId, orgId }: AeFormProps) {
               </div>
 
               <div>
-                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
-                  Calls &amp; Closing
-                </h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                  {AE_INT_FIELDS.map((field) => (
+                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Calls</h3>
+                <div className="grid grid-cols-2 gap-3 max-w-xs">
+                  {CALLS_FIELDS.map((field) => (
                     <div key={field.name} className="space-y-1">
                       <Label className="text-xs">{field.label}</Label>
                       <Input
@@ -135,20 +141,18 @@ export default function AeForm({ products, userId, orgId }: AeFormProps) {
               </div>
 
               <div>
-                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
-                  Revenue
-                </h3>
+                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Revenue</h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                  {AE_CURRENCY_FIELDS.map((field) => (
+                  {REVENUE_FIELDS.map((field) => (
                     <div key={field.name} className="space-y-1">
                       <Label className="text-xs">{field.label}</Label>
                       <Input
                         type="number"
                         value={fields[field.name] ?? ""}
                         onChange={(e) => handleChange(field.name, e.target.value)}
-                        placeholder="0.00"
+                        placeholder={field.currency ? "0.00" : "0"}
                         min="0"
-                        step="0.01"
+                        step={field.currency ? "0.01" : "1"}
                       />
                     </div>
                   ))}

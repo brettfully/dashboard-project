@@ -22,7 +22,7 @@ interface SdrFormProps {
   orgId: string
 }
 
-const SDR_FIELDS = [
+const PROSPECTING_FIELDS = [
   { name: "dials", label: "Dials" },
   { name: "outboundMessages", label: "Outbound Messages" },
   { name: "inboundMessages", label: "Inbound Messages" },
@@ -58,7 +58,7 @@ export default function SdrForm({ products, userId, orgId }: SdrFormProps) {
       organizationId: orgId,
       productId,
       date,
-      ...Object.fromEntries(SDR_FIELDS.map((f) => [f.name, parseInt(fields[f.name] ?? "0") || 0])),
+      ...Object.fromEntries(PROSPECTING_FIELDS.map((f) => [f.name, parseInt(fields[f.name] ?? "0") || 0])),
     }
 
     const res = await fetch("/api/entries", {
@@ -91,7 +91,7 @@ export default function SdrForm({ products, userId, orgId }: SdrFormProps) {
             <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="max-w-xs" />
           </div>
 
-          <AccordionSection title="Sales Entry" icon={<TrendingUp className="h-4 w-4" />} defaultOpen>
+          <AccordionSection title="Sales" icon={<TrendingUp className="h-4 w-4" />} defaultOpen>
             <div className="space-y-4">
               <div className="space-y-1">
                 <Label>Offer <span className="text-red-500">*</span></Label>
@@ -106,20 +106,24 @@ export default function SdrForm({ products, userId, orgId }: SdrFormProps) {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-                {SDR_FIELDS.map((field) => (
-                  <div key={field.name} className="space-y-1">
-                    <Label className="text-xs">{field.label}</Label>
-                    <Input
-                      type="number"
-                      value={fields[field.name] ?? ""}
-                      onChange={(e) => handleChange(field.name, e.target.value)}
-                      placeholder="0"
-                      min="0"
-                      step="1"
-                    />
-                  </div>
-                ))}
+
+              <div>
+                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Prospecting</h3>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+                  {PROSPECTING_FIELDS.map((field) => (
+                    <div key={field.name} className="space-y-1">
+                      <Label className="text-xs">{field.label}</Label>
+                      <Input
+                        type="number"
+                        value={fields[field.name] ?? ""}
+                        onChange={(e) => handleChange(field.name, e.target.value)}
+                        placeholder="0"
+                        min="0"
+                        step="1"
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </AccordionSection>
