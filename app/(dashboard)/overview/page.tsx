@@ -51,7 +51,7 @@ export default async function OverviewPage({
   const totalRevenue      = sum(currentEntries, "revenueGenerated")
   const scheduledCalls    = sum(currentEntries, "scheduledCalls")
   const adSpend           = sum(currentEntries, "adSpend")
-  const roas              = calcROAS(totalRevenue, adSpend)
+  const roas              = calcROAS(newCashCollected, adSpend)
 
   const totalCashCollected = allTimeEntries.reduce((acc, e) => acc + Number(e.cashCollected), 0)
 
