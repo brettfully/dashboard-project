@@ -391,6 +391,7 @@ export const ModelName = {
   ContentMetric: 'ContentMetric',
   FinancialReport: 'FinancialReport',
   CustomMetric: 'CustomMetric',
+  OverviewCell: 'OverviewCell',
   CustomMetricEntry: 'CustomMetricEntry'
 } as const
 
@@ -407,7 +408,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "organization" | "user" | "product" | "dataEntry" | "contentMetric" | "financialReport" | "customMetric" | "customMetricEntry"
+    modelProps: "organization" | "user" | "product" | "dataEntry" | "contentMetric" | "financialReport" | "customMetric" | "overviewCell" | "customMetricEntry"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -929,6 +930,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    OverviewCell: {
+      payload: Prisma.$OverviewCellPayload<ExtArgs>
+      fields: Prisma.OverviewCellFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.OverviewCellFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OverviewCellPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.OverviewCellFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OverviewCellPayload>
+        }
+        findFirst: {
+          args: Prisma.OverviewCellFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OverviewCellPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.OverviewCellFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OverviewCellPayload>
+        }
+        findMany: {
+          args: Prisma.OverviewCellFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OverviewCellPayload>[]
+        }
+        create: {
+          args: Prisma.OverviewCellCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OverviewCellPayload>
+        }
+        createMany: {
+          args: Prisma.OverviewCellCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.OverviewCellCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OverviewCellPayload>[]
+        }
+        delete: {
+          args: Prisma.OverviewCellDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OverviewCellPayload>
+        }
+        update: {
+          args: Prisma.OverviewCellUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OverviewCellPayload>
+        }
+        deleteMany: {
+          args: Prisma.OverviewCellDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.OverviewCellUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.OverviewCellUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OverviewCellPayload>[]
+        }
+        upsert: {
+          args: Prisma.OverviewCellUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OverviewCellPayload>
+        }
+        aggregate: {
+          args: Prisma.OverviewCellAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOverviewCell>
+        }
+        groupBy: {
+          args: Prisma.OverviewCellGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OverviewCellGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.OverviewCellCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OverviewCellCountAggregateOutputType> | number
+        }
+      }
+    }
     CustomMetricEntry: {
       payload: Prisma.$CustomMetricEntryPayload<ExtArgs>
       fields: Prisma.CustomMetricEntryFieldRefs
@@ -1155,6 +1230,20 @@ export const CustomMetricScalarFieldEnum = {
 } as const
 
 export type CustomMetricScalarFieldEnum = (typeof CustomMetricScalarFieldEnum)[keyof typeof CustomMetricScalarFieldEnum]
+
+
+export const OverviewCellScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  label: 'label',
+  source: 'source',
+  fieldName: 'fieldName',
+  displayAs: 'displayAs',
+  position: 'position',
+  createdAt: 'createdAt'
+} as const
+
+export type OverviewCellScalarFieldEnum = (typeof OverviewCellScalarFieldEnum)[keyof typeof OverviewCellScalarFieldEnum]
 
 
 export const CustomMetricEntryScalarFieldEnum = {
@@ -1408,6 +1497,7 @@ export type GlobalOmitConfig = {
   contentMetric?: Prisma.ContentMetricOmit
   financialReport?: Prisma.FinancialReportOmit
   customMetric?: Prisma.CustomMetricOmit
+  overviewCell?: Prisma.OverviewCellOmit
   customMetricEntry?: Prisma.CustomMetricEntryOmit
 }
 

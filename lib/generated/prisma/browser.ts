@@ -53,6 +53,11 @@ export type FinancialReport = Prisma.FinancialReportModel
  */
 export type CustomMetric = Prisma.CustomMetricModel
 /**
+ * Model OverviewCell
+ * 
+ */
+export type OverviewCell = Prisma.OverviewCellModel
+/**
  * Model CustomMetricEntry
  * 
  */

@@ -18,6 +18,7 @@ model Organization {
   contentMetrics   ContentMetric[]
   financialReports FinancialReport[]
   customMetrics    CustomMetric[]
+  overviewCells    OverviewCell[]
 }
 
 enum UserRole {
@@ -138,6 +139,19 @@ model CustomMetric {
   organization Organization      @relation(fields: [organizationId], references: [id])
   updatedBy    User?             @relation(fields: [updatedById], references: [id])
   entries      CustomMetricEntry[]
+}
+
+model OverviewCell {
+  id             String   @id @default(cuid())
+  organizationId String
+  label          String
+  source         String   // "standard" | "custom"
+  fieldName      String   // DataEntry field name OR CustomMetric.id
+  displayAs      String   @default("number") // "currency" | "number" | "percent"
+  position       Int      @default(0)
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id])
 }
 
 model CustomMetricEntry {
