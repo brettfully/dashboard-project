@@ -20,7 +20,7 @@ export default async function ManagerDataEntryPage() {
     redirect("/overview")
   }
 
-  const [products, entries] = await Promise.all([
+  const [products, entries, customMetrics] = await Promise.all([
     db.product.findMany({
       where: { organizationId: orgId, active: true },
       orderBy: { name: "asc" },
@@ -30,6 +30,10 @@ export default async function ManagerDataEntryPage() {
       include: { product: true, user: true },
       orderBy: { date: "desc" },
       take: 50,
+    }),
+    db.customMetric.findMany({
+      where: { organizationId: orgId, status: "ACTIVE", type: { not: "CALCULATED" } },
+      orderBy: { createdAt: "asc" },
     }),
   ])
 
@@ -42,6 +46,12 @@ export default async function ManagerDataEntryPage() {
             products={products.map((p) => ({ id: p.id, name: p.name }))}
             userId={userId!}
             orgId={orgId!}
+            customMetrics={customMetrics.map((m) => ({
+              id: m.id,
+              name: m.name,
+              type: m.type,
+              productIds: Array.isArray(m.productIds) ? (m.productIds as string[]) : [],
+            }))}
           />
         </div>
 

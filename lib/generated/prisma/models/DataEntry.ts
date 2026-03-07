@@ -36,6 +36,18 @@ export type DataEntryAvgAggregateOutputType = {
   cashCollected: number | null
   refunds: number | null
   adSpend: number | null
+  highTicketLandingPageViews: number | null
+  lowTicketLandingPageViews: number | null
+  inboundMessages: number | null
+  outboundMessages: number | null
+  dials: number | null
+  followUps: number | null
+  setsBooked: number | null
+  callsToday: number | null
+  lowTicketCustomers: number | null
+  monthlyRecurringRevenue: number | null
+  customersCanceled: number | null
+  businessExpenses: number | null
 }
 
 export type DataEntrySumAggregateOutputType = {
@@ -48,6 +60,18 @@ export type DataEntrySumAggregateOutputType = {
   cashCollected: number | null
   refunds: number | null
   adSpend: number | null
+  highTicketLandingPageViews: number | null
+  lowTicketLandingPageViews: number | null
+  inboundMessages: number | null
+  outboundMessages: number | null
+  dials: number | null
+  followUps: number | null
+  setsBooked: number | null
+  callsToday: number | null
+  lowTicketCustomers: number | null
+  monthlyRecurringRevenue: number | null
+  customersCanceled: number | null
+  businessExpenses: number | null
 }
 
 export type DataEntryMinAggregateOutputType = {
@@ -65,6 +89,18 @@ export type DataEntryMinAggregateOutputType = {
   cashCollected: number | null
   refunds: number | null
   adSpend: number | null
+  highTicketLandingPageViews: number | null
+  lowTicketLandingPageViews: number | null
+  inboundMessages: number | null
+  outboundMessages: number | null
+  dials: number | null
+  followUps: number | null
+  setsBooked: number | null
+  callsToday: number | null
+  lowTicketCustomers: number | null
+  monthlyRecurringRevenue: number | null
+  customersCanceled: number | null
+  businessExpenses: number | null
 }
 
 export type DataEntryMaxAggregateOutputType = {
@@ -82,6 +118,18 @@ export type DataEntryMaxAggregateOutputType = {
   cashCollected: number | null
   refunds: number | null
   adSpend: number | null
+  highTicketLandingPageViews: number | null
+  lowTicketLandingPageViews: number | null
+  inboundMessages: number | null
+  outboundMessages: number | null
+  dials: number | null
+  followUps: number | null
+  setsBooked: number | null
+  callsToday: number | null
+  lowTicketCustomers: number | null
+  monthlyRecurringRevenue: number | null
+  customersCanceled: number | null
+  businessExpenses: number | null
 }
 
 export type DataEntryCountAggregateOutputType = {
@@ -99,6 +147,18 @@ export type DataEntryCountAggregateOutputType = {
   cashCollected: number
   refunds: number
   adSpend: number
+  highTicketLandingPageViews: number
+  lowTicketLandingPageViews: number
+  inboundMessages: number
+  outboundMessages: number
+  dials: number
+  followUps: number
+  setsBooked: number
+  callsToday: number
+  lowTicketCustomers: number
+  monthlyRecurringRevenue: number
+  customersCanceled: number
+  businessExpenses: number
   _all: number
 }
 
@@ -113,6 +173,18 @@ export type DataEntryAvgAggregateInputType = {
   cashCollected?: true
   refunds?: true
   adSpend?: true
+  highTicketLandingPageViews?: true
+  lowTicketLandingPageViews?: true
+  inboundMessages?: true
+  outboundMessages?: true
+  dials?: true
+  followUps?: true
+  setsBooked?: true
+  callsToday?: true
+  lowTicketCustomers?: true
+  monthlyRecurringRevenue?: true
+  customersCanceled?: true
+  businessExpenses?: true
 }
 
 export type DataEntrySumAggregateInputType = {
@@ -125,6 +197,18 @@ export type DataEntrySumAggregateInputType = {
   cashCollected?: true
   refunds?: true
   adSpend?: true
+  highTicketLandingPageViews?: true
+  lowTicketLandingPageViews?: true
+  inboundMessages?: true
+  outboundMessages?: true
+  dials?: true
+  followUps?: true
+  setsBooked?: true
+  callsToday?: true
+  lowTicketCustomers?: true
+  monthlyRecurringRevenue?: true
+  customersCanceled?: true
+  businessExpenses?: true
 }
 
 export type DataEntryMinAggregateInputType = {
@@ -142,6 +226,18 @@ export type DataEntryMinAggregateInputType = {
   cashCollected?: true
   refunds?: true
   adSpend?: true
+  highTicketLandingPageViews?: true
+  lowTicketLandingPageViews?: true
+  inboundMessages?: true
+  outboundMessages?: true
+  dials?: true
+  followUps?: true
+  setsBooked?: true
+  callsToday?: true
+  lowTicketCustomers?: true
+  monthlyRecurringRevenue?: true
+  customersCanceled?: true
+  businessExpenses?: true
 }
 
 export type DataEntryMaxAggregateInputType = {
@@ -159,6 +255,18 @@ export type DataEntryMaxAggregateInputType = {
   cashCollected?: true
   refunds?: true
   adSpend?: true
+  highTicketLandingPageViews?: true
+  lowTicketLandingPageViews?: true
+  inboundMessages?: true
+  outboundMessages?: true
+  dials?: true
+  followUps?: true
+  setsBooked?: true
+  callsToday?: true
+  lowTicketCustomers?: true
+  monthlyRecurringRevenue?: true
+  customersCanceled?: true
+  businessExpenses?: true
 }
 
 export type DataEntryCountAggregateInputType = {
@@ -176,6 +284,18 @@ export type DataEntryCountAggregateInputType = {
   cashCollected?: true
   refunds?: true
   adSpend?: true
+  highTicketLandingPageViews?: true
+  lowTicketLandingPageViews?: true
+  inboundMessages?: true
+  outboundMessages?: true
+  dials?: true
+  followUps?: true
+  setsBooked?: true
+  callsToday?: true
+  lowTicketCustomers?: true
+  monthlyRecurringRevenue?: true
+  customersCanceled?: true
+  businessExpenses?: true
   _all?: true
 }
 
@@ -280,6 +400,18 @@ export type DataEntryGroupByOutputType = {
   cashCollected: number
   refunds: number
   adSpend: number
+  highTicketLandingPageViews: number
+  lowTicketLandingPageViews: number
+  inboundMessages: number
+  outboundMessages: number
+  dials: number
+  followUps: number
+  setsBooked: number
+  callsToday: number
+  lowTicketCustomers: number
+  monthlyRecurringRevenue: number
+  customersCanceled: number
+  businessExpenses: number
   _count: DataEntryCountAggregateOutputType | null
   _avg: DataEntryAvgAggregateOutputType | null
   _sum: DataEntrySumAggregateOutputType | null
@@ -320,6 +452,18 @@ export type DataEntryWhereInput = {
   cashCollected?: Prisma.FloatFilter<"DataEntry"> | number
   refunds?: Prisma.FloatFilter<"DataEntry"> | number
   adSpend?: Prisma.FloatFilter<"DataEntry"> | number
+  highTicketLandingPageViews?: Prisma.IntFilter<"DataEntry"> | number
+  lowTicketLandingPageViews?: Prisma.IntFilter<"DataEntry"> | number
+  inboundMessages?: Prisma.IntFilter<"DataEntry"> | number
+  outboundMessages?: Prisma.IntFilter<"DataEntry"> | number
+  dials?: Prisma.IntFilter<"DataEntry"> | number
+  followUps?: Prisma.IntFilter<"DataEntry"> | number
+  setsBooked?: Prisma.IntFilter<"DataEntry"> | number
+  callsToday?: Prisma.IntFilter<"DataEntry"> | number
+  lowTicketCustomers?: Prisma.IntFilter<"DataEntry"> | number
+  monthlyRecurringRevenue?: Prisma.FloatFilter<"DataEntry"> | number
+  customersCanceled?: Prisma.IntFilter<"DataEntry"> | number
+  businessExpenses?: Prisma.FloatFilter<"DataEntry"> | number
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   product?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
   organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
@@ -340,6 +484,18 @@ export type DataEntryOrderByWithRelationInput = {
   cashCollected?: Prisma.SortOrder
   refunds?: Prisma.SortOrder
   adSpend?: Prisma.SortOrder
+  highTicketLandingPageViews?: Prisma.SortOrder
+  lowTicketLandingPageViews?: Prisma.SortOrder
+  inboundMessages?: Prisma.SortOrder
+  outboundMessages?: Prisma.SortOrder
+  dials?: Prisma.SortOrder
+  followUps?: Prisma.SortOrder
+  setsBooked?: Prisma.SortOrder
+  callsToday?: Prisma.SortOrder
+  lowTicketCustomers?: Prisma.SortOrder
+  monthlyRecurringRevenue?: Prisma.SortOrder
+  customersCanceled?: Prisma.SortOrder
+  businessExpenses?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   product?: Prisma.ProductOrderByWithRelationInput
   organization?: Prisma.OrganizationOrderByWithRelationInput
@@ -363,6 +519,18 @@ export type DataEntryWhereUniqueInput = Prisma.AtLeast<{
   cashCollected?: Prisma.FloatFilter<"DataEntry"> | number
   refunds?: Prisma.FloatFilter<"DataEntry"> | number
   adSpend?: Prisma.FloatFilter<"DataEntry"> | number
+  highTicketLandingPageViews?: Prisma.IntFilter<"DataEntry"> | number
+  lowTicketLandingPageViews?: Prisma.IntFilter<"DataEntry"> | number
+  inboundMessages?: Prisma.IntFilter<"DataEntry"> | number
+  outboundMessages?: Prisma.IntFilter<"DataEntry"> | number
+  dials?: Prisma.IntFilter<"DataEntry"> | number
+  followUps?: Prisma.IntFilter<"DataEntry"> | number
+  setsBooked?: Prisma.IntFilter<"DataEntry"> | number
+  callsToday?: Prisma.IntFilter<"DataEntry"> | number
+  lowTicketCustomers?: Prisma.IntFilter<"DataEntry"> | number
+  monthlyRecurringRevenue?: Prisma.FloatFilter<"DataEntry"> | number
+  customersCanceled?: Prisma.IntFilter<"DataEntry"> | number
+  businessExpenses?: Prisma.FloatFilter<"DataEntry"> | number
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   product?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
   organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
@@ -383,6 +551,18 @@ export type DataEntryOrderByWithAggregationInput = {
   cashCollected?: Prisma.SortOrder
   refunds?: Prisma.SortOrder
   adSpend?: Prisma.SortOrder
+  highTicketLandingPageViews?: Prisma.SortOrder
+  lowTicketLandingPageViews?: Prisma.SortOrder
+  inboundMessages?: Prisma.SortOrder
+  outboundMessages?: Prisma.SortOrder
+  dials?: Prisma.SortOrder
+  followUps?: Prisma.SortOrder
+  setsBooked?: Prisma.SortOrder
+  callsToday?: Prisma.SortOrder
+  lowTicketCustomers?: Prisma.SortOrder
+  monthlyRecurringRevenue?: Prisma.SortOrder
+  customersCanceled?: Prisma.SortOrder
+  businessExpenses?: Prisma.SortOrder
   _count?: Prisma.DataEntryCountOrderByAggregateInput
   _avg?: Prisma.DataEntryAvgOrderByAggregateInput
   _max?: Prisma.DataEntryMaxOrderByAggregateInput
@@ -408,6 +588,18 @@ export type DataEntryScalarWhereWithAggregatesInput = {
   cashCollected?: Prisma.FloatWithAggregatesFilter<"DataEntry"> | number
   refunds?: Prisma.FloatWithAggregatesFilter<"DataEntry"> | number
   adSpend?: Prisma.FloatWithAggregatesFilter<"DataEntry"> | number
+  highTicketLandingPageViews?: Prisma.IntWithAggregatesFilter<"DataEntry"> | number
+  lowTicketLandingPageViews?: Prisma.IntWithAggregatesFilter<"DataEntry"> | number
+  inboundMessages?: Prisma.IntWithAggregatesFilter<"DataEntry"> | number
+  outboundMessages?: Prisma.IntWithAggregatesFilter<"DataEntry"> | number
+  dials?: Prisma.IntWithAggregatesFilter<"DataEntry"> | number
+  followUps?: Prisma.IntWithAggregatesFilter<"DataEntry"> | number
+  setsBooked?: Prisma.IntWithAggregatesFilter<"DataEntry"> | number
+  callsToday?: Prisma.IntWithAggregatesFilter<"DataEntry"> | number
+  lowTicketCustomers?: Prisma.IntWithAggregatesFilter<"DataEntry"> | number
+  monthlyRecurringRevenue?: Prisma.FloatWithAggregatesFilter<"DataEntry"> | number
+  customersCanceled?: Prisma.IntWithAggregatesFilter<"DataEntry"> | number
+  businessExpenses?: Prisma.FloatWithAggregatesFilter<"DataEntry"> | number
 }
 
 export type DataEntryCreateInput = {
@@ -422,6 +614,18 @@ export type DataEntryCreateInput = {
   cashCollected?: number
   refunds?: number
   adSpend?: number
+  highTicketLandingPageViews?: number
+  lowTicketLandingPageViews?: number
+  inboundMessages?: number
+  outboundMessages?: number
+  dials?: number
+  followUps?: number
+  setsBooked?: number
+  callsToday?: number
+  lowTicketCustomers?: number
+  monthlyRecurringRevenue?: number
+  customersCanceled?: number
+  businessExpenses?: number
   user: Prisma.UserCreateNestedOneWithoutDataEntriesInput
   product?: Prisma.ProductCreateNestedOneWithoutDataEntriesInput
   organization: Prisma.OrganizationCreateNestedOneWithoutDataEntriesInput
@@ -442,6 +646,18 @@ export type DataEntryUncheckedCreateInput = {
   cashCollected?: number
   refunds?: number
   adSpend?: number
+  highTicketLandingPageViews?: number
+  lowTicketLandingPageViews?: number
+  inboundMessages?: number
+  outboundMessages?: number
+  dials?: number
+  followUps?: number
+  setsBooked?: number
+  callsToday?: number
+  lowTicketCustomers?: number
+  monthlyRecurringRevenue?: number
+  customersCanceled?: number
+  businessExpenses?: number
 }
 
 export type DataEntryUpdateInput = {
@@ -456,6 +672,18 @@ export type DataEntryUpdateInput = {
   cashCollected?: Prisma.FloatFieldUpdateOperationsInput | number
   refunds?: Prisma.FloatFieldUpdateOperationsInput | number
   adSpend?: Prisma.FloatFieldUpdateOperationsInput | number
+  highTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  inboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  outboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  dials?: Prisma.IntFieldUpdateOperationsInput | number
+  followUps?: Prisma.IntFieldUpdateOperationsInput | number
+  setsBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  callsToday?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketCustomers?: Prisma.IntFieldUpdateOperationsInput | number
+  monthlyRecurringRevenue?: Prisma.FloatFieldUpdateOperationsInput | number
+  customersCanceled?: Prisma.IntFieldUpdateOperationsInput | number
+  businessExpenses?: Prisma.FloatFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutDataEntriesNestedInput
   product?: Prisma.ProductUpdateOneWithoutDataEntriesNestedInput
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutDataEntriesNestedInput
@@ -476,6 +704,18 @@ export type DataEntryUncheckedUpdateInput = {
   cashCollected?: Prisma.FloatFieldUpdateOperationsInput | number
   refunds?: Prisma.FloatFieldUpdateOperationsInput | number
   adSpend?: Prisma.FloatFieldUpdateOperationsInput | number
+  highTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  inboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  outboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  dials?: Prisma.IntFieldUpdateOperationsInput | number
+  followUps?: Prisma.IntFieldUpdateOperationsInput | number
+  setsBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  callsToday?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketCustomers?: Prisma.IntFieldUpdateOperationsInput | number
+  monthlyRecurringRevenue?: Prisma.FloatFieldUpdateOperationsInput | number
+  customersCanceled?: Prisma.IntFieldUpdateOperationsInput | number
+  businessExpenses?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type DataEntryCreateManyInput = {
@@ -493,6 +733,18 @@ export type DataEntryCreateManyInput = {
   cashCollected?: number
   refunds?: number
   adSpend?: number
+  highTicketLandingPageViews?: number
+  lowTicketLandingPageViews?: number
+  inboundMessages?: number
+  outboundMessages?: number
+  dials?: number
+  followUps?: number
+  setsBooked?: number
+  callsToday?: number
+  lowTicketCustomers?: number
+  monthlyRecurringRevenue?: number
+  customersCanceled?: number
+  businessExpenses?: number
 }
 
 export type DataEntryUpdateManyMutationInput = {
@@ -507,6 +759,18 @@ export type DataEntryUpdateManyMutationInput = {
   cashCollected?: Prisma.FloatFieldUpdateOperationsInput | number
   refunds?: Prisma.FloatFieldUpdateOperationsInput | number
   adSpend?: Prisma.FloatFieldUpdateOperationsInput | number
+  highTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  inboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  outboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  dials?: Prisma.IntFieldUpdateOperationsInput | number
+  followUps?: Prisma.IntFieldUpdateOperationsInput | number
+  setsBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  callsToday?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketCustomers?: Prisma.IntFieldUpdateOperationsInput | number
+  monthlyRecurringRevenue?: Prisma.FloatFieldUpdateOperationsInput | number
+  customersCanceled?: Prisma.IntFieldUpdateOperationsInput | number
+  businessExpenses?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type DataEntryUncheckedUpdateManyInput = {
@@ -524,6 +788,18 @@ export type DataEntryUncheckedUpdateManyInput = {
   cashCollected?: Prisma.FloatFieldUpdateOperationsInput | number
   refunds?: Prisma.FloatFieldUpdateOperationsInput | number
   adSpend?: Prisma.FloatFieldUpdateOperationsInput | number
+  highTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  inboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  outboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  dials?: Prisma.IntFieldUpdateOperationsInput | number
+  followUps?: Prisma.IntFieldUpdateOperationsInput | number
+  setsBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  callsToday?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketCustomers?: Prisma.IntFieldUpdateOperationsInput | number
+  monthlyRecurringRevenue?: Prisma.FloatFieldUpdateOperationsInput | number
+  customersCanceled?: Prisma.IntFieldUpdateOperationsInput | number
+  businessExpenses?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type DataEntryListRelationFilter = {
@@ -551,6 +827,18 @@ export type DataEntryCountOrderByAggregateInput = {
   cashCollected?: Prisma.SortOrder
   refunds?: Prisma.SortOrder
   adSpend?: Prisma.SortOrder
+  highTicketLandingPageViews?: Prisma.SortOrder
+  lowTicketLandingPageViews?: Prisma.SortOrder
+  inboundMessages?: Prisma.SortOrder
+  outboundMessages?: Prisma.SortOrder
+  dials?: Prisma.SortOrder
+  followUps?: Prisma.SortOrder
+  setsBooked?: Prisma.SortOrder
+  callsToday?: Prisma.SortOrder
+  lowTicketCustomers?: Prisma.SortOrder
+  monthlyRecurringRevenue?: Prisma.SortOrder
+  customersCanceled?: Prisma.SortOrder
+  businessExpenses?: Prisma.SortOrder
 }
 
 export type DataEntryAvgOrderByAggregateInput = {
@@ -563,6 +851,18 @@ export type DataEntryAvgOrderByAggregateInput = {
   cashCollected?: Prisma.SortOrder
   refunds?: Prisma.SortOrder
   adSpend?: Prisma.SortOrder
+  highTicketLandingPageViews?: Prisma.SortOrder
+  lowTicketLandingPageViews?: Prisma.SortOrder
+  inboundMessages?: Prisma.SortOrder
+  outboundMessages?: Prisma.SortOrder
+  dials?: Prisma.SortOrder
+  followUps?: Prisma.SortOrder
+  setsBooked?: Prisma.SortOrder
+  callsToday?: Prisma.SortOrder
+  lowTicketCustomers?: Prisma.SortOrder
+  monthlyRecurringRevenue?: Prisma.SortOrder
+  customersCanceled?: Prisma.SortOrder
+  businessExpenses?: Prisma.SortOrder
 }
 
 export type DataEntryMaxOrderByAggregateInput = {
@@ -580,6 +880,18 @@ export type DataEntryMaxOrderByAggregateInput = {
   cashCollected?: Prisma.SortOrder
   refunds?: Prisma.SortOrder
   adSpend?: Prisma.SortOrder
+  highTicketLandingPageViews?: Prisma.SortOrder
+  lowTicketLandingPageViews?: Prisma.SortOrder
+  inboundMessages?: Prisma.SortOrder
+  outboundMessages?: Prisma.SortOrder
+  dials?: Prisma.SortOrder
+  followUps?: Prisma.SortOrder
+  setsBooked?: Prisma.SortOrder
+  callsToday?: Prisma.SortOrder
+  lowTicketCustomers?: Prisma.SortOrder
+  monthlyRecurringRevenue?: Prisma.SortOrder
+  customersCanceled?: Prisma.SortOrder
+  businessExpenses?: Prisma.SortOrder
 }
 
 export type DataEntryMinOrderByAggregateInput = {
@@ -597,6 +909,18 @@ export type DataEntryMinOrderByAggregateInput = {
   cashCollected?: Prisma.SortOrder
   refunds?: Prisma.SortOrder
   adSpend?: Prisma.SortOrder
+  highTicketLandingPageViews?: Prisma.SortOrder
+  lowTicketLandingPageViews?: Prisma.SortOrder
+  inboundMessages?: Prisma.SortOrder
+  outboundMessages?: Prisma.SortOrder
+  dials?: Prisma.SortOrder
+  followUps?: Prisma.SortOrder
+  setsBooked?: Prisma.SortOrder
+  callsToday?: Prisma.SortOrder
+  lowTicketCustomers?: Prisma.SortOrder
+  monthlyRecurringRevenue?: Prisma.SortOrder
+  customersCanceled?: Prisma.SortOrder
+  businessExpenses?: Prisma.SortOrder
 }
 
 export type DataEntrySumOrderByAggregateInput = {
@@ -609,6 +933,18 @@ export type DataEntrySumOrderByAggregateInput = {
   cashCollected?: Prisma.SortOrder
   refunds?: Prisma.SortOrder
   adSpend?: Prisma.SortOrder
+  highTicketLandingPageViews?: Prisma.SortOrder
+  lowTicketLandingPageViews?: Prisma.SortOrder
+  inboundMessages?: Prisma.SortOrder
+  outboundMessages?: Prisma.SortOrder
+  dials?: Prisma.SortOrder
+  followUps?: Prisma.SortOrder
+  setsBooked?: Prisma.SortOrder
+  callsToday?: Prisma.SortOrder
+  lowTicketCustomers?: Prisma.SortOrder
+  monthlyRecurringRevenue?: Prisma.SortOrder
+  customersCanceled?: Prisma.SortOrder
+  businessExpenses?: Prisma.SortOrder
 }
 
 export type DataEntryCreateNestedManyWithoutOrganizationInput = {
@@ -757,6 +1093,18 @@ export type DataEntryCreateWithoutOrganizationInput = {
   cashCollected?: number
   refunds?: number
   adSpend?: number
+  highTicketLandingPageViews?: number
+  lowTicketLandingPageViews?: number
+  inboundMessages?: number
+  outboundMessages?: number
+  dials?: number
+  followUps?: number
+  setsBooked?: number
+  callsToday?: number
+  lowTicketCustomers?: number
+  monthlyRecurringRevenue?: number
+  customersCanceled?: number
+  businessExpenses?: number
   user: Prisma.UserCreateNestedOneWithoutDataEntriesInput
   product?: Prisma.ProductCreateNestedOneWithoutDataEntriesInput
 }
@@ -775,6 +1123,18 @@ export type DataEntryUncheckedCreateWithoutOrganizationInput = {
   cashCollected?: number
   refunds?: number
   adSpend?: number
+  highTicketLandingPageViews?: number
+  lowTicketLandingPageViews?: number
+  inboundMessages?: number
+  outboundMessages?: number
+  dials?: number
+  followUps?: number
+  setsBooked?: number
+  callsToday?: number
+  lowTicketCustomers?: number
+  monthlyRecurringRevenue?: number
+  customersCanceled?: number
+  businessExpenses?: number
 }
 
 export type DataEntryCreateOrConnectWithoutOrganizationInput = {
@@ -821,6 +1181,18 @@ export type DataEntryScalarWhereInput = {
   cashCollected?: Prisma.FloatFilter<"DataEntry"> | number
   refunds?: Prisma.FloatFilter<"DataEntry"> | number
   adSpend?: Prisma.FloatFilter<"DataEntry"> | number
+  highTicketLandingPageViews?: Prisma.IntFilter<"DataEntry"> | number
+  lowTicketLandingPageViews?: Prisma.IntFilter<"DataEntry"> | number
+  inboundMessages?: Prisma.IntFilter<"DataEntry"> | number
+  outboundMessages?: Prisma.IntFilter<"DataEntry"> | number
+  dials?: Prisma.IntFilter<"DataEntry"> | number
+  followUps?: Prisma.IntFilter<"DataEntry"> | number
+  setsBooked?: Prisma.IntFilter<"DataEntry"> | number
+  callsToday?: Prisma.IntFilter<"DataEntry"> | number
+  lowTicketCustomers?: Prisma.IntFilter<"DataEntry"> | number
+  monthlyRecurringRevenue?: Prisma.FloatFilter<"DataEntry"> | number
+  customersCanceled?: Prisma.IntFilter<"DataEntry"> | number
+  businessExpenses?: Prisma.FloatFilter<"DataEntry"> | number
 }
 
 export type DataEntryCreateWithoutUserInput = {
@@ -835,6 +1207,18 @@ export type DataEntryCreateWithoutUserInput = {
   cashCollected?: number
   refunds?: number
   adSpend?: number
+  highTicketLandingPageViews?: number
+  lowTicketLandingPageViews?: number
+  inboundMessages?: number
+  outboundMessages?: number
+  dials?: number
+  followUps?: number
+  setsBooked?: number
+  callsToday?: number
+  lowTicketCustomers?: number
+  monthlyRecurringRevenue?: number
+  customersCanceled?: number
+  businessExpenses?: number
   product?: Prisma.ProductCreateNestedOneWithoutDataEntriesInput
   organization: Prisma.OrganizationCreateNestedOneWithoutDataEntriesInput
 }
@@ -853,6 +1237,18 @@ export type DataEntryUncheckedCreateWithoutUserInput = {
   cashCollected?: number
   refunds?: number
   adSpend?: number
+  highTicketLandingPageViews?: number
+  lowTicketLandingPageViews?: number
+  inboundMessages?: number
+  outboundMessages?: number
+  dials?: number
+  followUps?: number
+  setsBooked?: number
+  callsToday?: number
+  lowTicketCustomers?: number
+  monthlyRecurringRevenue?: number
+  customersCanceled?: number
+  businessExpenses?: number
 }
 
 export type DataEntryCreateOrConnectWithoutUserInput = {
@@ -893,6 +1289,18 @@ export type DataEntryCreateWithoutProductInput = {
   cashCollected?: number
   refunds?: number
   adSpend?: number
+  highTicketLandingPageViews?: number
+  lowTicketLandingPageViews?: number
+  inboundMessages?: number
+  outboundMessages?: number
+  dials?: number
+  followUps?: number
+  setsBooked?: number
+  callsToday?: number
+  lowTicketCustomers?: number
+  monthlyRecurringRevenue?: number
+  customersCanceled?: number
+  businessExpenses?: number
   user: Prisma.UserCreateNestedOneWithoutDataEntriesInput
   organization: Prisma.OrganizationCreateNestedOneWithoutDataEntriesInput
 }
@@ -911,6 +1319,18 @@ export type DataEntryUncheckedCreateWithoutProductInput = {
   cashCollected?: number
   refunds?: number
   adSpend?: number
+  highTicketLandingPageViews?: number
+  lowTicketLandingPageViews?: number
+  inboundMessages?: number
+  outboundMessages?: number
+  dials?: number
+  followUps?: number
+  setsBooked?: number
+  callsToday?: number
+  lowTicketCustomers?: number
+  monthlyRecurringRevenue?: number
+  customersCanceled?: number
+  businessExpenses?: number
 }
 
 export type DataEntryCreateOrConnectWithoutProductInput = {
@@ -953,6 +1373,18 @@ export type DataEntryCreateManyOrganizationInput = {
   cashCollected?: number
   refunds?: number
   adSpend?: number
+  highTicketLandingPageViews?: number
+  lowTicketLandingPageViews?: number
+  inboundMessages?: number
+  outboundMessages?: number
+  dials?: number
+  followUps?: number
+  setsBooked?: number
+  callsToday?: number
+  lowTicketCustomers?: number
+  monthlyRecurringRevenue?: number
+  customersCanceled?: number
+  businessExpenses?: number
 }
 
 export type DataEntryUpdateWithoutOrganizationInput = {
@@ -967,6 +1399,18 @@ export type DataEntryUpdateWithoutOrganizationInput = {
   cashCollected?: Prisma.FloatFieldUpdateOperationsInput | number
   refunds?: Prisma.FloatFieldUpdateOperationsInput | number
   adSpend?: Prisma.FloatFieldUpdateOperationsInput | number
+  highTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  inboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  outboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  dials?: Prisma.IntFieldUpdateOperationsInput | number
+  followUps?: Prisma.IntFieldUpdateOperationsInput | number
+  setsBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  callsToday?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketCustomers?: Prisma.IntFieldUpdateOperationsInput | number
+  monthlyRecurringRevenue?: Prisma.FloatFieldUpdateOperationsInput | number
+  customersCanceled?: Prisma.IntFieldUpdateOperationsInput | number
+  businessExpenses?: Prisma.FloatFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutDataEntriesNestedInput
   product?: Prisma.ProductUpdateOneWithoutDataEntriesNestedInput
 }
@@ -985,6 +1429,18 @@ export type DataEntryUncheckedUpdateWithoutOrganizationInput = {
   cashCollected?: Prisma.FloatFieldUpdateOperationsInput | number
   refunds?: Prisma.FloatFieldUpdateOperationsInput | number
   adSpend?: Prisma.FloatFieldUpdateOperationsInput | number
+  highTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  inboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  outboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  dials?: Prisma.IntFieldUpdateOperationsInput | number
+  followUps?: Prisma.IntFieldUpdateOperationsInput | number
+  setsBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  callsToday?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketCustomers?: Prisma.IntFieldUpdateOperationsInput | number
+  monthlyRecurringRevenue?: Prisma.FloatFieldUpdateOperationsInput | number
+  customersCanceled?: Prisma.IntFieldUpdateOperationsInput | number
+  businessExpenses?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type DataEntryUncheckedUpdateManyWithoutOrganizationInput = {
@@ -1001,6 +1457,18 @@ export type DataEntryUncheckedUpdateManyWithoutOrganizationInput = {
   cashCollected?: Prisma.FloatFieldUpdateOperationsInput | number
   refunds?: Prisma.FloatFieldUpdateOperationsInput | number
   adSpend?: Prisma.FloatFieldUpdateOperationsInput | number
+  highTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  inboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  outboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  dials?: Prisma.IntFieldUpdateOperationsInput | number
+  followUps?: Prisma.IntFieldUpdateOperationsInput | number
+  setsBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  callsToday?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketCustomers?: Prisma.IntFieldUpdateOperationsInput | number
+  monthlyRecurringRevenue?: Prisma.FloatFieldUpdateOperationsInput | number
+  customersCanceled?: Prisma.IntFieldUpdateOperationsInput | number
+  businessExpenses?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type DataEntryCreateManyUserInput = {
@@ -1017,6 +1485,18 @@ export type DataEntryCreateManyUserInput = {
   cashCollected?: number
   refunds?: number
   adSpend?: number
+  highTicketLandingPageViews?: number
+  lowTicketLandingPageViews?: number
+  inboundMessages?: number
+  outboundMessages?: number
+  dials?: number
+  followUps?: number
+  setsBooked?: number
+  callsToday?: number
+  lowTicketCustomers?: number
+  monthlyRecurringRevenue?: number
+  customersCanceled?: number
+  businessExpenses?: number
 }
 
 export type DataEntryUpdateWithoutUserInput = {
@@ -1031,6 +1511,18 @@ export type DataEntryUpdateWithoutUserInput = {
   cashCollected?: Prisma.FloatFieldUpdateOperationsInput | number
   refunds?: Prisma.FloatFieldUpdateOperationsInput | number
   adSpend?: Prisma.FloatFieldUpdateOperationsInput | number
+  highTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  inboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  outboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  dials?: Prisma.IntFieldUpdateOperationsInput | number
+  followUps?: Prisma.IntFieldUpdateOperationsInput | number
+  setsBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  callsToday?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketCustomers?: Prisma.IntFieldUpdateOperationsInput | number
+  monthlyRecurringRevenue?: Prisma.FloatFieldUpdateOperationsInput | number
+  customersCanceled?: Prisma.IntFieldUpdateOperationsInput | number
+  businessExpenses?: Prisma.FloatFieldUpdateOperationsInput | number
   product?: Prisma.ProductUpdateOneWithoutDataEntriesNestedInput
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutDataEntriesNestedInput
 }
@@ -1049,6 +1541,18 @@ export type DataEntryUncheckedUpdateWithoutUserInput = {
   cashCollected?: Prisma.FloatFieldUpdateOperationsInput | number
   refunds?: Prisma.FloatFieldUpdateOperationsInput | number
   adSpend?: Prisma.FloatFieldUpdateOperationsInput | number
+  highTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  inboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  outboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  dials?: Prisma.IntFieldUpdateOperationsInput | number
+  followUps?: Prisma.IntFieldUpdateOperationsInput | number
+  setsBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  callsToday?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketCustomers?: Prisma.IntFieldUpdateOperationsInput | number
+  monthlyRecurringRevenue?: Prisma.FloatFieldUpdateOperationsInput | number
+  customersCanceled?: Prisma.IntFieldUpdateOperationsInput | number
+  businessExpenses?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type DataEntryUncheckedUpdateManyWithoutUserInput = {
@@ -1065,6 +1569,18 @@ export type DataEntryUncheckedUpdateManyWithoutUserInput = {
   cashCollected?: Prisma.FloatFieldUpdateOperationsInput | number
   refunds?: Prisma.FloatFieldUpdateOperationsInput | number
   adSpend?: Prisma.FloatFieldUpdateOperationsInput | number
+  highTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  inboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  outboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  dials?: Prisma.IntFieldUpdateOperationsInput | number
+  followUps?: Prisma.IntFieldUpdateOperationsInput | number
+  setsBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  callsToday?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketCustomers?: Prisma.IntFieldUpdateOperationsInput | number
+  monthlyRecurringRevenue?: Prisma.FloatFieldUpdateOperationsInput | number
+  customersCanceled?: Prisma.IntFieldUpdateOperationsInput | number
+  businessExpenses?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type DataEntryCreateManyProductInput = {
@@ -1081,6 +1597,18 @@ export type DataEntryCreateManyProductInput = {
   cashCollected?: number
   refunds?: number
   adSpend?: number
+  highTicketLandingPageViews?: number
+  lowTicketLandingPageViews?: number
+  inboundMessages?: number
+  outboundMessages?: number
+  dials?: number
+  followUps?: number
+  setsBooked?: number
+  callsToday?: number
+  lowTicketCustomers?: number
+  monthlyRecurringRevenue?: number
+  customersCanceled?: number
+  businessExpenses?: number
 }
 
 export type DataEntryUpdateWithoutProductInput = {
@@ -1095,6 +1623,18 @@ export type DataEntryUpdateWithoutProductInput = {
   cashCollected?: Prisma.FloatFieldUpdateOperationsInput | number
   refunds?: Prisma.FloatFieldUpdateOperationsInput | number
   adSpend?: Prisma.FloatFieldUpdateOperationsInput | number
+  highTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  inboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  outboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  dials?: Prisma.IntFieldUpdateOperationsInput | number
+  followUps?: Prisma.IntFieldUpdateOperationsInput | number
+  setsBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  callsToday?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketCustomers?: Prisma.IntFieldUpdateOperationsInput | number
+  monthlyRecurringRevenue?: Prisma.FloatFieldUpdateOperationsInput | number
+  customersCanceled?: Prisma.IntFieldUpdateOperationsInput | number
+  businessExpenses?: Prisma.FloatFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutDataEntriesNestedInput
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutDataEntriesNestedInput
 }
@@ -1113,6 +1653,18 @@ export type DataEntryUncheckedUpdateWithoutProductInput = {
   cashCollected?: Prisma.FloatFieldUpdateOperationsInput | number
   refunds?: Prisma.FloatFieldUpdateOperationsInput | number
   adSpend?: Prisma.FloatFieldUpdateOperationsInput | number
+  highTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  inboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  outboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  dials?: Prisma.IntFieldUpdateOperationsInput | number
+  followUps?: Prisma.IntFieldUpdateOperationsInput | number
+  setsBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  callsToday?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketCustomers?: Prisma.IntFieldUpdateOperationsInput | number
+  monthlyRecurringRevenue?: Prisma.FloatFieldUpdateOperationsInput | number
+  customersCanceled?: Prisma.IntFieldUpdateOperationsInput | number
+  businessExpenses?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type DataEntryUncheckedUpdateManyWithoutProductInput = {
@@ -1129,6 +1681,18 @@ export type DataEntryUncheckedUpdateManyWithoutProductInput = {
   cashCollected?: Prisma.FloatFieldUpdateOperationsInput | number
   refunds?: Prisma.FloatFieldUpdateOperationsInput | number
   adSpend?: Prisma.FloatFieldUpdateOperationsInput | number
+  highTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketLandingPageViews?: Prisma.IntFieldUpdateOperationsInput | number
+  inboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  outboundMessages?: Prisma.IntFieldUpdateOperationsInput | number
+  dials?: Prisma.IntFieldUpdateOperationsInput | number
+  followUps?: Prisma.IntFieldUpdateOperationsInput | number
+  setsBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  callsToday?: Prisma.IntFieldUpdateOperationsInput | number
+  lowTicketCustomers?: Prisma.IntFieldUpdateOperationsInput | number
+  monthlyRecurringRevenue?: Prisma.FloatFieldUpdateOperationsInput | number
+  customersCanceled?: Prisma.IntFieldUpdateOperationsInput | number
+  businessExpenses?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 
@@ -1148,6 +1712,18 @@ export type DataEntrySelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   cashCollected?: boolean
   refunds?: boolean
   adSpend?: boolean
+  highTicketLandingPageViews?: boolean
+  lowTicketLandingPageViews?: boolean
+  inboundMessages?: boolean
+  outboundMessages?: boolean
+  dials?: boolean
+  followUps?: boolean
+  setsBooked?: boolean
+  callsToday?: boolean
+  lowTicketCustomers?: boolean
+  monthlyRecurringRevenue?: boolean
+  customersCanceled?: boolean
+  businessExpenses?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   product?: boolean | Prisma.DataEntry$productArgs<ExtArgs>
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
@@ -1168,6 +1744,18 @@ export type DataEntrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   cashCollected?: boolean
   refunds?: boolean
   adSpend?: boolean
+  highTicketLandingPageViews?: boolean
+  lowTicketLandingPageViews?: boolean
+  inboundMessages?: boolean
+  outboundMessages?: boolean
+  dials?: boolean
+  followUps?: boolean
+  setsBooked?: boolean
+  callsToday?: boolean
+  lowTicketCustomers?: boolean
+  monthlyRecurringRevenue?: boolean
+  customersCanceled?: boolean
+  businessExpenses?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   product?: boolean | Prisma.DataEntry$productArgs<ExtArgs>
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
@@ -1188,6 +1776,18 @@ export type DataEntrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   cashCollected?: boolean
   refunds?: boolean
   adSpend?: boolean
+  highTicketLandingPageViews?: boolean
+  lowTicketLandingPageViews?: boolean
+  inboundMessages?: boolean
+  outboundMessages?: boolean
+  dials?: boolean
+  followUps?: boolean
+  setsBooked?: boolean
+  callsToday?: boolean
+  lowTicketCustomers?: boolean
+  monthlyRecurringRevenue?: boolean
+  customersCanceled?: boolean
+  businessExpenses?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   product?: boolean | Prisma.DataEntry$productArgs<ExtArgs>
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
@@ -1208,9 +1808,21 @@ export type DataEntrySelectScalar = {
   cashCollected?: boolean
   refunds?: boolean
   adSpend?: boolean
+  highTicketLandingPageViews?: boolean
+  lowTicketLandingPageViews?: boolean
+  inboundMessages?: boolean
+  outboundMessages?: boolean
+  dials?: boolean
+  followUps?: boolean
+  setsBooked?: boolean
+  callsToday?: boolean
+  lowTicketCustomers?: boolean
+  monthlyRecurringRevenue?: boolean
+  customersCanceled?: boolean
+  businessExpenses?: boolean
 }
 
-export type DataEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "productId" | "date" | "organizationId" | "scheduledCalls" | "openMessages" | "showCalls" | "offersMade" | "dealsWon" | "revenueGenerated" | "cashCollected" | "refunds" | "adSpend", ExtArgs["result"]["dataEntry"]>
+export type DataEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "productId" | "date" | "organizationId" | "scheduledCalls" | "openMessages" | "showCalls" | "offersMade" | "dealsWon" | "revenueGenerated" | "cashCollected" | "refunds" | "adSpend" | "highTicketLandingPageViews" | "lowTicketLandingPageViews" | "inboundMessages" | "outboundMessages" | "dials" | "followUps" | "setsBooked" | "callsToday" | "lowTicketCustomers" | "monthlyRecurringRevenue" | "customersCanceled" | "businessExpenses", ExtArgs["result"]["dataEntry"]>
 export type DataEntryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   product?: boolean | Prisma.DataEntry$productArgs<ExtArgs>
@@ -1249,6 +1861,18 @@ export type $DataEntryPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     cashCollected: number
     refunds: number
     adSpend: number
+    highTicketLandingPageViews: number
+    lowTicketLandingPageViews: number
+    inboundMessages: number
+    outboundMessages: number
+    dials: number
+    followUps: number
+    setsBooked: number
+    callsToday: number
+    lowTicketCustomers: number
+    monthlyRecurringRevenue: number
+    customersCanceled: number
+    businessExpenses: number
   }, ExtArgs["result"]["dataEntry"]>
   composites: {}
 }
@@ -1689,6 +2313,18 @@ export interface DataEntryFieldRefs {
   readonly cashCollected: Prisma.FieldRef<"DataEntry", 'Float'>
   readonly refunds: Prisma.FieldRef<"DataEntry", 'Float'>
   readonly adSpend: Prisma.FieldRef<"DataEntry", 'Float'>
+  readonly highTicketLandingPageViews: Prisma.FieldRef<"DataEntry", 'Int'>
+  readonly lowTicketLandingPageViews: Prisma.FieldRef<"DataEntry", 'Int'>
+  readonly inboundMessages: Prisma.FieldRef<"DataEntry", 'Int'>
+  readonly outboundMessages: Prisma.FieldRef<"DataEntry", 'Int'>
+  readonly dials: Prisma.FieldRef<"DataEntry", 'Int'>
+  readonly followUps: Prisma.FieldRef<"DataEntry", 'Int'>
+  readonly setsBooked: Prisma.FieldRef<"DataEntry", 'Int'>
+  readonly callsToday: Prisma.FieldRef<"DataEntry", 'Int'>
+  readonly lowTicketCustomers: Prisma.FieldRef<"DataEntry", 'Int'>
+  readonly monthlyRecurringRevenue: Prisma.FieldRef<"DataEntry", 'Float'>
+  readonly customersCanceled: Prisma.FieldRef<"DataEntry", 'Int'>
+  readonly businessExpenses: Prisma.FieldRef<"DataEntry", 'Float'>
 }
     
 

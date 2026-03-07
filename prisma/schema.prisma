@@ -144,6 +144,8 @@ model CustomMetricEntry {
   customMetricId String
   date           DateTime @default(now())
   value          Float
+  userId         String?
+  productId      String?
 
   customMetric CustomMetric @relation(fields: [customMetricId], references: [id])
 }

@@ -16,10 +16,13 @@ import {
 } from "@/components/ui/select"
 import { AccordionSection } from "@/components/ui/accordion-section"
 
+type CustomMetricDef = { id: string; name: string; type: string; productIds: string[] }
+
 interface AeFormProps {
   products: { id: string; name: string }[]
   userId: string
   orgId: string
+  customMetrics: CustomMetricDef[]
 }
 
 const CALLS_FIELDS = [
@@ -38,7 +41,7 @@ const REVENUE_FIELDS = [
 
 const ALL_FIELDS = [...CALLS_FIELDS, ...REVENUE_FIELDS]
 
-export default function AeForm({ products, userId, orgId }: AeFormProps) {
+export default function AeForm({ products, userId, orgId, customMetrics }: AeFormProps) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -50,6 +53,10 @@ export default function AeForm({ products, userId, orgId }: AeFormProps) {
   function handleChange(name: string, value: string) {
     setFields((prev) => ({ ...prev, [name]: value }))
   }
+
+  const activeCustomMetrics = customMetrics.filter(
+    (m) => m.productIds.length === 0 || m.productIds.includes(productId)
+  )
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -75,21 +82,38 @@ export default function AeForm({ products, userId, orgId }: AeFormProps) {
       ),
     }
 
-    const res = await fetch("/api/entries", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    })
+    const requests: Promise<Response>[] = [
+      fetch("/api/entries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }),
+    ]
 
+    const customEntries = activeCustomMetrics
+      .map((m) => ({ customMetricId: m.id, value: parseFloat(fields[`cm_${m.id}`] ?? "0") || 0 }))
+      .filter((e) => e.value !== 0)
+
+    if (customEntries.length > 0) {
+      requests.push(
+        fetch("/api/custom-metrics/entries", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ date, productId, entries: customEntries }),
+        })
+      )
+    }
+
+    const results = await Promise.all(requests)
     setLoading(false)
-    if (res.ok) {
+    if (results.every((r) => r.ok)) {
       setSuccess(true)
       setFields({})
       setProductId("")
       router.refresh()
     } else {
-      const data = await res.json().catch(() => ({}))
-      setError(data.error ?? "Failed to submit entry.")
+      const failed = await Promise.all(results.filter((r) => !r.ok).map((r) => r.json().catch(() => ({}))))
+      setError(failed[0]?.error ?? "Failed to submit entry.")
     }
   }
 
@@ -160,6 +184,26 @@ export default function AeForm({ products, userId, orgId }: AeFormProps) {
               </div>
             </div>
           </AccordionSection>
+
+          {activeCustomMetrics.length > 0 && (
+            <AccordionSection title="Custom Metrics" icon={<DollarSign className="h-4 w-4" />} defaultOpen>
+              <div className="space-y-3">
+                {activeCustomMetrics.map((m) => (
+                  <div key={m.id} className="space-y-1">
+                    <Label className="text-xs text-muted-foreground">{m.name}</Label>
+                    <Input
+                      type="number"
+                      value={fields[`cm_${m.id}`] ?? ""}
+                      onChange={(e) => handleChange(`cm_${m.id}`, e.target.value)}
+                      placeholder={m.type === "CURRENCY" ? "0.00" : "0"}
+                      min="0"
+                      step={m.type === "CURRENCY" ? "0.01" : "1"}
+                    />
+                  </div>
+                ))}
+              </div>
+            </AccordionSection>
+          )}
 
           <div className="flex items-center gap-4 pt-2">
             <Button type="submit" disabled={loading}>

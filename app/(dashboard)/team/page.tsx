@@ -1,6 +1,5 @@
 import { auth } from "@/lib/auth"
 import { db } from "@/lib/db"
-import { Header } from "@/components/dashboard/header"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
@@ -33,8 +32,8 @@ export default async function TeamPage() {
 
   return (
     <div className="flex flex-col h-full">
-      <Header title="Team" />
       <div className="flex-1 p-6 space-y-6">
+        <h1 className="text-xl font-semibold text-foreground">Team</h1>
         <div className="flex items-center justify-between">
           <p className="text-sm text-muted-foreground">{members.length} team member{members.length !== 1 ? "s" : ""}</p>
           <InviteTeamMemberDialog orgId={orgId!} />

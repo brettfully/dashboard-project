@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp -r /tmp/dashboard-app/. \"/Users/brettfullerton/Desktop/Dashboard Project/\" && ls \"/Users/brettfullerton/Desktop/Dashboard Project\")",
+      "Bash(cd \"/Users/brettfullerton/Desktop/Dashboard Project\" && npx prisma init 2>&1)",
+      "Bash(cd \"/Users/brettfullerton/Desktop/Dashboard Project\" && node -e \"require\\('./node_modules/next/dist/bin/next'\\)\" 2>&1 | head -5)",
+      "Bash(cd \"/Users/brettfullerton/Desktop/Dashboard Project\" && node node_modules/next/dist/bin/next build 2>&1 | head -80)",
+      "Bash(cd \"/Users/brettfullerton/Desktop/Dashboard Project\" && node node_modules/next/dist/bin/next build 2>&1 | tail -40)",
+      "Bash(cd \"/Users/brettfullerton/Desktop/Dashboard Project\" && npx prisma generate 2>&1)",
+      "Bash(cd \"/Users/brettfullerton/Desktop/Dashboard Project\" && npm install @prisma/adapter-pg pg @types/pg 2>&1 | tail -5)",
+      "Bash(cd \"/Users/brettfullerton/Desktop/Dashboard Project\" && node node_modules/next/dist/bin/next build 2>&1 | tail -50)",
+      "Bash(cd \"/Users/brettfullerton/Desktop/Dashboard Project\" && node -e \"require\\('react-day-picker'\\); console.log\\('ok'\\)\" 2>&1)"
+    ]
+  }
+}

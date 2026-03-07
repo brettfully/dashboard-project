@@ -29,6 +29,15 @@ export type CustomMetricMinAggregateOutputType = {
   name: string | null
   organizationId: string | null
   createdAt: Date | null
+  type: string | null
+  role: string | null
+  firstField: string | null
+  operator: string | null
+  secondField: string | null
+  showResultAs: string | null
+  status: string | null
+  updatedAt: Date | null
+  updatedById: string | null
 }
 
 export type CustomMetricMaxAggregateOutputType = {
@@ -36,6 +45,15 @@ export type CustomMetricMaxAggregateOutputType = {
   name: string | null
   organizationId: string | null
   createdAt: Date | null
+  type: string | null
+  role: string | null
+  firstField: string | null
+  operator: string | null
+  secondField: string | null
+  showResultAs: string | null
+  status: string | null
+  updatedAt: Date | null
+  updatedById: string | null
 }
 
 export type CustomMetricCountAggregateOutputType = {
@@ -43,6 +61,16 @@ export type CustomMetricCountAggregateOutputType = {
   name: number
   organizationId: number
   createdAt: number
+  type: number
+  role: number
+  productIds: number
+  firstField: number
+  operator: number
+  secondField: number
+  showResultAs: number
+  status: number
+  updatedAt: number
+  updatedById: number
   _all: number
 }
 
@@ -52,6 +80,15 @@ export type CustomMetricMinAggregateInputType = {
   name?: true
   organizationId?: true
   createdAt?: true
+  type?: true
+  role?: true
+  firstField?: true
+  operator?: true
+  secondField?: true
+  showResultAs?: true
+  status?: true
+  updatedAt?: true
+  updatedById?: true
 }
 
 export type CustomMetricMaxAggregateInputType = {
@@ -59,6 +96,15 @@ export type CustomMetricMaxAggregateInputType = {
   name?: true
   organizationId?: true
   createdAt?: true
+  type?: true
+  role?: true
+  firstField?: true
+  operator?: true
+  secondField?: true
+  showResultAs?: true
+  status?: true
+  updatedAt?: true
+  updatedById?: true
 }
 
 export type CustomMetricCountAggregateInputType = {
@@ -66,6 +112,16 @@ export type CustomMetricCountAggregateInputType = {
   name?: true
   organizationId?: true
   createdAt?: true
+  type?: true
+  role?: true
+  productIds?: true
+  firstField?: true
+  operator?: true
+  secondField?: true
+  showResultAs?: true
+  status?: true
+  updatedAt?: true
+  updatedById?: true
   _all?: true
 }
 
@@ -146,6 +202,16 @@ export type CustomMetricGroupByOutputType = {
   name: string
   organizationId: string
   createdAt: Date
+  type: string
+  role: string | null
+  productIds: runtime.JsonValue | null
+  firstField: string | null
+  operator: string | null
+  secondField: string | null
+  showResultAs: string | null
+  status: string
+  updatedAt: Date | null
+  updatedById: string | null
   _count: CustomMetricCountAggregateOutputType | null
   _min: CustomMetricMinAggregateOutputType | null
   _max: CustomMetricMaxAggregateOutputType | null
@@ -174,7 +240,18 @@ export type CustomMetricWhereInput = {
   name?: Prisma.StringFilter<"CustomMetric"> | string
   organizationId?: Prisma.StringFilter<"CustomMetric"> | string
   createdAt?: Prisma.DateTimeFilter<"CustomMetric"> | Date | string
+  type?: Prisma.StringFilter<"CustomMetric"> | string
+  role?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
+  productIds?: Prisma.JsonNullableFilter<"CustomMetric">
+  firstField?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
+  operator?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
+  secondField?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
+  showResultAs?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
+  status?: Prisma.StringFilter<"CustomMetric"> | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"CustomMetric"> | Date | string | null
+  updatedById?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
   organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
+  updatedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   entries?: Prisma.CustomMetricEntryListRelationFilter
 }
 
@@ -183,7 +260,18 @@ export type CustomMetricOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   organizationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  type?: Prisma.SortOrder
+  role?: Prisma.SortOrderInput | Prisma.SortOrder
+  productIds?: Prisma.SortOrderInput | Prisma.SortOrder
+  firstField?: Prisma.SortOrderInput | Prisma.SortOrder
+  operator?: Prisma.SortOrderInput | Prisma.SortOrder
+  secondField?: Prisma.SortOrderInput | Prisma.SortOrder
+  showResultAs?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  updatedById?: Prisma.SortOrderInput | Prisma.SortOrder
   organization?: Prisma.OrganizationOrderByWithRelationInput
+  updatedBy?: Prisma.UserOrderByWithRelationInput
   entries?: Prisma.CustomMetricEntryOrderByRelationAggregateInput
 }
 
@@ -195,7 +283,18 @@ export type CustomMetricWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"CustomMetric"> | string
   organizationId?: Prisma.StringFilter<"CustomMetric"> | string
   createdAt?: Prisma.DateTimeFilter<"CustomMetric"> | Date | string
+  type?: Prisma.StringFilter<"CustomMetric"> | string
+  role?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
+  productIds?: Prisma.JsonNullableFilter<"CustomMetric">
+  firstField?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
+  operator?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
+  secondField?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
+  showResultAs?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
+  status?: Prisma.StringFilter<"CustomMetric"> | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"CustomMetric"> | Date | string | null
+  updatedById?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
   organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
+  updatedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   entries?: Prisma.CustomMetricEntryListRelationFilter
 }, "id">
 
@@ -204,6 +303,16 @@ export type CustomMetricOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   organizationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  type?: Prisma.SortOrder
+  role?: Prisma.SortOrderInput | Prisma.SortOrder
+  productIds?: Prisma.SortOrderInput | Prisma.SortOrder
+  firstField?: Prisma.SortOrderInput | Prisma.SortOrder
+  operator?: Prisma.SortOrderInput | Prisma.SortOrder
+  secondField?: Prisma.SortOrderInput | Prisma.SortOrder
+  showResultAs?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  updatedById?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.CustomMetricCountOrderByAggregateInput
   _max?: Prisma.CustomMetricMaxOrderByAggregateInput
   _min?: Prisma.CustomMetricMinOrderByAggregateInput
@@ -217,13 +326,33 @@ export type CustomMetricScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"CustomMetric"> | string
   organizationId?: Prisma.StringWithAggregatesFilter<"CustomMetric"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CustomMetric"> | Date | string
+  type?: Prisma.StringWithAggregatesFilter<"CustomMetric"> | string
+  role?: Prisma.StringNullableWithAggregatesFilter<"CustomMetric"> | string | null
+  productIds?: Prisma.JsonNullableWithAggregatesFilter<"CustomMetric">
+  firstField?: Prisma.StringNullableWithAggregatesFilter<"CustomMetric"> | string | null
+  operator?: Prisma.StringNullableWithAggregatesFilter<"CustomMetric"> | string | null
+  secondField?: Prisma.StringNullableWithAggregatesFilter<"CustomMetric"> | string | null
+  showResultAs?: Prisma.StringNullableWithAggregatesFilter<"CustomMetric"> | string | null
+  status?: Prisma.StringWithAggregatesFilter<"CustomMetric"> | string
+  updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"CustomMetric"> | Date | string | null
+  updatedById?: Prisma.StringNullableWithAggregatesFilter<"CustomMetric"> | string | null
 }
 
 export type CustomMetricCreateInput = {
   id?: string
   name: string
   createdAt?: Date | string
+  type?: string
+  role?: string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: string | null
+  operator?: string | null
+  secondField?: string | null
+  showResultAs?: string | null
+  status?: string
+  updatedAt?: Date | string | null
   organization: Prisma.OrganizationCreateNestedOneWithoutCustomMetricsInput
+  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedCustomMetricsInput
   entries?: Prisma.CustomMetricEntryCreateNestedManyWithoutCustomMetricInput
 }
 
@@ -232,6 +361,16 @@ export type CustomMetricUncheckedCreateInput = {
   name: string
   organizationId: string
   createdAt?: Date | string
+  type?: string
+  role?: string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: string | null
+  operator?: string | null
+  secondField?: string | null
+  showResultAs?: string | null
+  status?: string
+  updatedAt?: Date | string | null
+  updatedById?: string | null
   entries?: Prisma.CustomMetricEntryUncheckedCreateNestedManyWithoutCustomMetricInput
 }
 
@@ -239,7 +378,17 @@ export type CustomMetricUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  operator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showResultAs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutCustomMetricsNestedInput
+  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedCustomMetricsNestedInput
   entries?: Prisma.CustomMetricEntryUpdateManyWithoutCustomMetricNestedInput
 }
 
@@ -248,6 +397,16 @@ export type CustomMetricUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  operator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showResultAs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entries?: Prisma.CustomMetricEntryUncheckedUpdateManyWithoutCustomMetricNestedInput
 }
 
@@ -256,12 +415,31 @@ export type CustomMetricCreateManyInput = {
   name: string
   organizationId: string
   createdAt?: Date | string
+  type?: string
+  role?: string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: string | null
+  operator?: string | null
+  secondField?: string | null
+  showResultAs?: string | null
+  status?: string
+  updatedAt?: Date | string | null
+  updatedById?: string | null
 }
 
 export type CustomMetricUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  operator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showResultAs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CustomMetricUncheckedUpdateManyInput = {
@@ -269,6 +447,16 @@ export type CustomMetricUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  operator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showResultAs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type CustomMetricListRelationFilter = {
@@ -286,6 +474,16 @@ export type CustomMetricCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   organizationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  type?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  productIds?: Prisma.SortOrder
+  firstField?: Prisma.SortOrder
+  operator?: Prisma.SortOrder
+  secondField?: Prisma.SortOrder
+  showResultAs?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  updatedById?: Prisma.SortOrder
 }
 
 export type CustomMetricMaxOrderByAggregateInput = {
@@ -293,6 +491,15 @@ export type CustomMetricMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   organizationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  type?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  firstField?: Prisma.SortOrder
+  operator?: Prisma.SortOrder
+  secondField?: Prisma.SortOrder
+  showResultAs?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  updatedById?: Prisma.SortOrder
 }
 
 export type CustomMetricMinOrderByAggregateInput = {
@@ -300,6 +507,15 @@ export type CustomMetricMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   organizationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  type?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  firstField?: Prisma.SortOrder
+  operator?: Prisma.SortOrder
+  secondField?: Prisma.SortOrder
+  showResultAs?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  updatedById?: Prisma.SortOrder
 }
 
 export type CustomMetricScalarRelationFilter = {
@@ -349,6 +565,52 @@ export type CustomMetricUncheckedUpdateManyWithoutOrganizationNestedInput = {
   deleteMany?: Prisma.CustomMetricScalarWhereInput | Prisma.CustomMetricScalarWhereInput[]
 }
 
+export type CustomMetricCreateNestedManyWithoutUpdatedByInput = {
+  create?: Prisma.XOR<Prisma.CustomMetricCreateWithoutUpdatedByInput, Prisma.CustomMetricUncheckedCreateWithoutUpdatedByInput> | Prisma.CustomMetricCreateWithoutUpdatedByInput[] | Prisma.CustomMetricUncheckedCreateWithoutUpdatedByInput[]
+  connectOrCreate?: Prisma.CustomMetricCreateOrConnectWithoutUpdatedByInput | Prisma.CustomMetricCreateOrConnectWithoutUpdatedByInput[]
+  createMany?: Prisma.CustomMetricCreateManyUpdatedByInputEnvelope
+  connect?: Prisma.CustomMetricWhereUniqueInput | Prisma.CustomMetricWhereUniqueInput[]
+}
+
+export type CustomMetricUncheckedCreateNestedManyWithoutUpdatedByInput = {
+  create?: Prisma.XOR<Prisma.CustomMetricCreateWithoutUpdatedByInput, Prisma.CustomMetricUncheckedCreateWithoutUpdatedByInput> | Prisma.CustomMetricCreateWithoutUpdatedByInput[] | Prisma.CustomMetricUncheckedCreateWithoutUpdatedByInput[]
+  connectOrCreate?: Prisma.CustomMetricCreateOrConnectWithoutUpdatedByInput | Prisma.CustomMetricCreateOrConnectWithoutUpdatedByInput[]
+  createMany?: Prisma.CustomMetricCreateManyUpdatedByInputEnvelope
+  connect?: Prisma.CustomMetricWhereUniqueInput | Prisma.CustomMetricWhereUniqueInput[]
+}
+
+export type CustomMetricUpdateManyWithoutUpdatedByNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomMetricCreateWithoutUpdatedByInput, Prisma.CustomMetricUncheckedCreateWithoutUpdatedByInput> | Prisma.CustomMetricCreateWithoutUpdatedByInput[] | Prisma.CustomMetricUncheckedCreateWithoutUpdatedByInput[]
+  connectOrCreate?: Prisma.CustomMetricCreateOrConnectWithoutUpdatedByInput | Prisma.CustomMetricCreateOrConnectWithoutUpdatedByInput[]
+  upsert?: Prisma.CustomMetricUpsertWithWhereUniqueWithoutUpdatedByInput | Prisma.CustomMetricUpsertWithWhereUniqueWithoutUpdatedByInput[]
+  createMany?: Prisma.CustomMetricCreateManyUpdatedByInputEnvelope
+  set?: Prisma.CustomMetricWhereUniqueInput | Prisma.CustomMetricWhereUniqueInput[]
+  disconnect?: Prisma.CustomMetricWhereUniqueInput | Prisma.CustomMetricWhereUniqueInput[]
+  delete?: Prisma.CustomMetricWhereUniqueInput | Prisma.CustomMetricWhereUniqueInput[]
+  connect?: Prisma.CustomMetricWhereUniqueInput | Prisma.CustomMetricWhereUniqueInput[]
+  update?: Prisma.CustomMetricUpdateWithWhereUniqueWithoutUpdatedByInput | Prisma.CustomMetricUpdateWithWhereUniqueWithoutUpdatedByInput[]
+  updateMany?: Prisma.CustomMetricUpdateManyWithWhereWithoutUpdatedByInput | Prisma.CustomMetricUpdateManyWithWhereWithoutUpdatedByInput[]
+  deleteMany?: Prisma.CustomMetricScalarWhereInput | Prisma.CustomMetricScalarWhereInput[]
+}
+
+export type CustomMetricUncheckedUpdateManyWithoutUpdatedByNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomMetricCreateWithoutUpdatedByInput, Prisma.CustomMetricUncheckedCreateWithoutUpdatedByInput> | Prisma.CustomMetricCreateWithoutUpdatedByInput[] | Prisma.CustomMetricUncheckedCreateWithoutUpdatedByInput[]
+  connectOrCreate?: Prisma.CustomMetricCreateOrConnectWithoutUpdatedByInput | Prisma.CustomMetricCreateOrConnectWithoutUpdatedByInput[]
+  upsert?: Prisma.CustomMetricUpsertWithWhereUniqueWithoutUpdatedByInput | Prisma.CustomMetricUpsertWithWhereUniqueWithoutUpdatedByInput[]
+  createMany?: Prisma.CustomMetricCreateManyUpdatedByInputEnvelope
+  set?: Prisma.CustomMetricWhereUniqueInput | Prisma.CustomMetricWhereUniqueInput[]
+  disconnect?: Prisma.CustomMetricWhereUniqueInput | Prisma.CustomMetricWhereUniqueInput[]
+  delete?: Prisma.CustomMetricWhereUniqueInput | Prisma.CustomMetricWhereUniqueInput[]
+  connect?: Prisma.CustomMetricWhereUniqueInput | Prisma.CustomMetricWhereUniqueInput[]
+  update?: Prisma.CustomMetricUpdateWithWhereUniqueWithoutUpdatedByInput | Prisma.CustomMetricUpdateWithWhereUniqueWithoutUpdatedByInput[]
+  updateMany?: Prisma.CustomMetricUpdateManyWithWhereWithoutUpdatedByInput | Prisma.CustomMetricUpdateManyWithWhereWithoutUpdatedByInput[]
+  deleteMany?: Prisma.CustomMetricScalarWhereInput | Prisma.CustomMetricScalarWhereInput[]
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type CustomMetricCreateNestedOneWithoutEntriesInput = {
   create?: Prisma.XOR<Prisma.CustomMetricCreateWithoutEntriesInput, Prisma.CustomMetricUncheckedCreateWithoutEntriesInput>
   connectOrCreate?: Prisma.CustomMetricCreateOrConnectWithoutEntriesInput
@@ -367,6 +629,16 @@ export type CustomMetricCreateWithoutOrganizationInput = {
   id?: string
   name: string
   createdAt?: Date | string
+  type?: string
+  role?: string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: string | null
+  operator?: string | null
+  secondField?: string | null
+  showResultAs?: string | null
+  status?: string
+  updatedAt?: Date | string | null
+  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedCustomMetricsInput
   entries?: Prisma.CustomMetricEntryCreateNestedManyWithoutCustomMetricInput
 }
 
@@ -374,6 +646,16 @@ export type CustomMetricUncheckedCreateWithoutOrganizationInput = {
   id?: string
   name: string
   createdAt?: Date | string
+  type?: string
+  role?: string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: string | null
+  operator?: string | null
+  secondField?: string | null
+  showResultAs?: string | null
+  status?: string
+  updatedAt?: Date | string | null
+  updatedById?: string | null
   entries?: Prisma.CustomMetricEntryUncheckedCreateNestedManyWithoutCustomMetricInput
 }
 
@@ -411,13 +693,93 @@ export type CustomMetricScalarWhereInput = {
   name?: Prisma.StringFilter<"CustomMetric"> | string
   organizationId?: Prisma.StringFilter<"CustomMetric"> | string
   createdAt?: Prisma.DateTimeFilter<"CustomMetric"> | Date | string
+  type?: Prisma.StringFilter<"CustomMetric"> | string
+  role?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
+  productIds?: Prisma.JsonNullableFilter<"CustomMetric">
+  firstField?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
+  operator?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
+  secondField?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
+  showResultAs?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
+  status?: Prisma.StringFilter<"CustomMetric"> | string
+  updatedAt?: Prisma.DateTimeNullableFilter<"CustomMetric"> | Date | string | null
+  updatedById?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
+}
+
+export type CustomMetricCreateWithoutUpdatedByInput = {
+  id?: string
+  name: string
+  createdAt?: Date | string
+  type?: string
+  role?: string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: string | null
+  operator?: string | null
+  secondField?: string | null
+  showResultAs?: string | null
+  status?: string
+  updatedAt?: Date | string | null
+  organization: Prisma.OrganizationCreateNestedOneWithoutCustomMetricsInput
+  entries?: Prisma.CustomMetricEntryCreateNestedManyWithoutCustomMetricInput
+}
+
+export type CustomMetricUncheckedCreateWithoutUpdatedByInput = {
+  id?: string
+  name: string
+  organizationId: string
+  createdAt?: Date | string
+  type?: string
+  role?: string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: string | null
+  operator?: string | null
+  secondField?: string | null
+  showResultAs?: string | null
+  status?: string
+  updatedAt?: Date | string | null
+  entries?: Prisma.CustomMetricEntryUncheckedCreateNestedManyWithoutCustomMetricInput
+}
+
+export type CustomMetricCreateOrConnectWithoutUpdatedByInput = {
+  where: Prisma.CustomMetricWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomMetricCreateWithoutUpdatedByInput, Prisma.CustomMetricUncheckedCreateWithoutUpdatedByInput>
+}
+
+export type CustomMetricCreateManyUpdatedByInputEnvelope = {
+  data: Prisma.CustomMetricCreateManyUpdatedByInput | Prisma.CustomMetricCreateManyUpdatedByInput[]
+  skipDuplicates?: boolean
+}
+
+export type CustomMetricUpsertWithWhereUniqueWithoutUpdatedByInput = {
+  where: Prisma.CustomMetricWhereUniqueInput
+  update: Prisma.XOR<Prisma.CustomMetricUpdateWithoutUpdatedByInput, Prisma.CustomMetricUncheckedUpdateWithoutUpdatedByInput>
+  create: Prisma.XOR<Prisma.CustomMetricCreateWithoutUpdatedByInput, Prisma.CustomMetricUncheckedCreateWithoutUpdatedByInput>
+}
+
+export type CustomMetricUpdateWithWhereUniqueWithoutUpdatedByInput = {
+  where: Prisma.CustomMetricWhereUniqueInput
+  data: Prisma.XOR<Prisma.CustomMetricUpdateWithoutUpdatedByInput, Prisma.CustomMetricUncheckedUpdateWithoutUpdatedByInput>
+}
+
+export type CustomMetricUpdateManyWithWhereWithoutUpdatedByInput = {
+  where: Prisma.CustomMetricScalarWhereInput
+  data: Prisma.XOR<Prisma.CustomMetricUpdateManyMutationInput, Prisma.CustomMetricUncheckedUpdateManyWithoutUpdatedByInput>
 }
 
 export type CustomMetricCreateWithoutEntriesInput = {
   id?: string
   name: string
   createdAt?: Date | string
+  type?: string
+  role?: string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: string | null
+  operator?: string | null
+  secondField?: string | null
+  showResultAs?: string | null
+  status?: string
+  updatedAt?: Date | string | null
   organization: Prisma.OrganizationCreateNestedOneWithoutCustomMetricsInput
+  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedCustomMetricsInput
 }
 
 export type CustomMetricUncheckedCreateWithoutEntriesInput = {
@@ -425,6 +787,16 @@ export type CustomMetricUncheckedCreateWithoutEntriesInput = {
   name: string
   organizationId: string
   createdAt?: Date | string
+  type?: string
+  role?: string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: string | null
+  operator?: string | null
+  secondField?: string | null
+  showResultAs?: string | null
+  status?: string
+  updatedAt?: Date | string | null
+  updatedById?: string | null
 }
 
 export type CustomMetricCreateOrConnectWithoutEntriesInput = {
@@ -447,7 +819,17 @@ export type CustomMetricUpdateWithoutEntriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  operator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showResultAs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutCustomMetricsNestedInput
+  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedCustomMetricsNestedInput
 }
 
 export type CustomMetricUncheckedUpdateWithoutEntriesInput = {
@@ -455,18 +837,48 @@ export type CustomMetricUncheckedUpdateWithoutEntriesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  operator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showResultAs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type CustomMetricCreateManyOrganizationInput = {
   id?: string
   name: string
   createdAt?: Date | string
+  type?: string
+  role?: string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: string | null
+  operator?: string | null
+  secondField?: string | null
+  showResultAs?: string | null
+  status?: string
+  updatedAt?: Date | string | null
+  updatedById?: string | null
 }
 
 export type CustomMetricUpdateWithoutOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  operator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showResultAs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedCustomMetricsNestedInput
   entries?: Prisma.CustomMetricEntryUpdateManyWithoutCustomMetricNestedInput
 }
 
@@ -474,6 +886,16 @@ export type CustomMetricUncheckedUpdateWithoutOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  operator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showResultAs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entries?: Prisma.CustomMetricEntryUncheckedUpdateManyWithoutCustomMetricNestedInput
 }
 
@@ -481,6 +903,82 @@ export type CustomMetricUncheckedUpdateManyWithoutOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  operator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showResultAs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type CustomMetricCreateManyUpdatedByInput = {
+  id?: string
+  name: string
+  organizationId: string
+  createdAt?: Date | string
+  type?: string
+  role?: string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: string | null
+  operator?: string | null
+  secondField?: string | null
+  showResultAs?: string | null
+  status?: string
+  updatedAt?: Date | string | null
+}
+
+export type CustomMetricUpdateWithoutUpdatedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  operator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showResultAs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutCustomMetricsNestedInput
+  entries?: Prisma.CustomMetricEntryUpdateManyWithoutCustomMetricNestedInput
+}
+
+export type CustomMetricUncheckedUpdateWithoutUpdatedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  operator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showResultAs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  entries?: Prisma.CustomMetricEntryUncheckedUpdateManyWithoutCustomMetricNestedInput
+}
+
+export type CustomMetricUncheckedUpdateManyWithoutUpdatedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  operator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showResultAs?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -519,7 +1017,18 @@ export type CustomMetricSelect<ExtArgs extends runtime.Types.Extensions.Internal
   name?: boolean
   organizationId?: boolean
   createdAt?: boolean
+  type?: boolean
+  role?: boolean
+  productIds?: boolean
+  firstField?: boolean
+  operator?: boolean
+  secondField?: boolean
+  showResultAs?: boolean
+  status?: boolean
+  updatedAt?: boolean
+  updatedById?: boolean
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  updatedBy?: boolean | Prisma.CustomMetric$updatedByArgs<ExtArgs>
   entries?: boolean | Prisma.CustomMetric$entriesArgs<ExtArgs>
   _count?: boolean | Prisma.CustomMetricCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["customMetric"]>
@@ -529,7 +1038,18 @@ export type CustomMetricSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   name?: boolean
   organizationId?: boolean
   createdAt?: boolean
+  type?: boolean
+  role?: boolean
+  productIds?: boolean
+  firstField?: boolean
+  operator?: boolean
+  secondField?: boolean
+  showResultAs?: boolean
+  status?: boolean
+  updatedAt?: boolean
+  updatedById?: boolean
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  updatedBy?: boolean | Prisma.CustomMetric$updatedByArgs<ExtArgs>
 }, ExtArgs["result"]["customMetric"]>
 
 export type CustomMetricSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -537,7 +1057,18 @@ export type CustomMetricSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   name?: boolean
   organizationId?: boolean
   createdAt?: boolean
+  type?: boolean
+  role?: boolean
+  productIds?: boolean
+  firstField?: boolean
+  operator?: boolean
+  secondField?: boolean
+  showResultAs?: boolean
+  status?: boolean
+  updatedAt?: boolean
+  updatedById?: boolean
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  updatedBy?: boolean | Prisma.CustomMetric$updatedByArgs<ExtArgs>
 }, ExtArgs["result"]["customMetric"]>
 
 export type CustomMetricSelectScalar = {
@@ -545,25 +1076,39 @@ export type CustomMetricSelectScalar = {
   name?: boolean
   organizationId?: boolean
   createdAt?: boolean
+  type?: boolean
+  role?: boolean
+  productIds?: boolean
+  firstField?: boolean
+  operator?: boolean
+  secondField?: boolean
+  showResultAs?: boolean
+  status?: boolean
+  updatedAt?: boolean
+  updatedById?: boolean
 }
 
-export type CustomMetricOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "organizationId" | "createdAt", ExtArgs["result"]["customMetric"]>
+export type CustomMetricOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "organizationId" | "createdAt" | "type" | "role" | "productIds" | "firstField" | "operator" | "secondField" | "showResultAs" | "status" | "updatedAt" | "updatedById", ExtArgs["result"]["customMetric"]>
 export type CustomMetricInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  updatedBy?: boolean | Prisma.CustomMetric$updatedByArgs<ExtArgs>
   entries?: boolean | Prisma.CustomMetric$entriesArgs<ExtArgs>
   _count?: boolean | Prisma.CustomMetricCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CustomMetricIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  updatedBy?: boolean | Prisma.CustomMetric$updatedByArgs<ExtArgs>
 }
 export type CustomMetricIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  updatedBy?: boolean | Prisma.CustomMetric$updatedByArgs<ExtArgs>
 }
 
 export type $CustomMetricPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "CustomMetric"
   objects: {
     organization: Prisma.$OrganizationPayload<ExtArgs>
+    updatedBy: Prisma.$UserPayload<ExtArgs> | null
     entries: Prisma.$CustomMetricEntryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -571,6 +1116,16 @@ export type $CustomMetricPayload<ExtArgs extends runtime.Types.Extensions.Intern
     name: string
     organizationId: string
     createdAt: Date
+    type: string
+    role: string | null
+    productIds: runtime.JsonValue | null
+    firstField: string | null
+    operator: string | null
+    secondField: string | null
+    showResultAs: string | null
+    status: string
+    updatedAt: Date | null
+    updatedById: string | null
   }, ExtArgs["result"]["customMetric"]>
   composites: {}
 }
@@ -966,6 +1521,7 @@ readonly fields: CustomMetricFieldRefs;
 export interface Prisma__CustomMetricClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   organization<T extends Prisma.OrganizationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationDefaultArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  updatedBy<T extends Prisma.CustomMetric$updatedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomMetric$updatedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   entries<T extends Prisma.CustomMetric$entriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomMetric$entriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomMetricEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1000,6 +1556,16 @@ export interface CustomMetricFieldRefs {
   readonly name: Prisma.FieldRef<"CustomMetric", 'String'>
   readonly organizationId: Prisma.FieldRef<"CustomMetric", 'String'>
   readonly createdAt: Prisma.FieldRef<"CustomMetric", 'DateTime'>
+  readonly type: Prisma.FieldRef<"CustomMetric", 'String'>
+  readonly role: Prisma.FieldRef<"CustomMetric", 'String'>
+  readonly productIds: Prisma.FieldRef<"CustomMetric", 'Json'>
+  readonly firstField: Prisma.FieldRef<"CustomMetric", 'String'>
+  readonly operator: Prisma.FieldRef<"CustomMetric", 'String'>
+  readonly secondField: Prisma.FieldRef<"CustomMetric", 'String'>
+  readonly showResultAs: Prisma.FieldRef<"CustomMetric", 'String'>
+  readonly status: Prisma.FieldRef<"CustomMetric", 'String'>
+  readonly updatedAt: Prisma.FieldRef<"CustomMetric", 'DateTime'>
+  readonly updatedById: Prisma.FieldRef<"CustomMetric", 'String'>
 }
     
 
@@ -1393,6 +1959,25 @@ export type CustomMetricDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Limit how many CustomMetrics to delete.
    */
   limit?: number
+}
+
+/**
+ * CustomMetric.updatedBy
+ */
+export type CustomMetric$updatedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

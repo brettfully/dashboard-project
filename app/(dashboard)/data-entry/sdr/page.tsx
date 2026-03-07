@@ -20,7 +20,7 @@ export default async function SdrDataEntryPage() {
     redirect("/overview")
   }
 
-  const [products, entries] = await Promise.all([
+  const [products, entries, customMetrics] = await Promise.all([
     db.product.findMany({
       where: { organizationId: orgId, active: true },
       orderBy: { name: "asc" },
@@ -30,6 +30,15 @@ export default async function SdrDataEntryPage() {
       include: { product: true },
       orderBy: { date: "desc" },
       take: 20,
+    }),
+    db.customMetric.findMany({
+      where: {
+        organizationId: orgId,
+        status: "ACTIVE",
+        type: { not: "CALCULATED" },
+        OR: [{ role: "SDR" }, { role: null }],
+      },
+      orderBy: { createdAt: "asc" },
     }),
   ])
 
@@ -42,6 +51,12 @@ export default async function SdrDataEntryPage() {
             products={products.map((p) => ({ id: p.id, name: p.name }))}
             userId={userId!}
             orgId={orgId!}
+            customMetrics={customMetrics.map((m) => ({
+              id: m.id,
+              name: m.name,
+              type: m.type,
+              productIds: Array.isArray(m.productIds) ? (m.productIds as string[]) : [],
+            }))}
           />
         </div>
 

@@ -200,6 +200,7 @@ export type UserWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
   dataEntries?: Prisma.DataEntryListRelationFilter
+  updatedCustomMetrics?: Prisma.CustomMetricListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -212,6 +213,7 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   organization?: Prisma.OrganizationOrderByWithRelationInput
   dataEntries?: Prisma.DataEntryOrderByRelationAggregateInput
+  updatedCustomMetrics?: Prisma.CustomMetricOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -227,6 +229,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
   dataEntries?: Prisma.DataEntryListRelationFilter
+  updatedCustomMetrics?: Prisma.CustomMetricListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -264,6 +267,7 @@ export type UserCreateInput = {
   createdAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   dataEntries?: Prisma.DataEntryCreateNestedManyWithoutUserInput
+  updatedCustomMetrics?: Prisma.CustomMetricCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -275,6 +279,7 @@ export type UserUncheckedCreateInput = {
   organizationId: string
   createdAt?: Date | string
   dataEntries?: Prisma.DataEntryUncheckedCreateNestedManyWithoutUserInput
+  updatedCustomMetrics?: Prisma.CustomMetricUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUpdateInput = {
@@ -286,6 +291,7 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
   dataEntries?: Prisma.DataEntryUpdateManyWithoutUserNestedInput
+  updatedCustomMetrics?: Prisma.CustomMetricUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -297,6 +303,7 @@ export type UserUncheckedUpdateInput = {
   organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dataEntries?: Prisma.DataEntryUncheckedUpdateManyWithoutUserNestedInput
+  updatedCustomMetrics?: Prisma.CustomMetricUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -373,6 +380,11 @@ export type UserScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput
 }
 
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
+}
+
 export type UserCreateNestedManyWithoutOrganizationInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutOrganizationInput, Prisma.UserUncheckedCreateWithoutOrganizationInput> | Prisma.UserCreateWithoutOrganizationInput[] | Prisma.UserUncheckedCreateWithoutOrganizationInput[]
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrganizationInput | Prisma.UserCreateOrConnectWithoutOrganizationInput[]
@@ -437,6 +449,22 @@ export type UserUpdateOneRequiredWithoutDataEntriesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDataEntriesInput, Prisma.UserUpdateWithoutDataEntriesInput>, Prisma.UserUncheckedUpdateWithoutDataEntriesInput>
 }
 
+export type UserCreateNestedOneWithoutUpdatedCustomMetricsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUpdatedCustomMetricsInput, Prisma.UserUncheckedCreateWithoutUpdatedCustomMetricsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUpdatedCustomMetricsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutUpdatedCustomMetricsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUpdatedCustomMetricsInput, Prisma.UserUncheckedCreateWithoutUpdatedCustomMetricsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUpdatedCustomMetricsInput
+  upsert?: Prisma.UserUpsertWithoutUpdatedCustomMetricsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUpdatedCustomMetricsInput, Prisma.UserUpdateWithoutUpdatedCustomMetricsInput>, Prisma.UserUncheckedUpdateWithoutUpdatedCustomMetricsInput>
+}
+
 export type UserCreateWithoutOrganizationInput = {
   id?: string
   name?: string | null
@@ -445,6 +473,7 @@ export type UserCreateWithoutOrganizationInput = {
   role?: $Enums.UserRole
   createdAt?: Date | string
   dataEntries?: Prisma.DataEntryCreateNestedManyWithoutUserInput
+  updatedCustomMetrics?: Prisma.CustomMetricCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutOrganizationInput = {
@@ -455,6 +484,7 @@ export type UserUncheckedCreateWithoutOrganizationInput = {
   role?: $Enums.UserRole
   createdAt?: Date | string
   dataEntries?: Prisma.DataEntryUncheckedCreateNestedManyWithoutUserInput
+  updatedCustomMetrics?: Prisma.CustomMetricUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutOrganizationInput = {
@@ -504,6 +534,7 @@ export type UserCreateWithoutDataEntriesInput = {
   role?: $Enums.UserRole
   createdAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  updatedCustomMetrics?: Prisma.CustomMetricCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutDataEntriesInput = {
@@ -514,6 +545,7 @@ export type UserUncheckedCreateWithoutDataEntriesInput = {
   role?: $Enums.UserRole
   organizationId: string
   createdAt?: Date | string
+  updatedCustomMetrics?: Prisma.CustomMetricUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutDataEntriesInput = {
@@ -540,6 +572,7 @@ export type UserUpdateWithoutDataEntriesInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  updatedCustomMetrics?: Prisma.CustomMetricUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDataEntriesInput = {
@@ -550,6 +583,67 @@ export type UserUncheckedUpdateWithoutDataEntriesInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedCustomMetrics?: Prisma.CustomMetricUncheckedUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserCreateWithoutUpdatedCustomMetricsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  hashedPassword: string
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  dataEntries?: Prisma.DataEntryCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutUpdatedCustomMetricsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  hashedPassword: string
+  role?: $Enums.UserRole
+  organizationId: string
+  createdAt?: Date | string
+  dataEntries?: Prisma.DataEntryUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutUpdatedCustomMetricsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutUpdatedCustomMetricsInput, Prisma.UserUncheckedCreateWithoutUpdatedCustomMetricsInput>
+}
+
+export type UserUpsertWithoutUpdatedCustomMetricsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutUpdatedCustomMetricsInput, Prisma.UserUncheckedUpdateWithoutUpdatedCustomMetricsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutUpdatedCustomMetricsInput, Prisma.UserUncheckedCreateWithoutUpdatedCustomMetricsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutUpdatedCustomMetricsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutUpdatedCustomMetricsInput, Prisma.UserUncheckedUpdateWithoutUpdatedCustomMetricsInput>
+}
+
+export type UserUpdateWithoutUpdatedCustomMetricsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutUsersNestedInput
+  dataEntries?: Prisma.DataEntryUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutUpdatedCustomMetricsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  hashedPassword?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dataEntries?: Prisma.DataEntryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyOrganizationInput = {
@@ -569,6 +663,7 @@ export type UserUpdateWithoutOrganizationInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dataEntries?: Prisma.DataEntryUpdateManyWithoutUserNestedInput
+  updatedCustomMetrics?: Prisma.CustomMetricUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrganizationInput = {
@@ -579,6 +674,7 @@ export type UserUncheckedUpdateWithoutOrganizationInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dataEntries?: Prisma.DataEntryUncheckedUpdateManyWithoutUserNestedInput
+  updatedCustomMetrics?: Prisma.CustomMetricUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutOrganizationInput = {
@@ -597,10 +693,12 @@ export type UserUncheckedUpdateManyWithoutOrganizationInput = {
 
 export type UserCountOutputType = {
   dataEntries: number
+  updatedCustomMetrics: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   dataEntries?: boolean | UserCountOutputTypeCountDataEntriesArgs
+  updatedCustomMetrics?: boolean | UserCountOutputTypeCountUpdatedCustomMetricsArgs
 }
 
 /**
@@ -620,6 +718,13 @@ export type UserCountOutputTypeCountDataEntriesArgs<ExtArgs extends runtime.Type
   where?: Prisma.DataEntryWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountUpdatedCustomMetricsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomMetricWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -631,6 +736,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   dataEntries?: boolean | Prisma.User$dataEntriesArgs<ExtArgs>
+  updatedCustomMetrics?: boolean | Prisma.User$updatedCustomMetricsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -670,6 +776,7 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   dataEntries?: boolean | Prisma.User$dataEntriesArgs<ExtArgs>
+  updatedCustomMetrics?: boolean | Prisma.User$updatedCustomMetricsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -684,6 +791,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     organization: Prisma.$OrganizationPayload<ExtArgs>
     dataEntries: Prisma.$DataEntryPayload<ExtArgs>[]
+    updatedCustomMetrics: Prisma.$CustomMetricPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1089,6 +1197,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   organization<T extends Prisma.OrganizationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationDefaultArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   dataEntries<T extends Prisma.User$dataEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$dataEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DataEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  updatedCustomMetrics<T extends Prisma.User$updatedCustomMetricsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$updatedCustomMetricsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomMetricPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1542,6 +1651,30 @@ export type User$dataEntriesArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.DataEntryScalarFieldEnum | Prisma.DataEntryScalarFieldEnum[]
+}
+
+/**
+ * User.updatedCustomMetrics
+ */
+export type User$updatedCustomMetricsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomMetric
+   */
+  select?: Prisma.CustomMetricSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomMetric
+   */
+  omit?: Prisma.CustomMetricOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomMetricInclude<ExtArgs> | null
+  where?: Prisma.CustomMetricWhereInput
+  orderBy?: Prisma.CustomMetricOrderByWithRelationInput | Prisma.CustomMetricOrderByWithRelationInput[]
+  cursor?: Prisma.CustomMetricWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomMetricScalarFieldEnum | Prisma.CustomMetricScalarFieldEnum[]
 }
 
 /**

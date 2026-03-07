@@ -1091,7 +1091,19 @@ export const DataEntryScalarFieldEnum = {
   revenueGenerated: 'revenueGenerated',
   cashCollected: 'cashCollected',
   refunds: 'refunds',
-  adSpend: 'adSpend'
+  adSpend: 'adSpend',
+  highTicketLandingPageViews: 'highTicketLandingPageViews',
+  lowTicketLandingPageViews: 'lowTicketLandingPageViews',
+  inboundMessages: 'inboundMessages',
+  outboundMessages: 'outboundMessages',
+  dials: 'dials',
+  followUps: 'followUps',
+  setsBooked: 'setsBooked',
+  callsToday: 'callsToday',
+  lowTicketCustomers: 'lowTicketCustomers',
+  monthlyRecurringRevenue: 'monthlyRecurringRevenue',
+  customersCanceled: 'customersCanceled',
+  businessExpenses: 'businessExpenses'
 } as const
 
 export type DataEntryScalarFieldEnum = (typeof DataEntryScalarFieldEnum)[keyof typeof DataEntryScalarFieldEnum]
@@ -1128,7 +1140,17 @@ export const CustomMetricScalarFieldEnum = {
   id: 'id',
   name: 'name',
   organizationId: 'organizationId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  type: 'type',
+  role: 'role',
+  productIds: 'productIds',
+  firstField: 'firstField',
+  operator: 'operator',
+  secondField: 'secondField',
+  showResultAs: 'showResultAs',
+  status: 'status',
+  updatedAt: 'updatedAt',
+  updatedById: 'updatedById'
 } as const
 
 export type CustomMetricScalarFieldEnum = (typeof CustomMetricScalarFieldEnum)[keyof typeof CustomMetricScalarFieldEnum]
@@ -1152,6 +1174,14 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -1166,6 +1196,15 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 
@@ -1248,6 +1287,20 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 /**

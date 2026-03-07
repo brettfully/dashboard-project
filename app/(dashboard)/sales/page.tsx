@@ -1,6 +1,5 @@
 import { auth } from "@/lib/auth"
 import { db } from "@/lib/db"
-import { Header } from "@/components/dashboard/header"
 import { KpiCard } from "@/components/charts/kpi-card"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
@@ -64,8 +63,8 @@ export default async function SalesPage() {
 
   return (
     <div className="flex flex-col h-full">
-      <Header title="Sales" />
       <div className="flex-1 p-6 space-y-6">
+        <h1 className="text-xl font-semibold text-foreground">Sales</h1>
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
           <KpiCard title="Calls Booked" value={formatNumber(scheduledCalls)} />
           <KpiCard title="Show Calls" value={formatNumber(showCalls)} />

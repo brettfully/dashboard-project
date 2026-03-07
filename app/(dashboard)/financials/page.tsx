@@ -1,6 +1,5 @@
 import { auth } from "@/lib/auth"
 import { db } from "@/lib/db"
-import { Header } from "@/components/dashboard/header"
 import { KpiCard } from "@/components/charts/kpi-card"
 import { MetricBarChart } from "@/components/charts/metric-chart"
 import { formatCurrency } from "@/lib/utils"
@@ -30,8 +29,8 @@ export default async function FinancialsPage() {
 
   return (
     <div className="flex flex-col h-full">
-      <Header title="Financial Report" />
       <div className="flex-1 p-6 space-y-6">
+        <h1 className="text-xl font-semibold text-foreground">Financial Report</h1>
         <div className="flex justify-end">
           <FinancialEntryDialog orgId={orgId!} />
         </div>

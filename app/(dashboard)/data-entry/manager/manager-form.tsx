@@ -16,10 +16,13 @@ import {
 } from "@/components/ui/select"
 import { AccordionSection } from "@/components/ui/accordion-section"
 
+type CustomMetricDef = { id: string; name: string; type: string; productIds: string[] }
+
 interface ManagerFormProps {
   products: { id: string; name: string }[]
   userId: string
   orgId: string
+  customMetrics: CustomMetricDef[]
 }
 
 // ── Sales ─────────────────────────────────────────────────────────────────────
@@ -84,7 +87,7 @@ function parseField(value: string, currency: boolean) {
   return currency ? parseFloat(value ?? "0") || 0 : parseInt(value ?? "0") || 0
 }
 
-export default function ManagerForm({ products, userId, orgId }: ManagerFormProps) {
+export default function ManagerForm({ products, userId, orgId, customMetrics }: ManagerFormProps) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -112,6 +115,10 @@ export default function ManagerForm({ products, userId, orgId }: ManagerFormProp
       </div>
     )
   }
+
+  const activeCustomMetrics = customMetrics.filter(
+    (m) => m.productIds.length === 0 || m.productIds.includes(productId)
+  )
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -152,6 +159,20 @@ export default function ManagerForm({ products, userId, orgId }: ManagerFormProp
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(contentPayload),
+        })
+      )
+    }
+
+    const customEntries = activeCustomMetrics
+      .map((m) => ({ customMetricId: m.id, value: parseFloat(fields[`cm_${m.id}`] ?? "0") || 0 }))
+      .filter((e) => e.value !== 0)
+
+    if (customEntries.length > 0) {
+      requests.push(
+        fetch("/api/custom-metrics/entries", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ date, productId, entries: customEntries }),
         })
       )
     }
@@ -245,6 +266,27 @@ export default function ManagerForm({ products, userId, orgId }: ManagerFormProp
               {BUSINESS_FIELDS.map(fieldInput)}
             </div>
           </AccordionSection>
+
+          {/* ── Custom Metrics ────────────────────────────────────────── */}
+          {activeCustomMetrics.length > 0 && (
+            <AccordionSection title="Custom Metrics" icon={<TrendingUp className="h-4 w-4" />} defaultOpen>
+              <div className="space-y-3">
+                {activeCustomMetrics.map((m) => (
+                  <div key={m.id} className="space-y-1">
+                    <Label className="text-xs text-muted-foreground">{m.name}</Label>
+                    <Input
+                      type="number"
+                      value={fields[`cm_${m.id}`] ?? ""}
+                      onChange={(e) => handleChange(`cm_${m.id}`, e.target.value)}
+                      placeholder={m.type === "CURRENCY" ? "0.00" : "0"}
+                      min="0"
+                      step={m.type === "CURRENCY" ? "0.01" : "1"}
+                    />
+                  </div>
+                ))}
+              </div>
+            </AccordionSection>
+          )}
 
           <div className="flex items-center gap-4 pt-2">
             <Button type="submit" disabled={loading}>
