@@ -28,22 +28,27 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "productId is required" }, { status: 400 })
   }
 
-  const entry = await db.dataEntry.create({
-    data: {
-      ...entryData,
-      organizationId: orgId,
-    },
-  })
-
-  if (customMetricEntries && customMetricEntries.length > 0) {
-    await db.customMetricEntry.createMany({
-      data: customMetricEntries.map((e: { customMetricId: string; value: number }) => ({
-        customMetricId: e.customMetricId,
-        value: e.value,
-        date: entryData.date,
-      })),
+  try {
+    const entry = await db.dataEntry.create({
+      data: {
+        ...entryData,
+        organizationId: orgId,
+      },
     })
-  }
 
-  return NextResponse.json(entry, { status: 201 })
+    if (customMetricEntries && customMetricEntries.length > 0) {
+      await db.customMetricEntry.createMany({
+        data: customMetricEntries.map((e: { customMetricId: string; value: number }) => ({
+          customMetricId: e.customMetricId,
+          value: e.value,
+          date: entryData.date,
+        })),
+      })
+    }
+
+    return NextResponse.json(entry, { status: 201 })
+  } catch (err) {
+    console.error("Failed to create data entry:", err)
+    return NextResponse.json({ error: "Failed to save entry. Check server logs." }, { status: 500 })
+  }
 }

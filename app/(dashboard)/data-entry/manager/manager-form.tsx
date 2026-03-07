@@ -118,7 +118,7 @@ export default function ManagerForm({ products, userId, orgId }: ManagerFormProp
       setProductId("")
       router.refresh()
     } else {
-      const data = await res.json()
+      const data = await res.json().catch(() => ({}))
       setError(data.error ?? "Failed to submit entry.")
     }
   }
