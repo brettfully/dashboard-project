@@ -109,10 +109,10 @@ export default function SdrForm({ products, userId, orgId }: SdrFormProps) {
 
               <div>
                 <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Prospecting</h3>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="flex flex-col">
                   {PROSPECTING_FIELDS.map((field) => (
-                    <div key={field.name} className="space-y-1">
-                      <Label className="text-xs">{field.label}</Label>
+                    <div key={field.name} className="flex items-center justify-between gap-4 py-2 border-b border-border/40 last:border-0">
+                      <Label className="text-sm text-muted-foreground shrink-0">{field.label}</Label>
                       <Input
                         type="number"
                         value={fields[field.name] ?? ""}
@@ -120,6 +120,7 @@ export default function SdrForm({ products, userId, orgId }: SdrFormProps) {
                         placeholder="0"
                         min="0"
                         step="1"
+                        className="w-32 text-right"
                       />
                     </div>
                   ))}
