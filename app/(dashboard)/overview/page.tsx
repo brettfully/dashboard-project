@@ -30,7 +30,7 @@ export default async function OverviewPage({
     ...(params.product ? { productId: params.product } : {}),
   }
 
-  const [currentEntries, previousEntries, allTimeEntries, pinnedMetrics, customEntries] = await Promise.all([
+  const [currentEntries, previousEntries, allTimeEntries, pinnedMetrics] = await Promise.all([
     db.dataEntry.findMany({
       where: { ...baseWhere, date: { gte: fromDate, lte: toDate } },
       orderBy: { date: "asc" },
@@ -46,14 +46,18 @@ export default async function OverviewPage({
       where: { organizationId: orgId, pinnedToOverview: true, status: "ACTIVE" },
       orderBy: { createdAt: "asc" },
     }),
-    db.customMetricEntry.findMany({
-      where: {
-        customMetric: { organizationId: orgId, pinnedToOverview: true },
-        date: { gte: fromDate, lte: toDate },
-      },
-      select: { customMetricId: true, value: true },
-    }),
   ])
+
+  const pinnedIds = pinnedMetrics.map((m) => m.id)
+  const customEntries = pinnedIds.length > 0
+    ? await db.customMetricEntry.findMany({
+        where: {
+          customMetricId: { in: pinnedIds },
+          date: { gte: fromDate, lte: toDate },
+        },
+        select: { customMetricId: true, value: true },
+      })
+    : []
 
   const sum = (entries: typeof currentEntries, field: keyof (typeof currentEntries)[0]) =>
     entries.reduce((acc, e) => acc + Number(e[field]), 0)
