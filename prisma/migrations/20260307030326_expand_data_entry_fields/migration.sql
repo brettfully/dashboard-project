@@ -1,0 +1,28 @@
+-- AlterTable
+ALTER TABLE "CustomMetric" ADD COLUMN     "firstField" TEXT,
+ADD COLUMN     "operator" TEXT,
+ADD COLUMN     "productIds" JSONB,
+ADD COLUMN     "role" TEXT,
+ADD COLUMN     "secondField" TEXT,
+ADD COLUMN     "showResultAs" TEXT,
+ADD COLUMN     "status" TEXT NOT NULL DEFAULT 'ACTIVE',
+ADD COLUMN     "type" TEXT NOT NULL DEFAULT 'NUMBER',
+ADD COLUMN     "updatedAt" TIMESTAMP(3),
+ADD COLUMN     "updatedById" TEXT;
+
+-- AlterTable
+ALTER TABLE "DataEntry" ADD COLUMN     "businessExpenses" DOUBLE PRECISION NOT NULL DEFAULT 0,
+ADD COLUMN     "callsToday" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "customersCanceled" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "dials" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "followUps" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "highTicketLandingPageViews" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "inboundMessages" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "lowTicketCustomers" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "lowTicketLandingPageViews" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "monthlyRecurringRevenue" DOUBLE PRECISION NOT NULL DEFAULT 0,
+ADD COLUMN     "outboundMessages" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "setsBooked" INTEGER NOT NULL DEFAULT 0;
+
+-- AddForeignKey
+ALTER TABLE "CustomMetric" ADD CONSTRAINT "CustomMetric_updatedById_fkey" FOREIGN KEY ("updatedById") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;

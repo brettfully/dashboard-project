@@ -24,11 +24,14 @@ export async function POST(req: NextRequest) {
   const body = await req.json()
   const { customMetricEntries, ...entryData } = body
 
+  if (!entryData.productId || entryData.productId === "none") {
+    return NextResponse.json({ error: "productId is required" }, { status: 400 })
+  }
+
   const entry = await db.dataEntry.create({
     data: {
       ...entryData,
       organizationId: orgId,
-      productId: entryData.productId === "none" ? null : entryData.productId,
     },
   })
 
