@@ -123,7 +123,7 @@ export default function AeForm({ products, userId, orgId }: AeFormProps) {
 
               <div>
                 <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Calls</h3>
-                <div className="grid grid-cols-2 gap-3 max-w-xs">
+                <div className="grid grid-cols-3 gap-3">
                   {CALLS_FIELDS.map((field) => (
                     <div key={field.name} className="space-y-1">
                       <Label className="text-xs">{field.label}</Label>
@@ -142,7 +142,7 @@ export default function AeForm({ products, userId, orgId }: AeFormProps) {
 
               <div>
                 <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Revenue</h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <div className="grid grid-cols-3 gap-3">
                   {REVENUE_FIELDS.map((field) => (
                     <div key={field.name} className="space-y-1">
                       <Label className="text-xs">{field.label}</Label>

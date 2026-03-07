@@ -109,7 +109,7 @@ export default function SdrForm({ products, userId, orgId }: SdrFormProps) {
 
               <div>
                 <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Prospecting</h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+                <div className="grid grid-cols-3 gap-3">
                   {PROSPECTING_FIELDS.map((field) => (
                     <div key={field.name} className="space-y-1">
                       <Label className="text-xs">{field.label}</Label>

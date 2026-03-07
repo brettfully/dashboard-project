@@ -203,21 +203,21 @@ export default function ManagerForm({ products, userId, orgId }: ManagerFormProp
             <div className="space-y-5">
               <div>
                 <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Prospecting</h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+                <div className="grid grid-cols-3 gap-3">
                   {PROSPECTING_FIELDS.map(fieldInput)}
                 </div>
               </div>
 
               <div>
                 <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Calls</h3>
-                <div className="grid grid-cols-2 gap-3 max-w-xs">
+                <div className="grid grid-cols-3 gap-3">
                   {CALLS_FIELDS.map(fieldInput)}
                 </div>
               </div>
 
               <div>
                 <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Revenue</h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <div className="grid grid-cols-3 gap-3">
                   {REVENUE_FIELDS.map(fieldInput)}
                 </div>
               </div>
@@ -226,7 +226,7 @@ export default function ManagerForm({ products, userId, orgId }: ManagerFormProp
 
           {/* ── Ads + Funnel ──────────────────────────────────────────────── */}
           <AccordionSection title="Ads + Funnel" icon={<Megaphone className="h-4 w-4" />} defaultOpen={false}>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-3 gap-3">
               {ADS_FIELDS.map(fieldInput)}
               {fieldInput(OPT_INS_FIELD)}
             </div>
@@ -234,14 +234,14 @@ export default function ManagerForm({ products, userId, orgId }: ManagerFormProp
 
           {/* ── Organic ───────────────────────────────────────────────────── */}
           <AccordionSection title="Organic" icon={<Leaf className="h-4 w-4" />} defaultOpen={false}>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-3 gap-3">
               {ORGANIC_FIELDS.map(fieldInput)}
             </div>
           </AccordionSection>
 
           {/* ── Business ──────────────────────────────────────────────────── */}
           <AccordionSection title="Business" icon={<Briefcase className="h-4 w-4" />} defaultOpen={false}>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-w-xs">
+            <div className="grid grid-cols-3 gap-3">
               {BUSINESS_FIELDS.map(fieldInput)}
             </div>
           </AccordionSection>
