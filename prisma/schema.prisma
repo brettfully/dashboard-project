@@ -1,0 +1,122 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Organization {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+
+  users            User[]
+  products         Product[]
+  dataEntries      DataEntry[]
+  contentMetrics   ContentMetric[]
+  financialReports FinancialReport[]
+  customMetrics    CustomMetric[]
+}
+
+enum UserRole {
+  COMPANY_ADMIN
+  SALES_MANAGER
+  ACCOUNT_EXECUTIVE
+  SDR
+}
+
+model User {
+  id             String   @id @default(cuid())
+  name           String?
+  email          String   @unique
+  hashedPassword String
+  role           UserRole @default(ACCOUNT_EXECUTIVE)
+  organizationId String
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+  dataEntries  DataEntry[]
+}
+
+model Product {
+  id             String   @id @default(cuid())
+  name           String
+  price          Float
+  description    String?
+  organizationId String
+  active         Boolean  @default(true)
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+  dataEntries  DataEntry[]
+}
+
+model DataEntry {
+  id             String   @id @default(cuid())
+  userId         String
+  productId      String?
+  date           DateTime @default(now())
+  organizationId String
+
+  scheduledCalls   Int   @default(0)
+  openMessages     Int   @default(0)
+  showCalls        Int   @default(0)
+  offersMade       Int   @default(0)
+  dealsWon         Int   @default(0)
+  revenueGenerated Float @default(0)
+  cashCollected    Float @default(0)
+  refunds          Float @default(0)
+  adSpend          Float @default(0)
+
+  user         User         @relation(fields: [userId], references: [id])
+  product      Product?     @relation(fields: [productId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id])
+}
+
+model ContentMetric {
+  id             String   @id @default(cuid())
+  date           DateTime @default(now())
+  organizationId String
+
+  youtubeGrowth           Int @default(0)
+  instagramGrowth         Int @default(0)
+  qualifiedFollowerGrowth Int @default(0)
+  emailOptIns             Int @default(0)
+  organicReach            Int @default(0)
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+}
+
+model FinancialReport {
+  id             String   @id @default(cuid())
+  date           DateTime @default(now())
+  organizationId String
+
+  businessIncome   Float @default(0)
+  businessExpenses Float @default(0)
+  preTaxProfit     Float @default(0)
+  netAfterTaxes    Float @default(0)
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+}
+
+model CustomMetric {
+  id             String   @id @default(cuid())
+  name           String
+  organizationId String
+  createdAt      DateTime @default(now())
+
+  organization Organization      @relation(fields: [organizationId], references: [id])
+  entries      CustomMetricEntry[]
+}
+
+model CustomMetricEntry {
+  id             String   @id @default(cuid())
+  customMetricId String
+  date           DateTime @default(now())
+  value          Float
+
+  customMetric CustomMetric @relation(fields: [customMetricId], references: [id])
+}
