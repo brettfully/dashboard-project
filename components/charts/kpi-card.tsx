@@ -29,16 +29,31 @@ export function KpiCard({
   return (
     <div
       className={cn(
-        "relative rounded-2xl bg-card p-5 overflow-hidden min-h-[120px] flex flex-col",
+        "rounded-2xl bg-card p-5 min-h-[110px] flex flex-col",
         className
       )}
     >
-      <p className="text-[15px] font-normal text-card-foreground mb-2 text-left">
-        {title}
-      </p>
+      {/* Icon + Title row */}
+      <div className="flex items-center gap-2 mb-3">
+        {Icon && (
+          <div
+            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md"
+            style={{
+              background: `color-mix(in oklch, ${accentColor} 15%, transparent)`,
+            }}
+          >
+            <Icon className="h-3.5 w-3.5" style={{ color: accentColor }} />
+          </div>
+        )}
+        <p className="text-[13px] font-normal text-muted-foreground leading-tight">
+          {title}
+        </p>
+      </div>
+
+      {/* Value */}
       <p
         className={cn(
-          "text-2xl font-bold leading-tight text-left flex-1 flex items-center justify-start",
+          "text-2xl font-semibold leading-tight flex-1",
           valueColor === "green" && "text-emerald-400",
           valueColor === "blue" && "text-blue-400",
           !valueColor && "text-card-foreground"
@@ -46,7 +61,9 @@ export function KpiCard({
       >
         {value}
       </p>
-      <div className="mt-2 flex items-center justify-start gap-2 flex-wrap min-h-[1.25rem]">
+
+      {/* Trend / subtitle */}
+      <div className="mt-2 flex items-center gap-2 flex-wrap min-h-[1.25rem]">
         {trend !== undefined && (
           <span
             className={cn(
@@ -67,16 +84,6 @@ export function KpiCard({
           <span className="text-[11px] text-muted-foreground">{subtitle}</span>
         )}
       </div>
-      {Icon && (
-        <div
-          className="absolute top-4 right-4 flex h-8 w-8 shrink-0 items-center justify-center rounded-md opacity-80"
-          style={{
-            background: `color-mix(in oklch, ${accentColor} 15%, transparent)`,
-          }}
-        >
-          <Icon className="h-4 w-4" style={{ color: accentColor }} />
-        </div>
-      )}
     </div>
   )
 }

@@ -39,11 +39,11 @@
   --radius: 0.625rem;
 
   /* Deep black backgrounds */
-  --background: #141414;
+  --background: #111111;
   --foreground: #ffffff;
 
   /* Cards — subtly lifted from background */
-  --card: #1e1e1e;
+  --card: #1a1a1a;
   --card-foreground: #ffffff;
 
   /* Primary = amber gold */
@@ -70,11 +70,11 @@
   --ring: #FBBF24;
 
   /* Sidebar — same dark as background */
-  --sidebar: #141414;
+  --sidebar: #111111;
   --sidebar-foreground: #ffffff;
-  --sidebar-accent: #252525;
+  --sidebar-accent: #1e1e1e;
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #222222;
+  --sidebar-border: #1a1a1a;
   --sidebar-primary: #FBBF24;
   --sidebar-primary-foreground: #0a0a0a;
 }

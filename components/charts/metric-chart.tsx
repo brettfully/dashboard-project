@@ -97,7 +97,7 @@ export function MetricBarChart({ title, data, bars, format }: MetricBarChartProp
             />
             <Tooltip
               cursor={{ fill: "rgba(255,255,255,0.03)" }}
-              contentStyle={{ background: "#1e1e1e", border: "1px solid #2a2a2a", borderRadius: 8, fontSize: 12 }}
+              contentStyle={{ background: "#1a1a1a", border: "1px solid #2a2a2a", borderRadius: 8, fontSize: 12 }}
               labelStyle={{ color: "#fff" }}
               itemStyle={{ color: "#888888" }}
               formatter={(value) => formatValue(value as number, format)}
