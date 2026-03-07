@@ -1,96 +1,150 @@
+import { Suspense } from "react"
 import { auth } from "@/lib/auth"
 import { db } from "@/lib/db"
-import { Header } from "@/components/dashboard/header"
 import { KpiCard } from "@/components/charts/kpi-card"
-import { MetricLineChart } from "@/components/charts/metric-chart"
-import { formatCurrency, formatNumber, calcROAS } from "@/lib/utils"
-import { DollarSign, TrendingUp, Phone, Megaphone } from "lucide-react"
-import { format, subDays, startOfDay } from "date-fns"
+import { DashboardFilters } from "@/components/dashboard/dashboard-filters"
+import { SavedViewsBar } from "@/components/dashboard/saved-views-bar"
+import {
+  formatCurrency,
+  formatNumber,
+  calcShowUpRate,
+  calcCloseRate,
+} from "@/lib/utils"
+import { subDays, startOfDay, parseISO, differenceInDays } from "date-fns"
 
-export default async function OverviewPage() {
+export default async function OverviewPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ from?: string; to?: string }>
+}) {
   const session = await auth()
   const orgId = (session?.user as { organizationId?: string })?.organizationId
 
-  const thirtyDaysAgo = startOfDay(subDays(new Date(), 30))
-  const sixtyDaysAgo = startOfDay(subDays(new Date(), 60))
+  const params = await searchParams
+  const toDate   = params.to   ? startOfDay(parseISO(params.to))   : startOfDay(new Date())
+  const fromDate = params.from ? startOfDay(parseISO(params.from)) : startOfDay(subDays(new Date(), 30))
 
-  const [currentEntries, previousEntries, last30DaysEntries] = await Promise.all([
+  // Comparison period = same length, immediately before fromDate
+  const rangeDays = Math.max(1, differenceInDays(toDate, fromDate))
+  const prevTo   = fromDate
+  const prevFrom = startOfDay(subDays(fromDate, rangeDays))
+
+  const [currentEntries, previousEntries] = await Promise.all([
     db.dataEntry.findMany({
-      where: { organizationId: orgId, date: { gte: thirtyDaysAgo } },
+      where: { organizationId: orgId, date: { gte: fromDate, lte: toDate } },
     }),
     db.dataEntry.findMany({
-      where: {
-        organizationId: orgId,
-        date: { gte: sixtyDaysAgo, lt: thirtyDaysAgo },
-      },
-    }),
-    db.dataEntry.findMany({
-      where: { organizationId: orgId, date: { gte: thirtyDaysAgo } },
-      orderBy: { date: "asc" },
+      where: { organizationId: orgId, date: { gte: prevFrom, lt: prevTo } },
     }),
   ])
 
-  const sum = (entries: typeof currentEntries, field: keyof typeof currentEntries[0]) =>
+  const sum = (entries: typeof currentEntries, field: keyof (typeof currentEntries)[0]) =>
     entries.reduce((acc, e) => acc + Number(e[field]), 0)
 
-  const cashCollected = sum(currentEntries, "cashCollected")
-  const totalRevenue = sum(currentEntries, "revenueGenerated")
-  const scheduledCalls = sum(currentEntries, "scheduledCalls")
-  const adSpend = sum(currentEntries, "adSpend")
-  const roas = calcROAS(totalRevenue, adSpend)
+  const scheduledCalls  = sum(currentEntries, "scheduledCalls")
+  const showCalls       = sum(currentEntries, "showCalls")
+  const dealsWon        = sum(currentEntries, "dealsWon")
+  const offersMade      = sum(currentEntries, "offersMade")
+  const cashCollected   = sum(currentEntries, "cashCollected")
+  const revenueGenerated = sum(currentEntries, "revenueGenerated")
+  const refunds         = sum(currentEntries, "refunds")
 
-  const prevCash = sum(previousEntries, "cashCollected")
-  const cashTrend = prevCash > 0 ? ((cashCollected - prevCash) / prevCash) * 100 : 0
+  const prevScheduled  = sum(previousEntries, "scheduledCalls")
+  const prevShowCalls  = sum(previousEntries, "showCalls")
+  const prevDeals      = sum(previousEntries, "dealsWon")
+  const prevOffers     = sum(previousEntries, "offersMade")
+  const prevCash       = sum(previousEntries, "cashCollected")
+  const prevRevenue    = sum(previousEntries, "revenueGenerated")
+  const prevRefunds    = sum(previousEntries, "refunds")
 
-  // Build chart data by day
-  const chartMap: Record<string, { cashCollected: number; revenue: number; adSpend: number }> = {}
-  last30DaysEntries.forEach((e) => {
-    const day = format(new Date(e.date), "MMM d")
-    if (!chartMap[day]) chartMap[day] = { cashCollected: 0, revenue: 0, adSpend: 0 }
-    chartMap[day].cashCollected += e.cashCollected
-    chartMap[day].revenue += e.revenueGenerated
-    chartMap[day].adSpend += e.adSpend
-  })
-  const chartData = Object.entries(chartMap).map(([name, vals]) => ({ name, ...vals }))
+  const trend = (curr: number, prev: number) =>
+    prev > 0 ? ((curr - prev) / prev) * 100 : 0
+
+  const netRevenue     = revenueGenerated - refunds
+  const prevNetRevenue = prevRevenue - prevRefunds
+
+  const showRate   = calcShowUpRate(showCalls, scheduledCalls)
+  const closeRate  = calcCloseRate(dealsWon, offersMade)
+  const offersPct  = scheduledCalls > 0 ? (offersMade / scheduledCalls) * 100 : 0
+
+  const prevShowRate  = calcShowUpRate(prevShowCalls, prevScheduled)
+  const prevCloseRate = calcCloseRate(prevDeals, prevOffers)
+  const prevOffersPct = prevScheduled > 0 ? (prevOffers / prevScheduled) * 100 : 0
+
+  const showRateTrend  = prevShowRate  > 0 ? ((showRate  - prevShowRate)  / prevShowRate)  * 100 : 0
+  const closeRateTrend = prevCloseRate > 0 ? ((closeRate - prevCloseRate) / prevCloseRate) * 100 : 0
+  const offersPctTrend = prevOffersPct > 0 ? ((offersPct - prevOffersPct) / prevOffersPct) * 100 : 0
 
   return (
     <div className="flex flex-col h-full">
-      <Header title="Overview" />
       <div className="flex-1 p-6 space-y-6">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <KpiCard
-            title="Cash Collected (30d)"
-            value={formatCurrency(cashCollected)}
-            trend={cashTrend}
-            icon={DollarSign}
-          />
-          <KpiCard
-            title="Total Revenue (30d)"
-            value={formatCurrency(totalRevenue)}
-            icon={TrendingUp}
-          />
-          <KpiCard
-            title="Calls Booked (30d)"
-            value={formatNumber(scheduledCalls)}
-            icon={Phone}
-          />
-          <KpiCard
-            title="ROAS"
-            value={roas.toFixed(2) + "x"}
-            subtitle={`Ad Spend: ${formatCurrency(adSpend)}`}
-            icon={Megaphone}
-          />
+        <h1 className="text-xl font-semibold text-foreground">Dashboard</h1>
+
+        <Suspense fallback={<div className="h-9" />}>
+          <DashboardFilters />
+        </Suspense>
+
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <SavedViewsBar />
         </div>
 
-        <MetricLineChart
-          title="Revenue vs Cash Collected (Last 30 Days)"
-          data={chartData}
-          lines={[
-            { key: "revenue", color: "#6366f1", label: "Revenue" },
-            { key: "cashCollected", color: "#22c55e", label: "Cash Collected" },
-          ]}
-          format="currency"
-        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+          <KpiCard
+            title="Scheduled Calls"
+            value={formatNumber(scheduledCalls)}
+            trend={trend(scheduledCalls, prevScheduled)}
+          />
+          <KpiCard
+            title="Showed Calls"
+            value={formatNumber(showCalls)}
+            trend={trend(showCalls, prevShowCalls)}
+          />
+          <KpiCard
+            title="Deals Won"
+            value={formatNumber(dealsWon)}
+            trend={trend(dealsWon, prevDeals)}
+          />
+          <KpiCard
+            title="Offers Made"
+            value={formatNumber(offersMade)}
+            trend={trend(offersMade, prevOffers)}
+          />
+          <KpiCard
+            title="Cash Collected"
+            value={formatCurrency(cashCollected)}
+            trend={trend(cashCollected, prevCash)}
+          />
+          <KpiCard
+            title="Show Rate (%)"
+            value={showRate.toFixed(2) + "%"}
+            trend={showRateTrend}
+          />
+          <KpiCard
+            title="Net Revenue"
+            value={formatCurrency(netRevenue)}
+            trend={trend(netRevenue, prevNetRevenue)}
+          />
+          <KpiCard
+            title="Offers (%)"
+            value={offersPct.toFixed(2) + "%"}
+            trend={offersPctTrend}
+          />
+          <KpiCard
+            title="Close (%)"
+            value={closeRate.toFixed(2) + "%"}
+            trend={closeRateTrend}
+          />
+          <KpiCard
+            title="Revenue Generated"
+            value={formatCurrency(revenueGenerated)}
+            trend={trend(revenueGenerated, prevRevenue)}
+          />
+          <KpiCard
+            title="Refunds"
+            value={formatCurrency(refunds)}
+            trend={trend(refunds, prevRefunds)}
+          />
+        </div>
       </div>
     </div>
   )
