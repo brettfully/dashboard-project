@@ -213,20 +213,17 @@ export default async function OverviewPage({
             value={formatCurrency(newCashCollected)}
             trend={trend(newCashCollected, prevCash)}
             icon={Wallet}
-            valueColor="green"
           />
           <KpiCard
             title="Total Cash Collected"
             value={formatCurrency(totalCashCollected)}
             icon={DollarSign}
-            valueColor="green"
           />
           <KpiCard
             title="Total Revenue"
             value={formatCurrency(totalRevenue)}
             trend={trend(totalRevenue, prevRevenue)}
             icon={TrendingUp}
-            valueColor="blue"
           />
           <KpiCard
             title="Total Booked Calls"
@@ -260,13 +257,13 @@ export default async function OverviewPage({
           <MetricBarChart
             title="Total Calls Booked by Date"
             data={chartData}
-            bars={[{ key: "calls", color: "#6366f1", label: "Calls Booked" }]}
+            bars={[{ key: "calls", color: "#FBBF24", label: "Calls Booked" }]}
             format="number"
           />
           <MetricBarChart
             title="Total Cash Collected by Date"
             data={chartData}
-            bars={[{ key: "cash", color: "#22c55e", label: "Cash Collected" }]}
+            bars={[{ key: "cash", color: "#FBBF24", label: "Cash Collected" }]}
             format="currency"
           />
         </div>

@@ -81,25 +81,25 @@ export function MetricBarChart({ title, data, bars, format }: MetricBarChartProp
       <CardContent>
         <ResponsiveContainer width="100%" height={260}>
           <BarChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#333" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#2a2a2a" vertical={false} />
             <XAxis
               dataKey="name"
-              tick={{ fontSize: 11, fill: "#a3a3a3" }}
+              tick={{ fontSize: 11, fill: "#888888" }}
               axisLine={false}
               tickLine={false}
             />
             <YAxis
-              tick={{ fontSize: 11, fill: "#a3a3a3" }}
+              tick={{ fontSize: 11, fill: "#888888" }}
               axisLine={false}
               tickLine={false}
               tickFormatter={(v) => formatValue(v, format)}
               width={format === "currency" ? 70 : 40}
             />
             <Tooltip
-              cursor={{ fill: "rgba(255,255,255,0.04)" }}
-              contentStyle={{ background: "#2c2c2c", border: "1px solid #404040", borderRadius: 8, fontSize: 12 }}
+              cursor={{ fill: "rgba(255,255,255,0.03)" }}
+              contentStyle={{ background: "#1e1e1e", border: "1px solid #2a2a2a", borderRadius: 8, fontSize: 12 }}
               labelStyle={{ color: "#fff" }}
-              itemStyle={{ color: "#a3a3a3" }}
+              itemStyle={{ color: "#888888" }}
               formatter={(value) => formatValue(value as number, format)}
             />
             {bars.map((bar) => (

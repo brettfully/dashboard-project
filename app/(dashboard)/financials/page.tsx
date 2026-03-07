@@ -63,9 +63,9 @@ export default async function FinancialsPage() {
             title="Monthly Financial Overview (Last 6 Months)"
             data={chartData}
             bars={[
-              { key: "income", color: "#22c55e", label: "Income" },
+              { key: "income", color: "#FBBF24", label: "Income" },
               { key: "expenses", color: "#ef4444", label: "Expenses" },
-              { key: "netProfit", color: "#6366f1", label: "Net Profit" },
+              { key: "netProfit", color: "#f97316", label: "Net Profit" },
             ]}
             format="currency"
           />

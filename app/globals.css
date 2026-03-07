@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
 
   --color-background: var(--background);
@@ -36,47 +36,47 @@
 }
 
 :root {
-  --radius: 0.5rem;
+  --radius: 0.625rem;
 
-  /* Main surfaces — dark charcoal background, lighter gray cells */
-  --background: #1a1a1a;
+  /* Deep black backgrounds */
+  --background: #141414;
   --foreground: #ffffff;
 
-  /* Cells: lighter dark gray, no strong borders */
-  --card: #2c2c2c;
+  /* Cards — subtly lifted from background */
+  --card: #1e1e1e;
   --card-foreground: #ffffff;
 
-  /* Primary = indigo-500 */
-  --primary: oklch(0.585 0.22 264);
-  --primary-foreground: oklch(0.985 0 0);
+  /* Primary = amber gold */
+  --primary: #FBBF24;
+  --primary-foreground: #0a0a0a;
 
   /* Secondary / muted surfaces */
-  --secondary: #333333;
+  --secondary: #252525;
   --secondary-foreground: #ffffff;
-  --muted: #2c2c2c;
-  --muted-foreground: #a3a3a3;
+  --muted: #1e1e1e;
+  --muted-foreground: #888888;
 
   /* Accent (hover surfaces) */
-  --accent: #404040;
+  --accent: #2a2a2a;
   --accent-foreground: #ffffff;
 
   /* Destructive = red */
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
 
-  /* Borders / inputs — subtle, match dark theme */
-  --border: #404040;
-  --input: #333333;
-  --ring: oklch(0.585 0.22 264);
+  /* Borders / inputs */
+  --border: #2a2a2a;
+  --input: #252525;
+  --ring: #FBBF24;
 
-  /* Sidebar */
-  --sidebar: #1f1f1f;
+  /* Sidebar — same dark as background */
+  --sidebar: #141414;
   --sidebar-foreground: #ffffff;
-  --sidebar-accent: #333333;
+  --sidebar-accent: #252525;
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #333333;
-  --sidebar-primary: oklch(0.585 0.22 264);
-  --sidebar-primary-foreground: #ffffff;
+  --sidebar-border: #222222;
+  --sidebar-primary: #FBBF24;
+  --sidebar-primary-foreground: #0a0a0a;
 }
 
 body {

@@ -71,7 +71,7 @@ export default async function ContentPage() {
           lines={[
             { key: "youtube", color: "#ff0000", label: "YouTube" },
             { key: "instagram", color: "#e1306c", label: "Instagram" },
-            { key: "qualifiedFollowers", color: "#6366f1", label: "Qualified Followers" },
+            { key: "qualifiedFollowers", color: "#FBBF24", label: "Qualified Followers" },
           ]}
         />
 
@@ -79,7 +79,7 @@ export default async function ContentPage() {
           title="Email & Reach Trend (Last 30 Days)"
           data={chartData}
           lines={[
-            { key: "emailOptIns", color: "#22c55e", label: "Email Opt-Ins" },
+            { key: "emailOptIns", color: "#FBBF24", label: "Email Opt-Ins" },
             { key: "organicReach", color: "#f59e0b", label: "Organic Reach" },
           ]}
         />

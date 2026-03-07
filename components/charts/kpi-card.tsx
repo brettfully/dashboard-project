@@ -20,7 +20,7 @@ export function KpiCard({
   icon: Icon,
   trend,
   className,
-  accentColor = "oklch(0.585 0.22 264)",
+  accentColor = "#FBBF24",
   valueColor,
 }: KpiCardProps) {
   const isPositive = trend !== undefined && trend >= 0
