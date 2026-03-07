@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { DollarSign } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -13,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { AccordionSection } from "@/components/ui/accordion-section"
 
 interface AeFormProps {
   products: { id: string; name: string }[]
@@ -89,70 +91,73 @@ export default function AeForm({ products, userId, orgId }: AeFormProps) {
         <CardTitle>Log Daily Metrics</CardTitle>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-1">
-              <Label>Date</Label>
-              <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-            </div>
-            <div className="space-y-1">
-              <Label>Offer <span className="text-red-500">*</span></Label>
-              <Select value={productId} onValueChange={setProductId}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select an offer..." />
-                </SelectTrigger>
-                <SelectContent>
-                  {products.map((p) => (
-                    <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-1">
+            <Label>Date</Label>
+            <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="max-w-xs" />
+          </div>
+
+          <AccordionSection title="Sales Entry" icon={<DollarSign className="h-4 w-4" />} defaultOpen>
+            <div className="space-y-4">
+              <div className="space-y-1">
+                <Label>Offer <span className="text-red-500">*</span></Label>
+                <Select value={productId} onValueChange={setProductId}>
+                  <SelectTrigger className="max-w-xs">
+                    <SelectValue placeholder="Select an offer..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {products.map((p) => (
+                      <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
+                  Calls &amp; Closing
+                </h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {AE_INT_FIELDS.map((field) => (
+                    <div key={field.name} className="space-y-1">
+                      <Label className="text-xs">{field.label}</Label>
+                      <Input
+                        type="number"
+                        value={fields[field.name] ?? ""}
+                        onChange={(e) => handleChange(field.name, e.target.value)}
+                        placeholder="0"
+                        min="0"
+                        step="1"
+                      />
+                    </div>
                   ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
-              Calls &amp; Closing
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {AE_INT_FIELDS.map((field) => (
-                <div key={field.name} className="space-y-1">
-                  <Label className="text-xs">{field.label}</Label>
-                  <Input
-                    type="number"
-                    value={fields[field.name] ?? ""}
-                    onChange={(e) => handleChange(field.name, e.target.value)}
-                    placeholder="0"
-                    min="0"
-                    step="1"
-                  />
                 </div>
-              ))}
-            </div>
-          </div>
+              </div>
 
-          <div>
-            <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
-              Revenue
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              {AE_CURRENCY_FIELDS.map((field) => (
-                <div key={field.name} className="space-y-1">
-                  <Label className="text-xs">{field.label}</Label>
-                  <Input
-                    type="number"
-                    value={fields[field.name] ?? ""}
-                    onChange={(e) => handleChange(field.name, e.target.value)}
-                    placeholder="0.00"
-                    min="0"
-                    step="0.01"
-                  />
+              <div>
+                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
+                  Revenue
+                </h3>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  {AE_CURRENCY_FIELDS.map((field) => (
+                    <div key={field.name} className="space-y-1">
+                      <Label className="text-xs">{field.label}</Label>
+                      <Input
+                        type="number"
+                        value={fields[field.name] ?? ""}
+                        onChange={(e) => handleChange(field.name, e.target.value)}
+                        placeholder="0.00"
+                        min="0"
+                        step="0.01"
+                      />
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
-          </div>
+          </AccordionSection>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 pt-2">
             <Button type="submit" disabled={loading}>
               {loading ? "Submitting..." : "Submit Entry"}
             </Button>
