@@ -22,14 +22,18 @@ export async function POST(req: NextRequest) {
   const orgId = (session.user as { organizationId?: string }).organizationId
   const body = await req.json()
 
-  const product = await db.product.create({
-    data: {
-      organizationId: orgId!,
-      name: body.name,
-      price: parseFloat(body.price) || 0,
-      description: body.description || null,
-    },
-  })
-
-  return NextResponse.json(product, { status: 201 })
+  try {
+    const product = await db.product.create({
+      data: {
+        organizationId: orgId!,
+        name: body.name,
+        price: parseFloat(body.price) || 0,
+        description: body.description || null,
+      },
+    })
+    return NextResponse.json(product, { status: 201 })
+  } catch (err) {
+    console.error("Failed to create product:", err)
+    return NextResponse.json({ error: "Failed to create product." }, { status: 500 })
+  }
 }

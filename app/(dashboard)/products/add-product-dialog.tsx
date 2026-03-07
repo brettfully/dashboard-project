@@ -23,6 +23,7 @@ export default function AddProductDialog({ orgId }: AddProductDialogProps) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
   const [form, setForm] = useState({ name: "", price: "", description: "" })
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -32,15 +33,21 @@ export default function AddProductDialog({ orgId }: AddProductDialogProps) {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
-    await fetch("/api/products", {
+    setError("")
+    const res = await fetch("/api/products", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...form, organizationId: orgId }),
     })
     setLoading(false)
-    setOpen(false)
-    setForm({ name: "", price: "", description: "" })
-    router.refresh()
+    if (res.ok) {
+      setOpen(false)
+      setForm({ name: "", price: "", description: "" })
+      router.refresh()
+    } else {
+      const data = await res.json().catch(() => ({}))
+      setError(data.error ?? "Failed to add product.")
+    }
   }
 
   return (
@@ -67,6 +74,7 @@ export default function AddProductDialog({ orgId }: AddProductDialogProps) {
             <Label>Description (optional)</Label>
             <Textarea name="description" value={form.description} onChange={handleChange} placeholder="Describe your offer..." rows={3} />
           </div>
+          {error && <p className="text-sm text-red-600">{error}</p>}
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? "Adding..." : "Add Product"}
           </Button>
