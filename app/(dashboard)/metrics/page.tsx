@@ -3,11 +3,7 @@ import { db } from "@/lib/db"
 import { MetricsContent } from "./metrics-content"
 import { startOfMonth, endOfMonth } from "date-fns"
 
-function applyFormula(
-  op: string,
-  a: number,
-  b: number
-): number | null {
+function applyFormula(op: string, a: number, b: number): number | null {
   if (op === "add") return a + b
   if (op === "subtract") return a - b
   if (op === "multiply") return a * b
@@ -23,7 +19,7 @@ export default async function MetricsPage() {
   const from = startOfMonth(now)
   const to = endOfMonth(now)
 
-  const [customMetrics, products, dataEntries, customEntries] = await Promise.all([
+  const [customMetrics, products, dataEntries, contentEntries, customEntries] = await Promise.all([
     db.customMetric.findMany({
       where: { organizationId: orgId },
       include: { updatedBy: true },
@@ -37,6 +33,9 @@ export default async function MetricsPage() {
     db.dataEntry.findMany({
       where: { organizationId: orgId, date: { gte: from, lte: to } },
     }),
+    db.contentMetric.findMany({
+      where: { organizationId: orgId, date: { gte: from, lte: to } },
+    }),
     db.customMetricEntry.findMany({
       where: {
         customMetric: { organizationId: orgId },
@@ -46,13 +45,19 @@ export default async function MetricsPage() {
     }),
   ])
 
-  // Sum every numeric DataEntry field across the period
+  // Sum DataEntry fields
   const deSums: Record<string, number> = {}
   for (const entry of dataEntries) {
     for (const [key, val] of Object.entries(entry)) {
-      if (typeof val === "number") {
-        deSums[key] = (deSums[key] ?? 0) + val
-      }
+      if (typeof val === "number") deSums[key] = (deSums[key] ?? 0) + val
+    }
+  }
+
+  // Sum ContentMetric fields
+  const contentSums: Record<string, number> = {}
+  for (const entry of contentEntries) {
+    for (const [key, val] of Object.entries(entry)) {
+      if (typeof val === "number") contentSums[key] = (contentSums[key] ?? 0) + val
     }
   }
 
@@ -82,6 +87,8 @@ export default async function MetricsPage() {
           metrics={customMetrics}
           products={products}
           metricValues={metricValues}
+          deSums={deSums}
+          contentSums={contentSums}
         />
       </div>
     </div>
