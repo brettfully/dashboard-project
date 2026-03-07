@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useEffect, useState } from "react"
 import { format, subDays, startOfYear, parseISO } from "date-fns"
+import type { DateRange } from "react-day-picker"
 import { CalendarIcon, ChevronDown } from "lucide-react"
 import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -29,42 +30,63 @@ function presetDates(preset: string) {
   return { from: subDays(today, found?.days ?? 30), to: today }
 }
 
-// ── Date button ────────────────────────────────────────────────────────────
+// ── Range date picker ───────────────────────────────────────────────────────
 
-function DateButton({
-  date,
-  placeholder,
+function DateRangePicker({
+  from,
+  to,
   onSelect,
 }: {
-  date: Date | undefined
-  placeholder: string
-  onSelect: (d: Date | undefined) => void
+  from: Date | undefined
+  to: Date | undefined
+  onSelect: (range: { from: Date | undefined; to: Date | undefined }) => void
 }) {
   const [open, setOpen] = useState(false)
+  const [range, setRange] = useState<DateRange>({ from, to })
+
+  const label =
+    from && to
+      ? `${format(from, "MMM d, yyyy")} – ${format(to, "MMM d, yyyy")}`
+      : from
+      ? `${format(from, "MMM d, yyyy")} – End date`
+      : "Select date range"
+
+  const handleSelect = (r: DateRange | undefined) => {
+    const next = r ?? { from: undefined, to: undefined }
+    setRange(next)
+    if (next.from && next.to) {
+      onSelect({ from: next.from, to: next.to })
+      setOpen(false)
+    }
+  }
+
+  // Sync external changes (e.g. from preset)
+  useEffect(() => {
+    setRange({ from, to })
+  }, [from, to])
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <button
           type="button"
           className={cn(
-            "flex h-9 items-center gap-2 rounded-md border border-border bg-card px-3 text-sm transition-colors",
-            "hover:bg-accent hover:border-border/80 focus:outline-none focus:ring-2 focus:ring-ring",
-            !date && "text-muted-foreground"
+            "flex h-[44px] items-center gap-2.5 rounded-lg border border-border bg-card px-4 text-base transition-colors",
+            "hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring",
+            !from && "text-muted-foreground"
           )}
         >
-          <CalendarIcon className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
-          {date ? format(date, "MMM d, yyyy") : placeholder}
+          <CalendarIcon className="h-4 w-4 text-muted-foreground shrink-0" />
+          <span>{label}</span>
         </button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
+      <PopoverContent className="w-auto p-0" align="start">
         <Calendar
-          mode="single"
-          selected={date}
-          onSelect={(d) => {
-            onSelect(d)
-            setOpen(false)
-          }}
-          defaultMonth={date}
+          mode="range"
+          selected={range}
+          onSelect={handleSelect}
+          numberOfMonths={2}
+          defaultMonth={from ?? subDays(new Date(), 30)}
           initialFocus
         />
       </PopoverContent>
@@ -94,7 +116,7 @@ function FilterDropdown({
         <button
           type="button"
           className={cn(
-            "flex h-9 items-center gap-2 rounded-md border border-border bg-card px-3 text-sm transition-colors min-w-[160px]",
+            "flex h-[44px] items-center gap-2.5 rounded-lg border border-border bg-card px-4 text-base transition-colors min-w-[180px]",
             "hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring",
             !selected && "text-muted-foreground"
           )}
@@ -102,13 +124,13 @@ function FilterDropdown({
           <span className="flex-1 text-left truncate">
             {selected ? selected.label : label}
           </span>
-          <ChevronDown className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+          <ChevronDown className="h-4 w-4 text-muted-foreground shrink-0" />
         </button>
       </PopoverTrigger>
-      <PopoverContent className="w-52 p-1">
+      <PopoverContent className="w-56 p-1">
         <button
           type="button"
-          className="w-full rounded-md px-3 py-2 text-left text-sm text-muted-foreground hover:bg-accent transition-colors"
+          className="w-full rounded-md px-3 py-2.5 text-left text-sm text-muted-foreground hover:bg-accent transition-colors"
           onClick={() => { onChange(""); setOpen(false) }}
         >
           All {label}
@@ -118,7 +140,7 @@ function FilterDropdown({
             key={opt.id}
             type="button"
             className={cn(
-              "w-full rounded-md px-3 py-2 text-left text-sm hover:bg-accent transition-colors",
+              "w-full rounded-md px-3 py-2.5 text-left text-sm hover:bg-accent transition-colors",
               opt.id === value && "bg-primary/10 text-primary font-medium"
             )}
             onClick={() => { onChange(opt.id); setOpen(false) }}
@@ -152,7 +174,6 @@ export function DashboardFilters({ className }: DashboardFiltersProps) {
   const [users,    setUsers]    = useState<User[]>([])
   const [products, setProducts] = useState<Product[]>([])
 
-  // Load users + products for filter dropdowns
   useEffect(() => {
     fetch("/api/team").then((r) => r.json()).then((d) => setUsers(Array.isArray(d) ? d : [])).catch(() => {})
     fetch("/api/products").then((r) => r.json()).then((d) => setProducts(Array.isArray(d) ? d : [])).catch(() => {})
@@ -170,14 +191,10 @@ export function DashboardFilters({ className }: DashboardFiltersProps) {
     [router]
   )
 
-  const handleFrom = (d: Date | undefined) => {
-    setFrom(d)
-    pushParams(d, to, userId, productId)
-  }
-
-  const handleTo = (d: Date | undefined) => {
-    setTo(d)
-    pushParams(from, d, userId, productId)
+  const handleRange = ({ from: f, to: t }: { from: Date | undefined; to: Date | undefined }) => {
+    setFrom(f)
+    setTo(t)
+    pushParams(f, t, userId, productId)
   }
 
   const handlePreset = (preset: string) => {
@@ -208,21 +225,18 @@ export function DashboardFilters({ className }: DashboardFiltersProps) {
 
   return (
     <div className={cn("flex flex-wrap items-end gap-6", className)}>
-      {/* Date range picker */}
-      <div className="flex flex-col gap-1.5">
-        <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+
+      {/* Single date range picker */}
+      <div className="flex flex-col gap-2">
+        <span className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
           Date Range
         </span>
-        <div className="flex items-center gap-2">
-          <DateButton date={from} placeholder="Start date" onSelect={handleFrom} />
-          <span className="text-muted-foreground text-sm">–</span>
-          <DateButton date={to}   placeholder="End date"   onSelect={handleTo} />
-        </div>
+        <DateRangePicker from={from} to={to} onSelect={handleRange} />
       </div>
 
       {/* Preset dropdown */}
-      <div className="flex flex-col gap-1.5">
-        <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+      <div className="flex flex-col gap-2">
+        <span className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
           Choose Preset
         </span>
         <FilterDropdown
@@ -233,12 +247,12 @@ export function DashboardFilters({ className }: DashboardFiltersProps) {
         />
       </div>
 
-      {/* User + Product filters */}
-      <div className="flex flex-col gap-1.5">
-        <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+      {/* Filters */}
+      <div className="flex flex-col gap-2">
+        <span className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
           Filters
         </span>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <FilterDropdown
             label="Users"
             options={users.map((u) => ({ id: u.id, label: u.name ?? u.email }))}
@@ -253,6 +267,7 @@ export function DashboardFilters({ className }: DashboardFiltersProps) {
           />
         </div>
       </div>
+
     </div>
   )
 }
