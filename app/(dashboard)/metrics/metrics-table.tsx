@@ -30,6 +30,20 @@ import { Badge } from "@/components/ui/badge"
 import { Pencil, Trash2 } from "lucide-react"
 import { format } from "date-fns"
 
+const CATEGORY_COLORS: Record<string, string> = {
+  sales:      "bg-blue-500/10 text-blue-400 border-0",
+  ads_funnel: "bg-orange-500/10 text-orange-400 border-0",
+  organic:    "bg-emerald-500/10 text-emerald-400 border-0",
+  business:   "bg-purple-500/10 text-purple-400 border-0",
+}
+
+const CATEGORY_LABELS: Record<string, string> = {
+  sales:      "Sales",
+  ads_funnel: "Ads + Funnel",
+  organic:    "Organic",
+  business:   "Business",
+}
+
 export type CustomMetricWithUpdatedBy = {
   id: string
   name: string
@@ -137,6 +151,7 @@ export function MetricsTable({
             <TableHeader>
               <TableRow className="border-border hover:bg-transparent">
                 <TableHead className="font-semibold text-foreground">Metric Name</TableHead>
+                <TableHead className="font-semibold text-foreground">Category</TableHead>
                 <TableHead className="font-semibold text-foreground">Type</TableHead>
                 <TableHead className="font-semibold text-foreground">Status</TableHead>
                 <TableHead className="font-semibold text-foreground">Role</TableHead>
@@ -147,7 +162,7 @@ export function MetricsTable({
             <TableBody>
               {filtered.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={6} className="text-center text-muted-foreground py-10">
+                  <TableCell colSpan={7} className="text-center text-muted-foreground py-10">
                     {metrics.length === 0
                       ? "No custom metrics yet. Click \"Add New Metric\" to create one."
                       : "No metrics match your filters."}
@@ -157,6 +172,12 @@ export function MetricsTable({
                 filtered.map((m) => (
                   <TableRow key={m.id} className="border-border">
                     <TableCell className="font-medium text-foreground">{m.name}</TableCell>
+
+                    <TableCell>
+                      <Badge className={CATEGORY_COLORS[m.category] ?? "bg-muted text-muted-foreground border-0"}>
+                        {CATEGORY_LABELS[m.category] ?? m.category}
+                      </Badge>
+                    </TableCell>
 
                     <TableCell className="text-muted-foreground text-sm">
                       {typeLabel(m)}
