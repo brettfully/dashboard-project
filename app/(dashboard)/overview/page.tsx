@@ -3,7 +3,6 @@ import { auth } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { KpiCard } from "@/components/charts/kpi-card"
 import { DashboardFilters } from "@/components/dashboard/dashboard-filters"
-import { SavedViewsBar } from "@/components/dashboard/saved-views-bar"
 import {
   formatCurrency,
   formatNumber,
@@ -89,10 +88,6 @@ export default async function OverviewPage({
         <Suspense fallback={<div className="h-9" />}>
           <DashboardFilters />
         </Suspense>
-
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <SavedViewsBar />
-        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
           <KpiCard
