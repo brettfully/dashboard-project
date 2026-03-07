@@ -45,16 +45,7 @@ export function MetricsContent({
 
   return (
     <>
-      {/* Standard Metrics — read-only */}
-      <section className="space-y-3">
-        <div>
-          <h2 className="text-base font-semibold text-foreground">Standard Metrics</h2>
-          <p className="text-sm text-muted-foreground">Built-in fields tracked across all data entry. Read-only.</p>
-        </div>
-        <StandardMetricsTable deSums={deSums} contentSums={contentSums} />
-      </section>
-
-      {/* Custom Metrics — editable */}
+      {/* Custom Metrics — top, editable */}
       <section className="space-y-3">
         <div className="flex items-center justify-between">
           <div>
@@ -66,7 +57,16 @@ export function MetricsContent({
             Add New Metric
           </Button>
         </div>
-        <MetricsTable metrics={metrics} onEdit={openEdit} metricValues={metricValues} />
+        <MetricsTable metrics={metrics} onEdit={openEdit} />
+      </section>
+
+      {/* Standard Metrics — bottom, read-only */}
+      <section className="space-y-3">
+        <div>
+          <h2 className="text-base font-semibold text-foreground">Standard Metrics</h2>
+          <p className="text-sm text-muted-foreground">Built-in fields tracked across all data entry. Read-only.</p>
+        </div>
+        <StandardMetricsTable deSums={deSums} contentSums={contentSums} />
       </section>
 
       <MetricFormDialog
