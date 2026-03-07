@@ -84,7 +84,7 @@ export default async function OverviewPage({
   return (
     <div className="flex flex-col h-full">
       <div className="flex-1 p-6 space-y-6">
-        <h1 className="text-xl font-semibold text-foreground">Dashboard</h1>
+        <h1 className="text-xl font-semibold text-foreground">Overview</h1>
 
         <Suspense fallback={<div className="h-9" />}>
           <DashboardFilters />

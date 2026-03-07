@@ -19,6 +19,7 @@ const PRESETS = [
   { label: "Last 7 days",  value: "last7",  days: 7 },
   { label: "Last 30 days", value: "last30", days: 30 },
   { label: "Last 90 days", value: "last90", days: 90 },
+  { label: "Year to date", value: "ytd",    days: 0 },
 ] as const
 
 function presetDates(preset: string) {
@@ -219,28 +220,17 @@ export function DashboardFilters({ className }: DashboardFiltersProps) {
         </div>
       </div>
 
-      {/* Preset buttons */}
+      {/* Preset dropdown */}
       <div className="flex flex-col gap-1.5">
         <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
           Choose Preset
         </span>
-        <div className="flex items-center gap-1.5">
-          {PRESETS.map((p) => (
-            <button
-              key={p.value}
-              type="button"
-              onClick={() => handlePreset(p.value)}
-              className={cn(
-                "h-9 rounded-md px-3 text-sm font-medium border transition-colors",
-                activePreset === p.value
-                  ? "bg-primary text-primary-foreground border-primary"
-                  : "bg-card border-border text-muted-foreground hover:bg-accent hover:text-foreground"
-              )}
-            >
-              {p.label}
-            </button>
-          ))}
-        </div>
+        <FilterDropdown
+          label="Select preset..."
+          options={PRESETS.map((p) => ({ id: p.value, label: p.label }))}
+          value={activePreset ?? ""}
+          onChange={handlePreset}
+        />
       </div>
 
       {/* User + Product filters */}
