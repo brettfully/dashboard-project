@@ -39,6 +39,8 @@ export type CustomMetricEntryMinAggregateOutputType = {
   customMetricId: string | null
   date: Date | null
   value: number | null
+  userId: string | null
+  productId: string | null
 }
 
 export type CustomMetricEntryMaxAggregateOutputType = {
@@ -46,6 +48,8 @@ export type CustomMetricEntryMaxAggregateOutputType = {
   customMetricId: string | null
   date: Date | null
   value: number | null
+  userId: string | null
+  productId: string | null
 }
 
 export type CustomMetricEntryCountAggregateOutputType = {
@@ -53,6 +57,8 @@ export type CustomMetricEntryCountAggregateOutputType = {
   customMetricId: number
   date: number
   value: number
+  userId: number
+  productId: number
   _all: number
 }
 
@@ -70,6 +76,8 @@ export type CustomMetricEntryMinAggregateInputType = {
   customMetricId?: true
   date?: true
   value?: true
+  userId?: true
+  productId?: true
 }
 
 export type CustomMetricEntryMaxAggregateInputType = {
@@ -77,6 +85,8 @@ export type CustomMetricEntryMaxAggregateInputType = {
   customMetricId?: true
   date?: true
   value?: true
+  userId?: true
+  productId?: true
 }
 
 export type CustomMetricEntryCountAggregateInputType = {
@@ -84,6 +94,8 @@ export type CustomMetricEntryCountAggregateInputType = {
   customMetricId?: true
   date?: true
   value?: true
+  userId?: true
+  productId?: true
   _all?: true
 }
 
@@ -178,6 +190,8 @@ export type CustomMetricEntryGroupByOutputType = {
   customMetricId: string
   date: Date
   value: number
+  userId: string | null
+  productId: string | null
   _count: CustomMetricEntryCountAggregateOutputType | null
   _avg: CustomMetricEntryAvgAggregateOutputType | null
   _sum: CustomMetricEntrySumAggregateOutputType | null
@@ -208,6 +222,8 @@ export type CustomMetricEntryWhereInput = {
   customMetricId?: Prisma.StringFilter<"CustomMetricEntry"> | string
   date?: Prisma.DateTimeFilter<"CustomMetricEntry"> | Date | string
   value?: Prisma.FloatFilter<"CustomMetricEntry"> | number
+  userId?: Prisma.StringNullableFilter<"CustomMetricEntry"> | string | null
+  productId?: Prisma.StringNullableFilter<"CustomMetricEntry"> | string | null
   customMetric?: Prisma.XOR<Prisma.CustomMetricScalarRelationFilter, Prisma.CustomMetricWhereInput>
 }
 
@@ -216,6 +232,8 @@ export type CustomMetricEntryOrderByWithRelationInput = {
   customMetricId?: Prisma.SortOrder
   date?: Prisma.SortOrder
   value?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
+  productId?: Prisma.SortOrderInput | Prisma.SortOrder
   customMetric?: Prisma.CustomMetricOrderByWithRelationInput
 }
 
@@ -227,6 +245,8 @@ export type CustomMetricEntryWhereUniqueInput = Prisma.AtLeast<{
   customMetricId?: Prisma.StringFilter<"CustomMetricEntry"> | string
   date?: Prisma.DateTimeFilter<"CustomMetricEntry"> | Date | string
   value?: Prisma.FloatFilter<"CustomMetricEntry"> | number
+  userId?: Prisma.StringNullableFilter<"CustomMetricEntry"> | string | null
+  productId?: Prisma.StringNullableFilter<"CustomMetricEntry"> | string | null
   customMetric?: Prisma.XOR<Prisma.CustomMetricScalarRelationFilter, Prisma.CustomMetricWhereInput>
 }, "id">
 
@@ -235,6 +255,8 @@ export type CustomMetricEntryOrderByWithAggregationInput = {
   customMetricId?: Prisma.SortOrder
   date?: Prisma.SortOrder
   value?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
+  productId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.CustomMetricEntryCountOrderByAggregateInput
   _avg?: Prisma.CustomMetricEntryAvgOrderByAggregateInput
   _max?: Prisma.CustomMetricEntryMaxOrderByAggregateInput
@@ -250,12 +272,16 @@ export type CustomMetricEntryScalarWhereWithAggregatesInput = {
   customMetricId?: Prisma.StringWithAggregatesFilter<"CustomMetricEntry"> | string
   date?: Prisma.DateTimeWithAggregatesFilter<"CustomMetricEntry"> | Date | string
   value?: Prisma.FloatWithAggregatesFilter<"CustomMetricEntry"> | number
+  userId?: Prisma.StringNullableWithAggregatesFilter<"CustomMetricEntry"> | string | null
+  productId?: Prisma.StringNullableWithAggregatesFilter<"CustomMetricEntry"> | string | null
 }
 
 export type CustomMetricEntryCreateInput = {
   id?: string
   date?: Date | string
   value: number
+  userId?: string | null
+  productId?: string | null
   customMetric: Prisma.CustomMetricCreateNestedOneWithoutEntriesInput
 }
 
@@ -264,12 +290,16 @@ export type CustomMetricEntryUncheckedCreateInput = {
   customMetricId: string
   date?: Date | string
   value: number
+  userId?: string | null
+  productId?: string | null
 }
 
 export type CustomMetricEntryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   value?: Prisma.FloatFieldUpdateOperationsInput | number
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customMetric?: Prisma.CustomMetricUpdateOneRequiredWithoutEntriesNestedInput
 }
 
@@ -278,6 +308,8 @@ export type CustomMetricEntryUncheckedUpdateInput = {
   customMetricId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   value?: Prisma.FloatFieldUpdateOperationsInput | number
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type CustomMetricEntryCreateManyInput = {
@@ -285,12 +317,16 @@ export type CustomMetricEntryCreateManyInput = {
   customMetricId: string
   date?: Date | string
   value: number
+  userId?: string | null
+  productId?: string | null
 }
 
 export type CustomMetricEntryUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   value?: Prisma.FloatFieldUpdateOperationsInput | number
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type CustomMetricEntryUncheckedUpdateManyInput = {
@@ -298,6 +334,8 @@ export type CustomMetricEntryUncheckedUpdateManyInput = {
   customMetricId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   value?: Prisma.FloatFieldUpdateOperationsInput | number
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type CustomMetricEntryListRelationFilter = {
@@ -315,6 +353,8 @@ export type CustomMetricEntryCountOrderByAggregateInput = {
   customMetricId?: Prisma.SortOrder
   date?: Prisma.SortOrder
   value?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
+  productId?: Prisma.SortOrder
 }
 
 export type CustomMetricEntryAvgOrderByAggregateInput = {
@@ -326,6 +366,8 @@ export type CustomMetricEntryMaxOrderByAggregateInput = {
   customMetricId?: Prisma.SortOrder
   date?: Prisma.SortOrder
   value?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
+  productId?: Prisma.SortOrder
 }
 
 export type CustomMetricEntryMinOrderByAggregateInput = {
@@ -333,6 +375,8 @@ export type CustomMetricEntryMinOrderByAggregateInput = {
   customMetricId?: Prisma.SortOrder
   date?: Prisma.SortOrder
   value?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
+  productId?: Prisma.SortOrder
 }
 
 export type CustomMetricEntrySumOrderByAggregateInput = {
@@ -385,12 +429,16 @@ export type CustomMetricEntryCreateWithoutCustomMetricInput = {
   id?: string
   date?: Date | string
   value: number
+  userId?: string | null
+  productId?: string | null
 }
 
 export type CustomMetricEntryUncheckedCreateWithoutCustomMetricInput = {
   id?: string
   date?: Date | string
   value: number
+  userId?: string | null
+  productId?: string | null
 }
 
 export type CustomMetricEntryCreateOrConnectWithoutCustomMetricInput = {
@@ -427,30 +475,40 @@ export type CustomMetricEntryScalarWhereInput = {
   customMetricId?: Prisma.StringFilter<"CustomMetricEntry"> | string
   date?: Prisma.DateTimeFilter<"CustomMetricEntry"> | Date | string
   value?: Prisma.FloatFilter<"CustomMetricEntry"> | number
+  userId?: Prisma.StringNullableFilter<"CustomMetricEntry"> | string | null
+  productId?: Prisma.StringNullableFilter<"CustomMetricEntry"> | string | null
 }
 
 export type CustomMetricEntryCreateManyCustomMetricInput = {
   id?: string
   date?: Date | string
   value: number
+  userId?: string | null
+  productId?: string | null
 }
 
 export type CustomMetricEntryUpdateWithoutCustomMetricInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   value?: Prisma.FloatFieldUpdateOperationsInput | number
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type CustomMetricEntryUncheckedUpdateWithoutCustomMetricInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   value?: Prisma.FloatFieldUpdateOperationsInput | number
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type CustomMetricEntryUncheckedUpdateManyWithoutCustomMetricInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   value?: Prisma.FloatFieldUpdateOperationsInput | number
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -460,6 +518,8 @@ export type CustomMetricEntrySelect<ExtArgs extends runtime.Types.Extensions.Int
   customMetricId?: boolean
   date?: boolean
   value?: boolean
+  userId?: boolean
+  productId?: boolean
   customMetric?: boolean | Prisma.CustomMetricDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["customMetricEntry"]>
 
@@ -468,6 +528,8 @@ export type CustomMetricEntrySelectCreateManyAndReturn<ExtArgs extends runtime.T
   customMetricId?: boolean
   date?: boolean
   value?: boolean
+  userId?: boolean
+  productId?: boolean
   customMetric?: boolean | Prisma.CustomMetricDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["customMetricEntry"]>
 
@@ -476,6 +538,8 @@ export type CustomMetricEntrySelectUpdateManyAndReturn<ExtArgs extends runtime.T
   customMetricId?: boolean
   date?: boolean
   value?: boolean
+  userId?: boolean
+  productId?: boolean
   customMetric?: boolean | Prisma.CustomMetricDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["customMetricEntry"]>
 
@@ -484,9 +548,11 @@ export type CustomMetricEntrySelectScalar = {
   customMetricId?: boolean
   date?: boolean
   value?: boolean
+  userId?: boolean
+  productId?: boolean
 }
 
-export type CustomMetricEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "customMetricId" | "date" | "value", ExtArgs["result"]["customMetricEntry"]>
+export type CustomMetricEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "customMetricId" | "date" | "value" | "userId" | "productId", ExtArgs["result"]["customMetricEntry"]>
 export type CustomMetricEntryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   customMetric?: boolean | Prisma.CustomMetricDefaultArgs<ExtArgs>
 }
@@ -507,6 +573,8 @@ export type $CustomMetricEntryPayload<ExtArgs extends runtime.Types.Extensions.I
     customMetricId: string
     date: Date
     value: number
+    userId: string | null
+    productId: string | null
   }, ExtArgs["result"]["customMetricEntry"]>
   composites: {}
 }
@@ -935,6 +1003,8 @@ export interface CustomMetricEntryFieldRefs {
   readonly customMetricId: Prisma.FieldRef<"CustomMetricEntry", 'String'>
   readonly date: Prisma.FieldRef<"CustomMetricEntry", 'DateTime'>
   readonly value: Prisma.FieldRef<"CustomMetricEntry", 'Float'>
+  readonly userId: Prisma.FieldRef<"CustomMetricEntry", 'String'>
+  readonly productId: Prisma.FieldRef<"CustomMetricEntry", 'String'>
 }
     
 

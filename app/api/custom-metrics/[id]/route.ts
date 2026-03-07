@@ -33,6 +33,7 @@ export async function PATCH(
       ...(body.secondField !== undefined && { secondField: body.secondField || null }),
       ...(body.showResultAs !== undefined && { showResultAs: body.showResultAs || null }),
       ...(body.status != null && { status: body.status }),
+      ...(body.pinnedToOverview !== undefined && { pinnedToOverview: body.pinnedToOverview }),
       updatedAt: new Date(),
       updatedById: userId,
     },

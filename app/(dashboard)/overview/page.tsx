@@ -5,7 +5,7 @@ import { KpiCard } from "@/components/charts/kpi-card"
 import { MetricBarChart } from "@/components/charts/metric-chart"
 import { DashboardFilters } from "@/components/dashboard/dashboard-filters"
 import { formatCurrency, formatNumber, calcROAS } from "@/lib/utils"
-import { DollarSign, TrendingUp, Phone, Megaphone, Wallet, BarChart3 } from "lucide-react"
+import { DollarSign, TrendingUp, Phone, Megaphone, Wallet, BarChart3, Activity } from "lucide-react"
 import { subDays, startOfDay, parseISO, differenceInDays, format } from "date-fns"
 
 export default async function OverviewPage({
@@ -30,7 +30,7 @@ export default async function OverviewPage({
     ...(params.product ? { productId: params.product } : {}),
   }
 
-  const [currentEntries, previousEntries, allTimeEntries] = await Promise.all([
+  const [currentEntries, previousEntries, allTimeEntries, pinnedMetrics, customEntries] = await Promise.all([
     db.dataEntry.findMany({
       where: { ...baseWhere, date: { gte: fromDate, lte: toDate } },
       orderBy: { date: "asc" },
@@ -41,6 +41,17 @@ export default async function OverviewPage({
     db.dataEntry.findMany({
       where: { organizationId: orgId },
       select: { cashCollected: true },
+    }),
+    db.customMetric.findMany({
+      where: { organizationId: orgId, pinnedToOverview: true, status: "ACTIVE" },
+      orderBy: { createdAt: "asc" },
+    }),
+    db.customMetricEntry.findMany({
+      where: {
+        customMetric: { organizationId: orgId, pinnedToOverview: true },
+        date: { gte: fromDate, lte: toDate },
+      },
+      select: { customMetricId: true, value: true },
     }),
   ])
 
@@ -63,6 +74,39 @@ export default async function OverviewPage({
 
   const trend = (curr: number, prev: number) =>
     prev > 0 ? ((curr - prev) / prev) * 100 : 0
+
+  // Compute pinned custom metric values for the selected date range
+  const deSums: Record<string, number> = {}
+  for (const entry of currentEntries) {
+    for (const [key, val] of Object.entries(entry)) {
+      if (typeof val === "number") deSums[key] = (deSums[key] ?? 0) + val
+    }
+  }
+  const cmSums: Record<string, number> = {}
+  for (const e of customEntries) {
+    cmSums[e.customMetricId] = (cmSums[e.customMetricId] ?? 0) + e.value
+  }
+
+  function computeMetricValue(m: typeof pinnedMetrics[0]): number | null {
+    if (m.type === "CALCULATED" && m.firstField && m.secondField && m.operator) {
+      const a = deSums[m.firstField] ?? 0
+      const b = deSums[m.secondField] ?? 0
+      if (m.operator === "add") return a + b
+      if (m.operator === "subtract") return a - b
+      if (m.operator === "multiply") return a * b
+      if (m.operator === "divide") return b !== 0 ? a / b : null
+    }
+    return cmSums[m.id] ?? 0
+  }
+
+  function formatMetricValue(m: typeof pinnedMetrics[0], value: number | null): string {
+    if (value === null) return "—"
+    const as = m.showResultAs ?? (m.type === "CURRENCY" ? "currency" : "number")
+    if (as === "currency")
+      return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value)
+    if (as === "percent") return `${value.toFixed(1)}%`
+    return Number.isInteger(value) ? String(value) : value.toFixed(2)
+  }
 
   // Build chart data grouped by day
   const chartMap: Record<string, { calls: number; cash: number }> = {}
@@ -124,6 +168,19 @@ export default async function OverviewPage({
             subtitle={adSpend > 0 ? `on ${formatCurrency(adSpend)} spend` : undefined}
           />
         </div>
+
+        {pinnedMetrics.length > 0 && (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            {pinnedMetrics.map((m) => (
+              <KpiCard
+                key={m.id}
+                title={m.name}
+                value={formatMetricValue(m, computeMetricValue(m))}
+                icon={Activity}
+              />
+            ))}
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <MetricBarChart

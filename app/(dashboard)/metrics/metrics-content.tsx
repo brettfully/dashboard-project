@@ -12,9 +12,11 @@ type Product = { id: string; name: string }
 export function MetricsContent({
   metrics,
   products,
+  metricValues,
 }: {
   metrics: CustomMetricWithUpdatedBy[]
   products: Product[]
+  metricValues: Record<string, number | null>
 }) {
   const router = useRouter()
   const [dialogOpen, setDialogOpen] = useState(false)
@@ -48,7 +50,7 @@ export function MetricsContent({
         </Button>
       </div>
 
-      <MetricsTable metrics={metrics} onEdit={openEdit} />
+      <MetricsTable metrics={metrics} onEdit={openEdit} metricValues={metricValues} />
 
       <MetricFormDialog
         open={dialogOpen}

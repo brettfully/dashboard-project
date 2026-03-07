@@ -184,6 +184,7 @@ export const CustomMetricScalarFieldEnum = {
   secondField: 'secondField',
   showResultAs: 'showResultAs',
   status: 'status',
+  pinnedToOverview: 'pinnedToOverview',
   updatedAt: 'updatedAt',
   updatedById: 'updatedById'
 } as const
@@ -195,7 +196,9 @@ export const CustomMetricEntryScalarFieldEnum = {
   id: 'id',
   customMetricId: 'customMetricId',
   date: 'date',
-  value: 'value'
+  value: 'value',
+  userId: 'userId',
+  productId: 'productId'
 } as const
 
 export type CustomMetricEntryScalarFieldEnum = (typeof CustomMetricEntryScalarFieldEnum)[keyof typeof CustomMetricEntryScalarFieldEnum]

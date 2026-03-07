@@ -130,9 +130,10 @@ model CustomMetric {
   operator     String?  // add | subtract | multiply | divide
   secondField  String?  // for CALCULATED
   showResultAs String?  // currency | number | percent
-  status       String   @default("ACTIVE") // ACTIVE | INACTIVE
-  updatedAt    DateTime?
-  updatedById  String?
+  status            String   @default("ACTIVE") // ACTIVE | INACTIVE
+  pinnedToOverview  Boolean  @default(false)
+  updatedAt         DateTime?
+  updatedById       String?
 
   organization Organization      @relation(fields: [organizationId], references: [id])
   updatedBy    User?             @relation(fields: [updatedById], references: [id])
