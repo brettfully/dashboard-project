@@ -27,6 +27,7 @@ export type CustomMetricWithUpdatedBy = {
   id: string
   name: string
   type: string
+  category: string
   role: string | null
   status: string
   pinnedToOverview: boolean

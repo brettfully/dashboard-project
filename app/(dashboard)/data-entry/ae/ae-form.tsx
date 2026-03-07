@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/select"
 import { AccordionSection } from "@/components/ui/accordion-section"
 
-type CustomMetricDef = { id: string; name: string; type: string; productIds: string[] }
+type CustomMetricDef = { id: string; name: string; type: string; category: string; productIds: string[] }
 
 interface AeFormProps {
   products: { id: string; name: string }[]
@@ -182,28 +182,29 @@ export default function AeForm({ products, userId, orgId, customMetrics }: AeFor
                   ))}
                 </div>
               </div>
+
+              {activeCustomMetrics.filter((m) => m.category === "sales").length > 0 && (
+                <div>
+                  <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Custom</h3>
+                  <div className="space-y-3">
+                    {activeCustomMetrics.filter((m) => m.category === "sales").map((m) => (
+                      <div key={m.id} className="space-y-1">
+                        <Label className="text-xs text-muted-foreground">{m.name}</Label>
+                        <Input
+                          type="number"
+                          value={fields[`cm_${m.id}`] ?? ""}
+                          onChange={(e) => handleChange(`cm_${m.id}`, e.target.value)}
+                          placeholder={m.type === "CURRENCY" ? "0.00" : "0"}
+                          min="0"
+                          step={m.type === "CURRENCY" ? "0.01" : "1"}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </AccordionSection>
-
-          {activeCustomMetrics.length > 0 && (
-            <AccordionSection title="Custom Metrics" icon={<DollarSign className="h-4 w-4" />} defaultOpen>
-              <div className="space-y-3">
-                {activeCustomMetrics.map((m) => (
-                  <div key={m.id} className="space-y-1">
-                    <Label className="text-xs text-muted-foreground">{m.name}</Label>
-                    <Input
-                      type="number"
-                      value={fields[`cm_${m.id}`] ?? ""}
-                      onChange={(e) => handleChange(`cm_${m.id}`, e.target.value)}
-                      placeholder={m.type === "CURRENCY" ? "0.00" : "0"}
-                      min="0"
-                      step={m.type === "CURRENCY" ? "0.01" : "1"}
-                    />
-                  </div>
-                ))}
-              </div>
-            </AccordionSection>
-          )}
 
           <div className="flex items-center gap-4 pt-2">
             <Button type="submit" disabled={loading}>

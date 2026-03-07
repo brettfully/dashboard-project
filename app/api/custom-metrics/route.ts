@@ -29,6 +29,7 @@ export async function POST(req: NextRequest) {
       name: body.name,
       organizationId: orgId!,
       type: body.type ?? "NUMBER",
+      category: body.category ?? "sales",
       role: body.role ?? null,
       productIds: Array.isArray(body.productIds) ? body.productIds : null,
       firstField: body.firstField ?? null,

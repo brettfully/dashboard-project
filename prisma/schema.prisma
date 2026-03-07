@@ -126,6 +126,7 @@ model CustomMetric {
   createdAt      DateTime @default(now())
 
   type         String   @default("NUMBER") // NUMBER | CURRENCY | CALCULATED
+  category     String   @default("sales")  // sales | ads_funnel | organic | business
   role         String?  // e.g. Account Executive
   productIds   Json?    // array of product ids
   firstField   String?  // for CALCULATED: DataEntry field name

@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/select"
 import { AccordionSection } from "@/components/ui/accordion-section"
 
-type CustomMetricDef = { id: string; name: string; type: string; productIds: string[] }
+type CustomMetricDef = { id: string; name: string; type: string; category: string; productIds: string[] }
 
 interface ManagerFormProps {
   products: { id: string; name: string }[]
@@ -119,6 +119,32 @@ export default function ManagerForm({ products, userId, orgId, customMetrics }: 
   const activeCustomMetrics = customMetrics.filter(
     (m) => m.productIds.length === 0 || m.productIds.includes(productId)
   )
+  const cmByCategory = (cat: string) => activeCustomMetrics.filter((m) => m.category === cat)
+
+  function customMetricInputs(cat: string) {
+    const metrics = cmByCategory(cat)
+    if (metrics.length === 0) return null
+    return (
+      <div>
+        <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Custom</h3>
+        <div className="space-y-3">
+          {metrics.map((m) => (
+            <div key={m.id} className="space-y-1">
+              <Label className="text-xs text-muted-foreground">{m.name}</Label>
+              <Input
+                type="number"
+                value={fields[`cm_${m.id}`] ?? ""}
+                onChange={(e) => handleChange(`cm_${m.id}`, e.target.value)}
+                placeholder={m.type === "CURRENCY" ? "0.00" : "0"}
+                min="0"
+                step={m.type === "CURRENCY" ? "0.01" : "1"}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -242,51 +268,41 @@ export default function ManagerForm({ products, userId, orgId, customMetrics }: 
                   {REVENUE_FIELDS.map(fieldInput)}
                 </div>
               </div>
+
+              {customMetricInputs("sales")}
             </div>
           </AccordionSection>
 
           {/* ── Ads + Funnel ──────────────────────────────────────────────── */}
           <AccordionSection title="Ads + Funnel" icon={<Megaphone className="h-4 w-4" />} defaultOpen={false}>
-            <div className="space-y-3">
-              {ADS_FIELDS.map(fieldInput)}
-              {fieldInput(OPT_INS_FIELD)}
+            <div className="space-y-5">
+              <div className="space-y-3">
+                {ADS_FIELDS.map(fieldInput)}
+                {fieldInput(OPT_INS_FIELD)}
+              </div>
+              {customMetricInputs("ads_funnel")}
             </div>
           </AccordionSection>
 
           {/* ── Organic ───────────────────────────────────────────────────── */}
           <AccordionSection title="Organic" icon={<Leaf className="h-4 w-4" />} defaultOpen={false}>
-            <div className="space-y-3">
-              {ORGANIC_FIELDS.map(fieldInput)}
+            <div className="space-y-5">
+              <div className="space-y-3">
+                {ORGANIC_FIELDS.map(fieldInput)}
+              </div>
+              {customMetricInputs("organic")}
             </div>
           </AccordionSection>
 
           {/* ── Business ──────────────────────────────────────────────────── */}
           <AccordionSection title="Business" icon={<Briefcase className="h-4 w-4" />} defaultOpen={false}>
-            <div className="space-y-3">
-              {BUSINESS_FIELDS.map(fieldInput)}
+            <div className="space-y-5">
+              <div className="space-y-3">
+                {BUSINESS_FIELDS.map(fieldInput)}
+              </div>
+              {customMetricInputs("business")}
             </div>
           </AccordionSection>
-
-          {/* ── Custom Metrics ────────────────────────────────────────── */}
-          {activeCustomMetrics.length > 0 && (
-            <AccordionSection title="Custom Metrics" icon={<TrendingUp className="h-4 w-4" />} defaultOpen>
-              <div className="space-y-3">
-                {activeCustomMetrics.map((m) => (
-                  <div key={m.id} className="space-y-1">
-                    <Label className="text-xs text-muted-foreground">{m.name}</Label>
-                    <Input
-                      type="number"
-                      value={fields[`cm_${m.id}`] ?? ""}
-                      onChange={(e) => handleChange(`cm_${m.id}`, e.target.value)}
-                      placeholder={m.type === "CURRENCY" ? "0.00" : "0"}
-                      min="0"
-                      step={m.type === "CURRENCY" ? "0.01" : "1"}
-                    />
-                  </div>
-                ))}
-              </div>
-            </AccordionSection>
-          )}
 
           <div className="flex items-center gap-4 pt-2">
             <Button type="submit" disabled={loading}>

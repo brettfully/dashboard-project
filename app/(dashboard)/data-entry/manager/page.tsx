@@ -50,6 +50,7 @@ export default async function ManagerDataEntryPage() {
               id: m.id,
               name: m.name,
               type: m.type,
+              category: m.category,
               productIds: Array.isArray(m.productIds) ? (m.productIds as string[]) : [],
             }))}
           />

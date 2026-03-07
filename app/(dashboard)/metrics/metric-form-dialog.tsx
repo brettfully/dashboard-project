@@ -67,6 +67,13 @@ const ROLES = [
   "Company Admin",
 ] as const
 
+const CATEGORIES = [
+  { value: "sales",     label: "Sales" },
+  { value: "ads_funnel", label: "Ads + Funnel" },
+  { value: "organic",  label: "Organic" },
+  { value: "business", label: "Business" },
+] as const
+
 const TYPES = [
   { value: "NUMBER", label: "Number" },
   { value: "CURRENCY", label: "Currency" },
@@ -77,6 +84,7 @@ type MetricRow = {
   id: string
   name: string
   type: string
+  category: string
   role: string | null
   status: string
   productIds: unknown
@@ -115,6 +123,7 @@ export function MetricFormDialog({
   const [name, setName] = useState("")
   const [productIds, setProductIds] = useState<string[]>([])
   const [role, setRole] = useState("Account Executive")
+  const [category, setCategory] = useState("sales")
   const [type, setType] = useState<"NUMBER" | "CURRENCY" | "CALCULATED">("NUMBER")
   const [firstField, setFirstField] = useState("revenueGenerated")
   const [operator, setOperator] = useState("subtract")
@@ -128,6 +137,7 @@ export function MetricFormDialog({
       setName(metric.name)
       setProductIds(Array.isArray(metric.productIds) ? (metric.productIds as string[]) : [])
       setRole(metric.role ?? "Account Executive")
+      setCategory(metric.category ?? "sales")
       setType((metric.type as "NUMBER" | "CURRENCY" | "CALCULATED") || "NUMBER")
       setFirstField(metric.firstField ?? "revenueGenerated")
       setOperator(metric.operator ?? "subtract")
@@ -137,6 +147,7 @@ export function MetricFormDialog({
       setName("")
       setProductIds([])
       setRole("Account Executive")
+      setCategory("sales")
       setType("NUMBER")
       setFirstField("revenueGenerated")
       setOperator("subtract")
@@ -178,6 +189,7 @@ export function MetricFormDialog({
             name,
             productIds,
             role,
+            category,
             type,
             firstField: type === "CALCULATED" ? firstField : null,
             operator: type === "CALCULATED" ? operator : null,
@@ -193,6 +205,7 @@ export function MetricFormDialog({
             name,
             productIds,
             role,
+            category,
             type,
             firstField: type === "CALCULATED" ? firstField : null,
             operator: type === "CALCULATED" ? operator : null,
@@ -282,6 +295,22 @@ export function MetricFormDialog({
                 {ROLES.map((r) => (
                   <SelectItem key={r} value={r}>
                     {r}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <Label>Category</Label>
+            <Select value={category} onValueChange={setCategory}>
+              <SelectTrigger className="bg-background border-border">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {CATEGORIES.map((c) => (
+                  <SelectItem key={c.value} value={c.value}>
+                    {c.label}
                   </SelectItem>
                 ))}
               </SelectContent>

@@ -24,6 +24,7 @@ export async function PATCH(
     data: {
       ...(body.name != null && { name: body.name }),
       ...(body.type != null && { type: body.type }),
+      ...(body.category != null && { category: body.category }),
       ...(body.role !== undefined && { role: body.role || null }),
       ...(body.productIds !== undefined && {
         productIds: Array.isArray(body.productIds) ? body.productIds : null,

@@ -30,6 +30,7 @@ export type CustomMetricMinAggregateOutputType = {
   organizationId: string | null
   createdAt: Date | null
   type: string | null
+  category: string | null
   role: string | null
   firstField: string | null
   operator: string | null
@@ -47,6 +48,7 @@ export type CustomMetricMaxAggregateOutputType = {
   organizationId: string | null
   createdAt: Date | null
   type: string | null
+  category: string | null
   role: string | null
   firstField: string | null
   operator: string | null
@@ -64,6 +66,7 @@ export type CustomMetricCountAggregateOutputType = {
   organizationId: number
   createdAt: number
   type: number
+  category: number
   role: number
   productIds: number
   firstField: number
@@ -84,6 +87,7 @@ export type CustomMetricMinAggregateInputType = {
   organizationId?: true
   createdAt?: true
   type?: true
+  category?: true
   role?: true
   firstField?: true
   operator?: true
@@ -101,6 +105,7 @@ export type CustomMetricMaxAggregateInputType = {
   organizationId?: true
   createdAt?: true
   type?: true
+  category?: true
   role?: true
   firstField?: true
   operator?: true
@@ -118,6 +123,7 @@ export type CustomMetricCountAggregateInputType = {
   organizationId?: true
   createdAt?: true
   type?: true
+  category?: true
   role?: true
   productIds?: true
   firstField?: true
@@ -209,6 +215,7 @@ export type CustomMetricGroupByOutputType = {
   organizationId: string
   createdAt: Date
   type: string
+  category: string
   role: string | null
   productIds: runtime.JsonValue | null
   firstField: string | null
@@ -248,6 +255,7 @@ export type CustomMetricWhereInput = {
   organizationId?: Prisma.StringFilter<"CustomMetric"> | string
   createdAt?: Prisma.DateTimeFilter<"CustomMetric"> | Date | string
   type?: Prisma.StringFilter<"CustomMetric"> | string
+  category?: Prisma.StringFilter<"CustomMetric"> | string
   role?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
   productIds?: Prisma.JsonNullableFilter<"CustomMetric">
   firstField?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
@@ -269,6 +277,7 @@ export type CustomMetricOrderByWithRelationInput = {
   organizationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   role?: Prisma.SortOrderInput | Prisma.SortOrder
   productIds?: Prisma.SortOrderInput | Prisma.SortOrder
   firstField?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -293,6 +302,7 @@ export type CustomMetricWhereUniqueInput = Prisma.AtLeast<{
   organizationId?: Prisma.StringFilter<"CustomMetric"> | string
   createdAt?: Prisma.DateTimeFilter<"CustomMetric"> | Date | string
   type?: Prisma.StringFilter<"CustomMetric"> | string
+  category?: Prisma.StringFilter<"CustomMetric"> | string
   role?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
   productIds?: Prisma.JsonNullableFilter<"CustomMetric">
   firstField?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
@@ -314,6 +324,7 @@ export type CustomMetricOrderByWithAggregationInput = {
   organizationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   role?: Prisma.SortOrderInput | Prisma.SortOrder
   productIds?: Prisma.SortOrderInput | Prisma.SortOrder
   firstField?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -338,6 +349,7 @@ export type CustomMetricScalarWhereWithAggregatesInput = {
   organizationId?: Prisma.StringWithAggregatesFilter<"CustomMetric"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CustomMetric"> | Date | string
   type?: Prisma.StringWithAggregatesFilter<"CustomMetric"> | string
+  category?: Prisma.StringWithAggregatesFilter<"CustomMetric"> | string
   role?: Prisma.StringNullableWithAggregatesFilter<"CustomMetric"> | string | null
   productIds?: Prisma.JsonNullableWithAggregatesFilter<"CustomMetric">
   firstField?: Prisma.StringNullableWithAggregatesFilter<"CustomMetric"> | string | null
@@ -355,6 +367,7 @@ export type CustomMetricCreateInput = {
   name: string
   createdAt?: Date | string
   type?: string
+  category?: string
   role?: string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: string | null
@@ -375,6 +388,7 @@ export type CustomMetricUncheckedCreateInput = {
   organizationId: string
   createdAt?: Date | string
   type?: string
+  category?: string
   role?: string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: string | null
@@ -393,6 +407,7 @@ export type CustomMetricUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -413,6 +428,7 @@ export type CustomMetricUncheckedUpdateInput = {
   organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -432,6 +448,7 @@ export type CustomMetricCreateManyInput = {
   organizationId: string
   createdAt?: Date | string
   type?: string
+  category?: string
   role?: string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: string | null
@@ -449,6 +466,7 @@ export type CustomMetricUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -466,6 +484,7 @@ export type CustomMetricUncheckedUpdateManyInput = {
   organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -494,6 +513,7 @@ export type CustomMetricCountOrderByAggregateInput = {
   organizationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   role?: Prisma.SortOrder
   productIds?: Prisma.SortOrder
   firstField?: Prisma.SortOrder
@@ -512,6 +532,7 @@ export type CustomMetricMaxOrderByAggregateInput = {
   organizationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   role?: Prisma.SortOrder
   firstField?: Prisma.SortOrder
   operator?: Prisma.SortOrder
@@ -529,6 +550,7 @@ export type CustomMetricMinOrderByAggregateInput = {
   organizationId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   role?: Prisma.SortOrder
   firstField?: Prisma.SortOrder
   operator?: Prisma.SortOrder
@@ -652,6 +674,7 @@ export type CustomMetricCreateWithoutOrganizationInput = {
   name: string
   createdAt?: Date | string
   type?: string
+  category?: string
   role?: string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: string | null
@@ -670,6 +693,7 @@ export type CustomMetricUncheckedCreateWithoutOrganizationInput = {
   name: string
   createdAt?: Date | string
   type?: string
+  category?: string
   role?: string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: string | null
@@ -718,6 +742,7 @@ export type CustomMetricScalarWhereInput = {
   organizationId?: Prisma.StringFilter<"CustomMetric"> | string
   createdAt?: Prisma.DateTimeFilter<"CustomMetric"> | Date | string
   type?: Prisma.StringFilter<"CustomMetric"> | string
+  category?: Prisma.StringFilter<"CustomMetric"> | string
   role?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
   productIds?: Prisma.JsonNullableFilter<"CustomMetric">
   firstField?: Prisma.StringNullableFilter<"CustomMetric"> | string | null
@@ -735,6 +760,7 @@ export type CustomMetricCreateWithoutUpdatedByInput = {
   name: string
   createdAt?: Date | string
   type?: string
+  category?: string
   role?: string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: string | null
@@ -754,6 +780,7 @@ export type CustomMetricUncheckedCreateWithoutUpdatedByInput = {
   organizationId: string
   createdAt?: Date | string
   type?: string
+  category?: string
   role?: string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: string | null
@@ -797,6 +824,7 @@ export type CustomMetricCreateWithoutEntriesInput = {
   name: string
   createdAt?: Date | string
   type?: string
+  category?: string
   role?: string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: string | null
@@ -816,6 +844,7 @@ export type CustomMetricUncheckedCreateWithoutEntriesInput = {
   organizationId: string
   createdAt?: Date | string
   type?: string
+  category?: string
   role?: string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: string | null
@@ -849,6 +878,7 @@ export type CustomMetricUpdateWithoutEntriesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -868,6 +898,7 @@ export type CustomMetricUncheckedUpdateWithoutEntriesInput = {
   organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -885,6 +916,7 @@ export type CustomMetricCreateManyOrganizationInput = {
   name: string
   createdAt?: Date | string
   type?: string
+  category?: string
   role?: string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: string | null
@@ -902,6 +934,7 @@ export type CustomMetricUpdateWithoutOrganizationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -920,6 +953,7 @@ export type CustomMetricUncheckedUpdateWithoutOrganizationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -938,6 +972,7 @@ export type CustomMetricUncheckedUpdateManyWithoutOrganizationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -956,6 +991,7 @@ export type CustomMetricCreateManyUpdatedByInput = {
   organizationId: string
   createdAt?: Date | string
   type?: string
+  category?: string
   role?: string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: string | null
@@ -972,6 +1008,7 @@ export type CustomMetricUpdateWithoutUpdatedByInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -991,6 +1028,7 @@ export type CustomMetricUncheckedUpdateWithoutUpdatedByInput = {
   organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1009,6 +1047,7 @@ export type CustomMetricUncheckedUpdateManyWithoutUpdatedByInput = {
   organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   type?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   firstField?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1057,6 +1096,7 @@ export type CustomMetricSelect<ExtArgs extends runtime.Types.Extensions.Internal
   organizationId?: boolean
   createdAt?: boolean
   type?: boolean
+  category?: boolean
   role?: boolean
   productIds?: boolean
   firstField?: boolean
@@ -1079,6 +1119,7 @@ export type CustomMetricSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   organizationId?: boolean
   createdAt?: boolean
   type?: boolean
+  category?: boolean
   role?: boolean
   productIds?: boolean
   firstField?: boolean
@@ -1099,6 +1140,7 @@ export type CustomMetricSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   organizationId?: boolean
   createdAt?: boolean
   type?: boolean
+  category?: boolean
   role?: boolean
   productIds?: boolean
   firstField?: boolean
@@ -1119,6 +1161,7 @@ export type CustomMetricSelectScalar = {
   organizationId?: boolean
   createdAt?: boolean
   type?: boolean
+  category?: boolean
   role?: boolean
   productIds?: boolean
   firstField?: boolean
@@ -1131,7 +1174,7 @@ export type CustomMetricSelectScalar = {
   updatedById?: boolean
 }
 
-export type CustomMetricOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "organizationId" | "createdAt" | "type" | "role" | "productIds" | "firstField" | "operator" | "secondField" | "showResultAs" | "status" | "pinnedToOverview" | "updatedAt" | "updatedById", ExtArgs["result"]["customMetric"]>
+export type CustomMetricOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "organizationId" | "createdAt" | "type" | "category" | "role" | "productIds" | "firstField" | "operator" | "secondField" | "showResultAs" | "status" | "pinnedToOverview" | "updatedAt" | "updatedById", ExtArgs["result"]["customMetric"]>
 export type CustomMetricInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   updatedBy?: boolean | Prisma.CustomMetric$updatedByArgs<ExtArgs>
@@ -1160,6 +1203,7 @@ export type $CustomMetricPayload<ExtArgs extends runtime.Types.Extensions.Intern
     organizationId: string
     createdAt: Date
     type: string
+    category: string
     role: string | null
     productIds: runtime.JsonValue | null
     firstField: string | null
@@ -1601,6 +1645,7 @@ export interface CustomMetricFieldRefs {
   readonly organizationId: Prisma.FieldRef<"CustomMetric", 'String'>
   readonly createdAt: Prisma.FieldRef<"CustomMetric", 'DateTime'>
   readonly type: Prisma.FieldRef<"CustomMetric", 'String'>
+  readonly category: Prisma.FieldRef<"CustomMetric", 'String'>
   readonly role: Prisma.FieldRef<"CustomMetric", 'String'>
   readonly productIds: Prisma.FieldRef<"CustomMetric", 'Json'>
   readonly firstField: Prisma.FieldRef<"CustomMetric", 'String'>

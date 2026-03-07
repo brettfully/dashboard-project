@@ -179,6 +179,7 @@ export const CustomMetricScalarFieldEnum = {
   organizationId: 'organizationId',
   createdAt: 'createdAt',
   type: 'type',
+  category: 'category',
   role: 'role',
   productIds: 'productIds',
   firstField: 'firstField',
