@@ -89,7 +89,7 @@ export default async function OverviewPage() {
             { key: "revenue", color: "#6366f1", label: "Revenue" },
             { key: "cashCollected", color: "#22c55e", label: "Cash Collected" },
           ]}
-          valueFormatter={formatCurrency}
+          format="currency"
         />
       </div>
     </div>

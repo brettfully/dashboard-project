@@ -68,7 +68,7 @@ export default async function FinancialsPage() {
               { key: "expenses", color: "#ef4444", label: "Expenses" },
               { key: "netProfit", color: "#6366f1", label: "Net Profit" },
             ]}
-            valueFormatter={formatCurrency}
+            format="currency"
           />
         )}
 
