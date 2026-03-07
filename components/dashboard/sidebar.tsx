@@ -32,10 +32,10 @@ export function Sidebar() {
   const pathname = usePathname()
 
   return (
-    <div className="flex h-screen w-60 shrink-0 flex-col bg-sidebar text-sidebar-foreground border-r border-sidebar-border">
+    <div className="flex h-screen w-72 shrink-0 flex-col bg-sidebar text-sidebar-foreground border-r border-sidebar-border">
       {/* Logo + menu */}
-      <div className="flex h-14 items-center justify-between gap-2 px-4 border-b border-sidebar-border">
-        <span className="text-sm font-bold tracking-tight uppercase text-sidebar-foreground">
+      <div className="flex h-16 items-center justify-between gap-2 px-5 border-b border-sidebar-border">
+        <span className="text-xl font-bold tracking-tight uppercase text-sidebar-foreground">
           CoachDash
         </span>
         <button
@@ -48,14 +48,14 @@ export function Sidebar() {
       </div>
 
       {/* Menu label */}
-      <div className="px-4 pt-4 pb-2">
+      <div className="px-5 pt-5 pb-2">
         <p className="text-xs font-medium uppercase tracking-wider text-sidebar-foreground/50">
           Menu
         </p>
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 px-2 py-2 space-y-0.5">
+      <nav className="flex-1 px-3 py-2 space-y-1">
         {navItems.map((item) => {
           const Icon = item.icon
           const isActive = pathname === item.href
@@ -64,13 +64,13 @@ export function Sidebar() {
               key={item.href}
               href={item.href}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+                "flex items-center gap-3.5 rounded-lg px-4 py-3 text-base font-medium transition-colors",
                 isActive
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
               )}
             >
-              <Icon className="h-4 w-4 shrink-0" />
+              <Icon className="h-5 w-5 shrink-0" />
               {item.label}
             </Link>
           )
@@ -78,12 +78,12 @@ export function Sidebar() {
       </nav>
 
       {/* Logout */}
-      <div className="border-t border-sidebar-border p-2">
+      <div className="border-t border-sidebar-border p-3">
         <button
           onClick={() => signOut({ callbackUrl: "/login" })}
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors"
+          className="flex w-full items-center gap-3.5 rounded-lg px-4 py-3 text-base font-medium text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors"
         >
-          <LogOut className="h-4 w-4 shrink-0" />
+          <LogOut className="h-5 w-5 shrink-0" />
           Logout
         </button>
       </div>
