@@ -55,9 +55,9 @@ const OPERATORS = [
 ] as const
 
 const SHOW_RESULT_AS = [
+  { value: "number", label: "Number (123.45)" },
   { value: "currency", label: "Currency ($1,234.56)" },
-  { value: "number", label: "Number" },
-  { value: "percent", label: "Percent (%)" },
+  { value: "percent", label: "Percentage (12.34%)" },
 ] as const
 
 const ROLES = [
@@ -119,7 +119,7 @@ export function MetricFormDialog({
   const [firstField, setFirstField] = useState("revenueGenerated")
   const [operator, setOperator] = useState("subtract")
   const [secondField, setSecondField] = useState("refunds")
-  const [showResultAs, setShowResultAs] = useState("currency")
+  const [showResultAs, setShowResultAs] = useState("number")
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -132,7 +132,7 @@ export function MetricFormDialog({
       setFirstField(metric.firstField ?? "revenueGenerated")
       setOperator(metric.operator ?? "subtract")
       setSecondField(metric.secondField ?? "refunds")
-      setShowResultAs(metric.showResultAs ?? "currency")
+      setShowResultAs(metric.showResultAs ?? "number")
     } else {
       setName("")
       setProductIds([])
@@ -141,7 +141,7 @@ export function MetricFormDialog({
       setFirstField("revenueGenerated")
       setOperator("subtract")
       setSecondField("refunds")
-      setShowResultAs("currency")
+      setShowResultAs("number")
     }
   }, [open, metric])
 
@@ -352,7 +352,7 @@ export function MetricFormDialog({
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label>Show Result As</Label>
+                <Label>Select Result Format</Label>
                 <Select value={showResultAs} onValueChange={setShowResultAs}>
                   <SelectTrigger className="bg-background border-border">
                     <SelectValue />
