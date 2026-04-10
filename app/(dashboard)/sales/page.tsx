@@ -65,6 +65,34 @@ export default async function SalesPage() {
 
   const leaderboardRows = Object.values(leaderboard).sort((a, b) => b.cashCollected - a.cashCollected)
 
+  // Setter leaderboard: aggregate by user
+  const setterBoard: Record<
+    string,
+    { name: string; dials: number; outboundMessages: number; inboundMessages: number; followUps: number; setsBooked: number }
+  > = {}
+  entries.forEach((e) => {
+    const id = e.userId
+    if (!setterBoard[id]) {
+      setterBoard[id] = {
+        name: e.user.name ?? e.user.email,
+        dials: 0,
+        outboundMessages: 0,
+        inboundMessages: 0,
+        followUps: 0,
+        setsBooked: 0,
+      }
+    }
+    setterBoard[id].dials += e.dials
+    setterBoard[id].outboundMessages += e.outboundMessages
+    setterBoard[id].inboundMessages += e.inboundMessages
+    setterBoard[id].followUps += e.followUps
+    setterBoard[id].setsBooked += e.setsBooked
+  })
+
+  const setterRows = Object.values(setterBoard)
+    .filter((r) => r.dials + r.outboundMessages + r.setsBooked > 0)
+    .sort((a, b) => b.setsBooked - a.setsBooked)
+
   return (
     <div className="flex flex-col h-full">
       <div className="flex-1 p-6 space-y-6">
@@ -124,6 +152,54 @@ export default async function SalesPage() {
                   <TableRow>
                     <TableCell colSpan={7} className="text-center text-muted-foreground py-8">
                       No data entries yet. Add data in the Data Entry tab.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Setter Leaderboard (Last 30 Days)</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Rank</TableHead>
+                  <TableHead>Name</TableHead>
+                  <TableHead className="text-right">Dials</TableHead>
+                  <TableHead className="text-right">Outbound Messages</TableHead>
+                  <TableHead className="text-right">Inbound Messages</TableHead>
+                  <TableHead className="text-right">Follow-ups</TableHead>
+                  <TableHead className="text-right">Sets Booked</TableHead>
+                  <TableHead className="text-right">Set Rate</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {setterRows.map((rep, i) => (
+                  <TableRow key={rep.name}>
+                    <TableCell>
+                      <Badge variant={i === 0 ? "default" : i === 1 ? "secondary" : "outline"}>
+                        #{i + 1}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="font-medium">{rep.name}</TableCell>
+                    <TableCell className="text-right">{formatNumber(rep.dials)}</TableCell>
+                    <TableCell className="text-right">{formatNumber(rep.outboundMessages)}</TableCell>
+                    <TableCell className="text-right">{formatNumber(rep.inboundMessages)}</TableCell>
+                    <TableCell className="text-right">{formatNumber(rep.followUps)}</TableCell>
+                    <TableCell className="text-right font-medium">{formatNumber(rep.setsBooked)}</TableCell>
+                    <TableCell className="text-right">
+                      {formatPercent(rep.dials > 0 ? (rep.setsBooked / rep.dials) * 100 : 0)}
+                    </TableCell>
+                  </TableRow>
+                ))}
+                {setterRows.length === 0 && (
+                  <TableRow>
+                    <TableCell colSpan={8} className="text-center text-muted-foreground py-8">
+                      No setter data yet. Add data in the Data Entry tab.
                     </TableCell>
                   </TableRow>
                 )}
