@@ -112,6 +112,8 @@ export default async function ManagerDataEntryPage() {
                         inboundMessages: entry.inboundMessages,
                         followUps: entry.followUps,
                         callsToday: entry.callsToday,
+                        showCalls: entry.showCalls,
+                        offersMade: entry.offersMade,
                         lowTicketCustomers: entry.lowTicketCustomers,
                         monthlyRecurringRevenue: entry.monthlyRecurringRevenue,
                         customersCanceled: entry.customersCanceled,

@@ -32,6 +32,8 @@ export interface EntryRow {
   inboundMessages: number
   followUps: number
   callsToday: number
+  showCalls: number
+  offersMade: number
   lowTicketCustomers: number
   monthlyRecurringRevenue: number
   customersCanceled: number
@@ -55,6 +57,8 @@ const FIELD_GROUPS = [
     label: "Calls & Closes",
     fields: [
       { name: "callsToday",        label: "Calls Today",        currency: false },
+      { name: "showCalls",         label: "Show Calls",         currency: false },
+      { name: "offersMade",        label: "Offers Made",        currency: false },
       { name: "dealsWon",          label: "Closes",             currency: false },
     ],
   },
