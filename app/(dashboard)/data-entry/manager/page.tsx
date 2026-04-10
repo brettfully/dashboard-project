@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { formatCurrency, formatNumber } from "@/lib/utils"
 import { format } from "date-fns"
 import ManagerForm from "./manager-form"
+import { EntryRowActions } from "@/components/dashboard/entry-row-actions"
 
 export default async function ManagerDataEntryPage() {
   const session = await auth()
@@ -72,6 +73,7 @@ export default async function ManagerDataEntryPage() {
                   <TableHead className="text-right">Cash</TableHead>
                   <TableHead className="text-right">Revenue</TableHead>
                   <TableHead className="text-right">Ad Spend</TableHead>
+                  <TableHead />
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -93,6 +95,31 @@ export default async function ManagerDataEntryPage() {
                     <TableCell className="text-right">{formatCurrency(entry.cashCollected)}</TableCell>
                     <TableCell className="text-right">{formatCurrency(entry.revenueGenerated)}</TableCell>
                     <TableCell className="text-right">{formatCurrency(entry.adSpend)}</TableCell>
+                    <TableCell>
+                      <EntryRowActions entry={{
+                        id: entry.id,
+                        date: entry.date,
+                        productId: entry.productId,
+                        productName: entry.product?.name ?? null,
+                        setsBooked: entry.setsBooked,
+                        dealsWon: entry.dealsWon,
+                        cashCollected: entry.cashCollected,
+                        revenueGenerated: entry.revenueGenerated,
+                        refunds: entry.refunds,
+                        adSpend: entry.adSpend,
+                        dials: entry.dials,
+                        outboundMessages: entry.outboundMessages,
+                        inboundMessages: entry.inboundMessages,
+                        followUps: entry.followUps,
+                        callsToday: entry.callsToday,
+                        lowTicketCustomers: entry.lowTicketCustomers,
+                        monthlyRecurringRevenue: entry.monthlyRecurringRevenue,
+                        customersCanceled: entry.customersCanceled,
+                        businessExpenses: entry.businessExpenses,
+                        highTicketLandingPageViews: entry.highTicketLandingPageViews,
+                        lowTicketLandingPageViews: entry.lowTicketLandingPageViews,
+                      }} />
+                    </TableCell>
                   </TableRow>
                 ))}
                 {entries.length === 0 && (
