@@ -34,7 +34,7 @@ export default async function SalesPage({
   const sum = (field: keyof typeof entries[0]) =>
     entries.reduce((acc, e) => acc + Number(e[field]), 0)
 
-  const scheduledCalls = sum("scheduledCalls")
+  const scheduledCalls = sum("setsBooked")
   const showCalls = sum("showCalls")
   const offersMade = sum("offersMade")
   const dealsWon = sum("dealsWon")
@@ -47,14 +47,14 @@ export default async function SalesPage({
   // Leaderboard: aggregate by user
   const leaderboard: Record<
     string,
-    { name: string; scheduledCalls: number; showCalls: number; offersMade: number; dealsWon: number; cashCollected: number; revenue: number }
+    { name: string; callsToday: number; showCalls: number; offersMade: number; dealsWon: number; cashCollected: number; revenue: number }
   > = {}
   entries.forEach((e) => {
     const id = e.userId
     if (!leaderboard[id]) {
       leaderboard[id] = {
         name: e.user.name ?? e.user.email,
-        scheduledCalls: 0,
+        callsToday: 0,
         showCalls: 0,
         offersMade: 0,
         dealsWon: 0,
@@ -62,7 +62,7 @@ export default async function SalesPage({
         revenue: 0,
       }
     }
-    leaderboard[id].scheduledCalls += e.scheduledCalls
+    leaderboard[id].callsToday += e.callsToday
     leaderboard[id].showCalls += e.showCalls
     leaderboard[id].offersMade += e.offersMade
     leaderboard[id].dealsWon += e.dealsWon
@@ -149,7 +149,7 @@ export default async function SalesPage({
                       </Badge>
                     </TableCell>
                     <TableCell className="font-medium">{rep.name}</TableCell>
-                    <TableCell className="text-right">{formatNumber(rep.scheduledCalls)}</TableCell>
+                    <TableCell className="text-right">{formatNumber(rep.callsToday)}</TableCell>
                     <TableCell className="text-right">{formatNumber(rep.showCalls)}</TableCell>
                     <TableCell className="text-right">{formatNumber(rep.offersMade)}</TableCell>
                     <TableCell className="text-right">

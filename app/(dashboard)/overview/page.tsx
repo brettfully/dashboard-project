@@ -106,7 +106,7 @@ export default async function OverviewPage({
 
   const newCashCollected  = sum(currentEntries, "cashCollected")
   const totalRevenue      = sum(currentEntries, "revenueGenerated")
-  const scheduledCalls    = sum(currentEntries, "scheduledCalls")
+  const scheduledCalls    = sum(currentEntries, "setsBooked")
   const adSpend           = sum(currentEntries, "adSpend")
   const roas              = calcROAS(newCashCollected, adSpend)
 
@@ -114,7 +114,7 @@ export default async function OverviewPage({
 
   const prevCash    = sum(previousEntries, "cashCollected")
   const prevRevenue = sum(previousEntries, "revenueGenerated")
-  const prevCalls   = sum(previousEntries, "scheduledCalls")
+  const prevCalls   = sum(previousEntries, "setsBooked")
   const prevAdSpend = sum(previousEntries, "adSpend")
   const prevRoas    = calcROAS(prevRevenue, prevAdSpend)
 
@@ -193,7 +193,7 @@ export default async function OverviewPage({
   currentEntries.forEach((e) => {
     const day = format(new Date(e.date), "MMM d")
     if (!chartMap[day]) chartMap[day] = { calls: 0, cash: 0 }
-    chartMap[day].calls += e.scheduledCalls
+    chartMap[day].calls += e.setsBooked
     chartMap[day].cash  += e.cashCollected
   })
   const chartData = Object.entries(chartMap).map(([name, vals]) => ({ name, ...vals }))
