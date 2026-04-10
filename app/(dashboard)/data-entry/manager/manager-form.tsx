@@ -93,7 +93,10 @@ export default function ManagerForm({ products, userId, orgId, customMetrics }: 
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState("")
   const [productId, setProductId] = useState("")
-  const [date, setDate] = useState(new Date().toISOString().split("T")[0])
+  const [date, setDate] = useState(() => {
+    const d = new Date()
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`
+  })
   const [fields, setFields] = useState<Record<string, string>>({})
 
   function handleChange(name: string, value: string) {

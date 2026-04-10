@@ -29,20 +29,44 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const entry = await db.dataEntry.create({
-      data: {
-        ...entryData,
+    const dateStart = new Date(entryData.date + "T00:00:00.000Z")
+    const dateEnd = new Date(entryData.date + "T23:59:59.999Z")
+    const parsedDate = new Date(entryData.date + "T12:00:00.000Z")
+
+    const existing = await db.dataEntry.findFirst({
+      where: {
+        userId: entryData.userId,
+        productId: entryData.productId ?? null,
         organizationId: orgId,
-        date: new Date(entryData.date),
+        date: { gte: dateStart, lte: dateEnd },
       },
     })
 
+    const { date: _date, ...entryFields } = entryData
+    const entryPayload = { ...entryFields, organizationId: orgId, date: parsedDate }
+
+    let entry
+    if (existing) {
+      entry = await db.dataEntry.update({ where: { id: existing.id }, data: entryPayload })
+    } else {
+      entry = await db.dataEntry.create({ data: entryPayload })
+    }
+
     if (customMetricEntries && customMetricEntries.length > 0) {
+      // Delete existing custom metric entries for this date and upsert fresh
+      await db.customMetricEntry.deleteMany({
+        where: {
+          customMetricId: { in: customMetricEntries.map((e: { customMetricId: string }) => e.customMetricId) },
+          userId: entryData.userId,
+          date: { gte: dateStart, lte: dateEnd },
+        },
+      })
       await db.customMetricEntry.createMany({
         data: customMetricEntries.map((e: { customMetricId: string; value: number }) => ({
           customMetricId: e.customMetricId,
           value: e.value,
-          date: entryData.date,
+          date: parsedDate,
+          userId: entryData.userId,
         })),
       })
     }

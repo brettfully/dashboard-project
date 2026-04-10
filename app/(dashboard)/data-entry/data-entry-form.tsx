@@ -38,7 +38,10 @@ export default function DataEntryForm({ products, customMetrics, userId, orgId }
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [productId, setProductId] = useState("")
-  const [date, setDate] = useState(new Date().toISOString().split("T")[0])
+  const [date, setDate] = useState(() => {
+    const d = new Date()
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`
+  })
   const [metrics, setMetrics] = useState<Record<string, string>>({})
   const [customValues, setCustomValues] = useState<Record<string, string>>({})
 

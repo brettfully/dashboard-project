@@ -32,11 +32,24 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid metric IDs" }, { status: 400 })
   }
 
+  const dateStart = new Date(date + "T00:00:00.000Z")
+  const dateEnd = new Date(date + "T23:59:59.999Z")
+  const parsedDate = new Date(date + "T12:00:00.000Z")
+
+  // Delete existing entries for this user/date/metrics combo, then recreate
+  await db.customMetricEntry.deleteMany({
+    where: {
+      customMetricId: { in: metricIds },
+      userId,
+      date: { gte: dateStart, lte: dateEnd },
+    },
+  })
+
   const created = await db.customMetricEntry.createMany({
     data: entries.map((e) => ({
       customMetricId: e.customMetricId,
       value: e.value,
-      date: new Date(date),
+      date: parsedDate,
       userId,
       productId: productId || null,
     })),
