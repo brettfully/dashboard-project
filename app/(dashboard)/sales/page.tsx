@@ -4,6 +4,7 @@ import { KpiCard } from "@/components/charts/kpi-card"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
+import { Suspense } from "react"
 import {
   formatCurrency,
   formatNumber,
@@ -11,16 +12,23 @@ import {
   calcShowUpRate,
   calcCloseRate,
 } from "@/lib/utils"
-import { subDays, startOfDay } from "date-fns"
+import { subDays, startOfDay, parseISO } from "date-fns"
+import { SalesFilters } from "@/components/dashboard/sales-filters"
 
-export default async function SalesPage() {
+export default async function SalesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ from?: string; to?: string }>
+}) {
   const session = await auth()
   const orgId = (session?.user as { organizationId?: string })?.organizationId
 
-  const thirtyDaysAgo = startOfDay(subDays(new Date(), 30))
+  const params = await searchParams
+  const toDate   = params.to   ? startOfDay(parseISO(params.to))   : startOfDay(new Date())
+  const fromDate = params.from ? startOfDay(parseISO(params.from)) : startOfDay(subDays(new Date(), 30))
 
   const entries = await db.dataEntry.findMany({
-    where: { organizationId: orgId, date: { gte: thirtyDaysAgo } },
+    where: { organizationId: orgId, date: { gte: fromDate, lte: toDate } },
     include: { user: true },
   })
 
@@ -97,6 +105,11 @@ export default async function SalesPage() {
     <div className="flex flex-col h-full">
       <div className="flex-1 p-6 space-y-6">
         <h1 className="text-xl font-semibold text-foreground">Sales</h1>
+
+        <Suspense fallback={<div className="h-9" />}>
+          <SalesFilters />
+        </Suspense>
+
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
           <KpiCard title="Calls Booked" value={formatNumber(scheduledCalls)} />
           <KpiCard title="Show Calls" value={formatNumber(showCalls)} />
@@ -113,7 +126,7 @@ export default async function SalesPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Closer Leaderboard (Last 30 Days)</CardTitle>
+            <CardTitle>Closer Leaderboard</CardTitle>
           </CardHeader>
           <CardContent>
             <Table>
@@ -161,7 +174,7 @@ export default async function SalesPage() {
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle>Setter Leaderboard (Last 30 Days)</CardTitle>
+            <CardTitle>Setter Leaderboard</CardTitle>
           </CardHeader>
           <CardContent>
             <Table>
