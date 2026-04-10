@@ -1,8 +1,8 @@
 "use client"
 
 import {
-  LineChart,
-  Line,
+  AreaChart,
+  Area,
   BarChart,
   Bar,
   XAxis,
@@ -35,30 +35,55 @@ interface MetricLineChartProps {
 
 export function MetricLineChart({ title, data, lines, format }: MetricLineChartProps) {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-base">{title}</CardTitle>
+    <Card className="rounded-2xl">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-sm font-medium text-muted-foreground">{title}</CardTitle>
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={280}>
-          <LineChart data={data} margin={{ top: 5, right: 10, left: 10, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
-            <XAxis dataKey="name" tick={{ fontSize: 12 }} />
-            <YAxis tick={{ fontSize: 12 }} tickFormatter={(v) => formatValue(v, format)} />
-            <Tooltip formatter={(value) => formatValue(value as number, format)} />
+          <AreaChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
+            <defs>
+              {lines.map((line) => (
+                <linearGradient key={line.key} id={`lg-${line.key}`} x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%"   stopColor={line.color} stopOpacity={0.35} />
+                  <stop offset="100%" stopColor={line.color} stopOpacity={0} />
+                </linearGradient>
+              ))}
+            </defs>
+            <CartesianGrid strokeDasharray="3 3" stroke="#2a2a2a" vertical={false} />
+            <XAxis
+              dataKey="name"
+              tick={{ fontSize: 11, fill: "#888888" }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <YAxis
+              tick={{ fontSize: 11, fill: "#888888" }}
+              axisLine={false}
+              tickLine={false}
+              tickFormatter={(v) => formatValue(v, format)}
+              width={format === "currency" ? 70 : 40}
+            />
+            <Tooltip
+              contentStyle={{ background: "#1a1a1a", border: "1px solid #2a2a2a", borderRadius: 8, fontSize: 12 }}
+              labelStyle={{ color: "#fff" }}
+              itemStyle={{ color: "#888888" }}
+              formatter={(value) => formatValue(value as number, format)}
+            />
             <Legend />
             {lines.map((line) => (
-              <Line
+              <Area
                 key={line.key}
                 type="monotone"
                 dataKey={line.key}
                 name={line.label}
                 stroke={line.color}
                 strokeWidth={2}
+                fill={`url(#lg-${line.key})`}
                 dot={false}
               />
             ))}
-          </LineChart>
+          </AreaChart>
         </ResponsiveContainer>
       </CardContent>
     </Card>
