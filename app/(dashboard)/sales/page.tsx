@@ -40,23 +40,27 @@ export default async function SalesPage() {
   // Leaderboard: aggregate by user
   const leaderboard: Record<
     string,
-    { name: string; dealsWon: number; cashCollected: number; revenue: number; offersMade: number }
+    { name: string; scheduledCalls: number; showCalls: number; offersMade: number; dealsWon: number; cashCollected: number; revenue: number }
   > = {}
   entries.forEach((e) => {
     const id = e.userId
     if (!leaderboard[id]) {
       leaderboard[id] = {
         name: e.user.name ?? e.user.email,
+        scheduledCalls: 0,
+        showCalls: 0,
+        offersMade: 0,
         dealsWon: 0,
         cashCollected: 0,
         revenue: 0,
-        offersMade: 0,
       }
     }
+    leaderboard[id].scheduledCalls += e.scheduledCalls
+    leaderboard[id].showCalls += e.showCalls
+    leaderboard[id].offersMade += e.offersMade
     leaderboard[id].dealsWon += e.dealsWon
     leaderboard[id].cashCollected += e.cashCollected
     leaderboard[id].revenue += e.revenueGenerated
-    leaderboard[id].offersMade += e.offersMade
   })
 
   const leaderboardRows = Object.values(leaderboard).sort((a, b) => b.cashCollected - a.cashCollected)
@@ -89,7 +93,9 @@ export default async function SalesPage() {
                 <TableRow>
                   <TableHead>Rank</TableHead>
                   <TableHead>Name</TableHead>
-                  <TableHead className="text-right">Deals Won</TableHead>
+                  <TableHead className="text-right">Calls Due</TableHead>
+                  <TableHead className="text-right">Calls Shown</TableHead>
+                  <TableHead className="text-right">Offers Made</TableHead>
                   <TableHead className="text-right">Close Rate</TableHead>
                   <TableHead className="text-right">Cash Collected</TableHead>
                 </TableRow>
@@ -103,7 +109,9 @@ export default async function SalesPage() {
                       </Badge>
                     </TableCell>
                     <TableCell className="font-medium">{rep.name}</TableCell>
-                    <TableCell className="text-right">{rep.dealsWon}</TableCell>
+                    <TableCell className="text-right">{formatNumber(rep.scheduledCalls)}</TableCell>
+                    <TableCell className="text-right">{formatNumber(rep.showCalls)}</TableCell>
+                    <TableCell className="text-right">{formatNumber(rep.offersMade)}</TableCell>
                     <TableCell className="text-right">
                       {formatPercent(calcCloseRate(rep.dealsWon, rep.offersMade))}
                     </TableCell>
@@ -114,7 +122,7 @@ export default async function SalesPage() {
                 ))}
                 {leaderboardRows.length === 0 && (
                   <TableRow>
-                    <TableCell colSpan={5} className="text-center text-muted-foreground py-8">
+                    <TableCell colSpan={7} className="text-center text-muted-foreground py-8">
                       No data entries yet. Add data in the Data Entry tab.
                     </TableCell>
                   </TableRow>
