@@ -28,7 +28,9 @@ interface AeFormProps {
 
 const CALLS_FIELDS = [
   { name: "callsToday", label: "Calls Today", currency: false },
-  { name: "dealsWon", label: "Closes Today", currency: false },
+  { name: "showCalls",  label: "Show Calls",  currency: false },
+  { name: "offersMade", label: "Offers Made", currency: false },
+  { name: "dealsWon",   label: "Closes Today", currency: false },
 ]
 
 const REVENUE_FIELDS = [
