@@ -30,7 +30,7 @@ export function SingleDatePicker({ value, onChange, className }: SingleDatePicke
         <button
           type="button"
           className={cn(
-            "flex h-[44px] items-center gap-2.5 rounded-lg border border-border bg-card px-4 text-base transition-colors",
+            "flex h-[44px] w-full items-center gap-2.5 rounded-lg border border-border bg-card px-4 text-base transition-colors",
             "hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring",
             !selected && "text-muted-foreground",
             className
