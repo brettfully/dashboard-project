@@ -13,7 +13,7 @@ import {
   calcCloseRate,
 } from "@/lib/utils"
 import { subDays, startOfDay, parseISO } from "date-fns"
-import { SalesFilters } from "@/components/dashboard/sales-filters"
+import { DateRangeFilters } from "@/components/dashboard/date-range-filters"
 
 export default async function SalesPage({
   searchParams,
@@ -107,7 +107,7 @@ export default async function SalesPage({
         <h1 className="text-xl font-semibold text-foreground">Sales</h1>
 
         <Suspense fallback={<div className="h-9" />}>
-          <SalesFilters />
+          <DateRangeFilters />
         </Suspense>
 
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
