@@ -6,6 +6,7 @@ import { TrendingUp, Megaphone, Leaf, Briefcase } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { SingleDatePicker } from "@/components/ui/single-date-picker"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   Select,
@@ -231,7 +232,7 @@ export default function ManagerForm({ products, userId, orgId, customMetrics }: 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1">
               <Label>Date</Label>
-              <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+              <SingleDatePicker value={date} onChange={setDate} />
             </div>
             <div className="space-y-1">
               <Label>Offer <span className="text-red-500">*</span></Label>

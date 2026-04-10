@@ -6,6 +6,7 @@ import { DollarSign } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { SingleDatePicker } from "@/components/ui/single-date-picker"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   Select,
@@ -129,7 +130,7 @@ export default function AeForm({ products, userId, orgId, customMetrics }: AeFor
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1">
             <Label>Date</Label>
-            <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="max-w-xs" />
+            <SingleDatePicker value={date} onChange={setDate} />
           </div>
 
           <AccordionSection title="Sales" icon={<DollarSign className="h-4 w-4" />} defaultOpen>
