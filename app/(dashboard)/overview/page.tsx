@@ -6,7 +6,7 @@ import { MetricBarChart } from "@/components/charts/metric-chart"
 import { DashboardFilters } from "@/components/dashboard/dashboard-filters"
 import { formatCurrency, formatNumber, calcROAS } from "@/lib/utils"
 import { DollarSign, TrendingUp, Phone, Megaphone, Wallet, BarChart3 } from "lucide-react"
-import { subDays, startOfDay, parseISO, differenceInDays, format } from "date-fns"
+import { differenceInDays, format } from "date-fns"
 import { DashboardCustomizer, type CellOption } from "@/components/dashboard/dashboard-customizer"
 
 const STANDARD_OPTIONS: CellOption[] = [
@@ -38,12 +38,12 @@ export default async function OverviewPage({
   const orgId = (session?.user as { organizationId?: string })?.organizationId
 
   const params = await searchParams
-  const toDate   = params.to   ? startOfDay(parseISO(params.to))   : startOfDay(new Date())
-  const fromDate = params.from ? startOfDay(parseISO(params.from)) : startOfDay(subDays(new Date(), 30))
+  const toDate   = params.to   ? new Date(params.to   + "T23:59:59.999Z") : new Date()
+  const fromDate = params.from ? new Date(params.from + "T00:00:00.000Z") : new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
 
   const rangeDays = Math.max(1, differenceInDays(toDate, fromDate))
   const prevTo    = fromDate
-  const prevFrom  = startOfDay(subDays(fromDate, rangeDays))
+  const prevFrom  = new Date(fromDate.getTime() - rangeDays * 24 * 60 * 60 * 1000)
 
   const baseWhere = {
     organizationId: orgId,

@@ -4,7 +4,7 @@ import { KpiCard } from "@/components/charts/kpi-card"
 import { MetricLineChart } from "@/components/charts/metric-chart"
 import { formatNumber, formatPercent } from "@/lib/utils"
 import { Suspense } from "react"
-import { format, subDays, startOfDay, parseISO } from "date-fns"
+import { format } from "date-fns"
 import { Youtube, Instagram, Mail, Users } from "lucide-react"
 import { DateRangeFilters } from "@/components/dashboard/date-range-filters"
 
@@ -17,8 +17,8 @@ export default async function ContentPage({
   const orgId = (session?.user as { organizationId?: string })?.organizationId
 
   const params = await searchParams
-  const toDate   = params.to   ? startOfDay(parseISO(params.to))   : startOfDay(new Date())
-  const fromDate = params.from ? startOfDay(parseISO(params.from)) : startOfDay(subDays(new Date(), 30))
+  const toDate   = params.to   ? new Date(params.to   + "T23:59:59.999Z") : new Date()
+  const fromDate = params.from ? new Date(params.from + "T00:00:00.000Z") : new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
 
   const metrics = await db.contentMetric.findMany({
     where: { organizationId: orgId, date: { gte: fromDate, lte: toDate } },
