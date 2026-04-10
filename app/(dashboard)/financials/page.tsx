@@ -3,77 +3,81 @@ import { db } from "@/lib/db"
 import { KpiCard } from "@/components/charts/kpi-card"
 import { MetricBarChart } from "@/components/charts/metric-chart"
 import { formatCurrency } from "@/lib/utils"
-import { format, subMonths, startOfMonth } from "date-fns"
-import { DollarSign, TrendingDown, TrendingUp, PiggyBank } from "lucide-react"
-import FinancialEntryDialog from "./financial-entry-dialog"
+import { Suspense } from "react"
+import { format } from "date-fns"
+import { DollarSign, TrendingDown, TrendingUp, PiggyBank, ReceiptText, Megaphone } from "lucide-react"
+import { DateRangeFilters } from "@/components/dashboard/date-range-filters"
 
-export default async function FinancialsPage() {
+export default async function FinancialsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ from?: string; to?: string }>
+}) {
   const session = await auth()
   const orgId = (session?.user as { organizationId?: string })?.organizationId
 
-  const sixMonthsAgo = startOfMonth(subMonths(new Date(), 6))
+  const params = await searchParams
+  const toDate   = params.to   ? new Date(params.to   + "T23:59:59.999Z") : new Date()
+  const fromDate = params.from ? new Date(params.from + "T00:00:00.000Z") : new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
 
-  const reports = await db.financialReport.findMany({
-    where: { organizationId: orgId, date: { gte: sixMonthsAgo } },
+  const entries = await db.dataEntry.findMany({
+    where: { organizationId: orgId, date: { gte: fromDate, lte: toDate } },
     orderBy: { date: "asc" },
   })
 
-  const latest = reports[reports.length - 1]
+  const sum = (field: keyof typeof entries[0]) =>
+    entries.reduce((acc, e) => acc + Number(e[field]), 0)
 
-  const chartData = reports.map((r) => ({
-    name: format(new Date(r.date), "MMM yyyy"),
-    income: r.businessIncome,
-    expenses: r.businessExpenses,
-    netProfit: r.netAfterTaxes,
-  }))
+  const cashCollected    = sum("cashCollected")
+  const revenue          = sum("revenueGenerated")
+  const refunds          = sum("refunds")
+  const adSpend          = sum("adSpend")
+  const businessExpenses = sum("businessExpenses")
+  const netRevenue       = revenue - refunds - adSpend - businessExpenses
+
+  // Chart: group by day
+  const chartMap: Record<string, { revenue: number; expenses: number; net: number }> = {}
+  entries.forEach((e) => {
+    const day = format(new Date(e.date), "MMM d")
+    if (!chartMap[day]) chartMap[day] = { revenue: 0, expenses: 0, net: 0 }
+    chartMap[day].revenue   += e.revenueGenerated
+    chartMap[day].expenses  += e.adSpend + e.businessExpenses
+    chartMap[day].net       += e.revenueGenerated - e.refunds - e.adSpend - e.businessExpenses
+  })
+  const chartData = Object.entries(chartMap).map(([name, vals]) => ({ name, ...vals }))
 
   return (
     <div className="flex flex-col h-full">
       <div className="flex-1 p-6 space-y-6">
-        <h1 className="text-xl font-semibold text-foreground">Financial Report</h1>
-        <div className="flex justify-end">
-          <FinancialEntryDialog orgId={orgId!} />
+        <h1 className="text-xl font-semibold text-foreground">Financials</h1>
+
+        <Suspense fallback={<div className="h-9" />}>
+          <DateRangeFilters />
+        </Suspense>
+
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+          <KpiCard title="Cash Collected"      value={formatCurrency(cashCollected)}    icon={DollarSign} />
+          <KpiCard title="Revenue Generated"   value={formatCurrency(revenue)}          icon={TrendingUp} />
+          <KpiCard title="Refunds"             value={formatCurrency(refunds)}          icon={ReceiptText} />
+          <KpiCard title="Ad Spend"            value={formatCurrency(adSpend)}          icon={Megaphone} />
+          <KpiCard title="Business Expenses"   value={formatCurrency(businessExpenses)} icon={TrendingDown} />
+          <KpiCard title="Net Revenue"         value={formatCurrency(netRevenue)}       icon={PiggyBank} />
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <KpiCard
-            title="Business Income"
-            value={latest ? formatCurrency(latest.businessIncome) : "—"}
-            icon={DollarSign}
-          />
-          <KpiCard
-            title="Business Expenses"
-            value={latest ? formatCurrency(latest.businessExpenses) : "—"}
-            icon={TrendingDown}
-          />
-          <KpiCard
-            title="Pre-Tax Profit"
-            value={latest ? formatCurrency(latest.preTaxProfit) : "—"}
-            icon={TrendingUp}
-          />
-          <KpiCard
-            title="Net After Taxes"
-            value={latest ? formatCurrency(latest.netAfterTaxes) : "—"}
-            icon={PiggyBank}
-          />
-        </div>
-
-        {chartData.length > 0 && (
+        {chartData.length > 0 ? (
           <MetricBarChart
-            title="Monthly Financial Overview (Last 6 Months)"
+            title="Financial Overview"
             data={chartData}
             bars={[
-              { key: "income", color: "#FBBF24", label: "Income" },
+              { key: "revenue",  color: "#FBBF24", label: "Revenue" },
               { key: "expenses", color: "#ef4444", label: "Expenses" },
-              { key: "netProfit", color: "#f97316", label: "Net Profit" },
+              { key: "net",      color: "#f97316", label: "Net Revenue" },
             ]}
             format="currency"
           />
-        )}
-
-        {reports.length === 0 && (
+        ) : (
           <div className="text-center py-16 text-muted-foreground">
-            No financial reports yet. Click &quot;Add Report&quot; to log your first month.
+            No data for the selected period. Add entries in the Data Entry tab.
           </div>
         )}
       </div>
