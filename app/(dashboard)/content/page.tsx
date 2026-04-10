@@ -2,7 +2,7 @@ import { auth } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { KpiCard } from "@/components/charts/kpi-card"
 import { MetricLineChart } from "@/components/charts/metric-chart"
-import { formatNumber } from "@/lib/utils"
+import { formatNumber, formatPercent } from "@/lib/utils"
 import { Suspense } from "react"
 import { format, subDays, startOfDay, parseISO } from "date-fns"
 import { Youtube, Instagram, Mail, Users } from "lucide-react"
@@ -46,12 +46,13 @@ export default async function ContentPage({
           <DateRangeFilters />
         </Suspense>
 
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
-          <KpiCard title="YouTube Growth"         value={formatNumber(sum("youtubeGrowth"))}           icon={Youtube} />
-          <KpiCard title="Instagram Growth"       value={formatNumber(sum("instagramGrowth"))}         icon={Instagram} />
-          <KpiCard title="Qualified Followers"    value={formatNumber(sum("qualifiedFollowerGrowth"))} icon={Users} />
-          <KpiCard title="Email Opt-Ins"          value={formatNumber(sum("emailOptIns"))}             icon={Mail} />
-          <KpiCard title="Organic Reach"          value={formatNumber(sum("organicReach"))} />
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+          <KpiCard title="YouTube Growth"              value={formatNumber(sum("youtubeGrowth"))}           icon={Youtube} />
+          <KpiCard title="Instagram Growth"            value={formatNumber(sum("instagramGrowth"))}         icon={Instagram} />
+          <KpiCard title="Qualified Followers"         value={formatNumber(sum("qualifiedFollowerGrowth"))} icon={Users} />
+          <KpiCard title="Qualified Follower %"        value={formatPercent(sum("instagramGrowth") > 0 ? (sum("qualifiedFollowerGrowth") / sum("instagramGrowth")) * 100 : 0)} icon={Users} />
+          <KpiCard title="Email Opt-Ins"               value={formatNumber(sum("emailOptIns"))}             icon={Mail} />
+          <KpiCard title="Organic Reach"               value={formatNumber(sum("organicReach"))} />
         </div>
 
         <MetricLineChart
